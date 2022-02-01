@@ -1,3 +1,19 @@
 
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+C
+settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
+Q
+!core/src/main/AndroidManifest.xml,a/e/ae00e14a93cb05cbe86f462a3bad74d51f6b1afc
+H
+config/detekt/detekt.yml,5/a/5a8eccd34aefbab894eaadc3b79e57f6c456425d
+R
+"buildSrc/src/main/kotlin/Config.kt,7/1/71e79cabbfd272f6d2b75a730fdee924ba7b1e3c
+?
+core/.gitignore,8/f/8f16fff20c9abaf19044c2da043c6677c1119e28
+G
+core/proguard-rules.pro,a/e/ae321721a596c5c74bb3bf67ae304581e8f9ae75
+j
+:app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
+@
+build.gradle.kts,d/b/dbcff70658daf80b53ce624f6adcaa529df5ed8d
