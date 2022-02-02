@@ -35,16 +35,16 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.accompanist.systemuicontroller)
+    implementation(libs.accompanist.systemUiController)
     implementation(libs.androidx.material )
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
     api(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.accompanist.insets)
     api(libs.accompanist.insetsUi)
     api(libs.accompanist.systemUiController)
-    implementation(libs.androidx.accompanist.systemuicontroller)
 }

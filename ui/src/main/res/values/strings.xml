@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ui</string>
+    <string name="registration_text">Регистрация</string>
+    <string name="enter_text">Вход</string>
 </resources>

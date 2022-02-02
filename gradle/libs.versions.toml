@@ -40,9 +40,9 @@ androidx-core = {module = "androidx.core:core-ktx", version.ref = "androidx"}
 androidx-appcompat = {module = "androidx.appcompat:appcompat", version.ref = "appcompat"}
 androidx-material = {module = "com.google.android.material:material", version.ref = "androidMaterial"}
 androidx-constraintlayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout"}
+androidx-constraintlayout-compose = {module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose"}
 
 #Accompanist
-androidx-accompanist-systemuicontroller = {module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose"}
 accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
 accompanist-insetsUi = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
 accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
