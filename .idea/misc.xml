@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1643729596212.xml" value="0.38482384823848237" />
+        <entry key="../../../../layout/compose-model-1643744284220.xml" value="0.4444444444444444" />
+        <entry key="../../../../layout/compose-model-1643745678452.xml" value="0.44850948509485095" />
+        <entry key="../../../../layout/compose-model-1643746162649.xml" value="0.20596205962059622" />
+        <entry key="../../../../layout/compose-model-1643749053255.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1643750342391.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1643752094037.xml" value="0.2726502963590178" />
+        <entry key="../../../../layout/compose-model-1643753674614.xml" value="0.2719594594594595" />
+        <entry key="../../../../layout/compose-model-1643757649230.xml" value="0.75" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14114583333333333" />
+        <entry key="feature-auth/src/main/res/drawable/ic_menu.xml" value="0.1" />
+        <entry key="ui/src/main/res/drawable/background_loading_screen.xml" value="0.218" />
+        <entry key="ui/src/main/res/drawable/ic_menu.xml" value="0.165" />
       </map>
     </option>
   </component>

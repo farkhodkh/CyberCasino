@@ -1,19 +1,37 @@
 
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 C
 settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 Q
 !core/src/main/AndroidManifest.xml,a/e/ae00e14a93cb05cbe86f462a3bad74d51f6b1afc
 H
 config/detekt/detekt.yml,5/a/5a8eccd34aefbab894eaadc3b79e57f6c456425d
-R
-"buildSrc/src/main/kotlin/Config.kt,7/1/71e79cabbfd272f6d2b75a730fdee924ba7b1e3c
 ?
 core/.gitignore,8/f/8f16fff20c9abaf19044c2da043c6677c1119e28
 G
 core/proguard-rules.pro,a/e/ae321721a596c5c74bb3bf67ae304581e8f9ae75
-j
-:app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
+E
+core/build.gradle.kts,d/7/d72846b7b418aa17de692d1ccf924c738cf8dbe5
+G
+feature-auth/.gitignore,8/0/80d7320518b0c39b6037b3d4f7632de80b93e6a1
+?
+CONTRIBUTING.md,3/f/3f454a98e586d1aa0d322e19afd5e67e08f2d3c8
+Y
+)feature-auth/src/main/AndroidManifest.xml,c/8/c8e7893a4bc4fe7d59319179fbfcb69cd66fcc95
+I
+buildSrc/build.gradle.kts,d/9/d90b697280fada81e52ec92d24725920f1cb087b
+n
+>feature-auth/src/main/java/ru/cybercasino/feature/auth/Test.kt,6/b/6b3af211b7a48b02f44680bd81d75a73e35876f7
+R
+"buildSrc/src/main/kotlin/Config.kt,7/1/71e79cabbfd272f6d2b75a730fdee924ba7b1e3c
 @
 build.gradle.kts,d/b/dbcff70658daf80b53ce624f6adcaa529df5ed8d
+h
+8app/src/main/java/ru/cybercasino/android/MainActivity.kt,b/c/bca86984a78fd88e3e5fb3a6fdd4d1b32f6d6bfb
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+O
+feature-auth/proguard-rules.pro,e/3/e3c36128c1d73f84caa845653b9d0efdae849e54
+L
+buildSrc/settings.gradle.kts,f/7/f77b50b9845de86b8f11d7596426ad864cb5b938
+D
+app/build.gradle.kts,d/2/d2a4383452aad84a18429a5844d31330a012a9e6
