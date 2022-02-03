@@ -19,7 +19,6 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import ru.cybercasino.feature.auth.LoginScreen
-import ru.cybercasino.feature.auth.LoginScreen1
 import ru.cybercasino.ui.Dark
 
 /**
@@ -59,9 +58,7 @@ fun AppNavGraph(modifier: Modifier) {
                 )
             }
             composable(Screen.Login.route) {
-                LoginScreen1(
 
-                )
             }
         }
     }

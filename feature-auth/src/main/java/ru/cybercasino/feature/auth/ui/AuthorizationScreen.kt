@@ -220,7 +220,7 @@ fun AuthorizationScreen() {
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.enter_password),
-                                fontSize = 10.sp,
+                                fontSize = 14.sp,
                                 color = White
                             )
                         },
