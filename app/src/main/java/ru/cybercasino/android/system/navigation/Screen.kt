@@ -13,4 +13,9 @@ sealed class Screen(
      * The class to navigate to the Authorization screen
      */
     object Login : Screen("user/login")
+
+    /**
+     * The class to navigate to the Registration screen
+     */
+    object Registration : Screen("user/registration")
 }

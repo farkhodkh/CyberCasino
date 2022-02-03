@@ -1,4 +1,8 @@
-@file:OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class, ExperimentalMaterialApi::class)
+@file:OptIn(
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterialNavigationApi::class,
+    ExperimentalMaterialApi::class
+)
 
 package ru.cybercasino.android.system.navigation
 
@@ -11,6 +15,7 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.plusAssign
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -18,7 +23,11 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.LoginScreen
+import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
+import ru.cybercasino.feature.auth.ui.auth.RootScreen
 import ru.cybercasino.ui.Dark
 
 /**
@@ -48,17 +57,31 @@ fun AppNavGraph(modifier: Modifier) {
             startDestination = TABS_GRAPH_NAV_ROUTE
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
-                LoginScreen(
+                RootScreen(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Dark)
-//                    onClickListener = {
-//                        navController.navigate(Screen.Login.route)
-//                    }
+                        .background(Dark),
                 )
+                rememberCoroutineScope().launch {
+                    delay(1000)
+                    navController.navigate(Screen.Login.route)
+                }
             }
             composable(Screen.Login.route) {
-
+                LoginScreen(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    onRegisterClickListener = {
+                        navController.navigate(Screen.Registration.route)
+                    }
+                )
+            }
+            composable(Screen.Registration.route) {
+                RegistrationScreen(
+                    onEnterClickListener = {
+                        navController.navigate(Screen.Login.route)
+                    }
+                )
             }
         }
     }

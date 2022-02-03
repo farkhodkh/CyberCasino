@@ -23,24 +23,26 @@ class LoginScreenViewModel : ViewModel() {
 //    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), InitialState)
     val state: StateFlow<State> = MutableStateFlow(InitialState)
 
-
     /**
      * State of the screen.
      */
     data class State(
+
+        /**
+         * state before authorization state checked
+         */
+        val isLoading: Boolean,
+
         /**
          * If the user authorised
          */
         val isAuthorised: Boolean,
 
-        /**
-         * state before authorization state checked
-         */
-        val isLoading: Boolean
     )
 }
 
 private val InitialState = LoginScreenViewModel.State(
+    isLoading = false,
     isAuthorised = false,
-    isLoading = false
+
 )
