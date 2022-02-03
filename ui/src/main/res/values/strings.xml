@@ -2,4 +2,8 @@
     <string name="app_name">ui</string>
     <string name="registration_text">Регистрация</string>
     <string name="enter_text">Вход</string>
+    <string name="enter_email_or_phone">Ваш email или номер телефона</string>
+    <string name="enter_password">Пароль</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="or_join_by_text">или войдите с помощью:</string>
 </resources>

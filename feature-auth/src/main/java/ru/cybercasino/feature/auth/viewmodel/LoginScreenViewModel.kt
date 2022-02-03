@@ -1,13 +1,12 @@
 package ru.cybercasino.feature.auth.viewmodel
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import ru.cybercasino.feature.auth.LoginScreen
 
+/**
+ * Login view model
+ */
 class LoginScreenViewModel : ViewModel() {
 
     /**
@@ -34,6 +33,9 @@ class LoginScreenViewModel : ViewModel() {
          */
         val isAuthorised: Boolean,
 
+        /**
+         * state before authorization state checked
+         */
         val isLoading: Boolean
     )
 }

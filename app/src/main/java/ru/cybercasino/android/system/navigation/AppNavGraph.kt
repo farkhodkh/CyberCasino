@@ -34,7 +34,6 @@ import ru.cybercasino.ui.Dark
 @Suppress("LongMethod")
 fun AppNavGraph(modifier: Modifier) {
     val navController = rememberAnimatedNavController()
-    val tabNavController = rememberAnimatedNavController()
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val bottomSheetNavigator = remember(sheetState) { BottomSheetNavigator(sheetState) }

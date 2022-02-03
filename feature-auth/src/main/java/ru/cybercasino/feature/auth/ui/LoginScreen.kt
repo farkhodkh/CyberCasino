@@ -2,22 +2,21 @@ package ru.cybercasino.feature.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.AuthorizationScreen
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.ui.R
 
+/**
+ * Login screen
+ */
 @Composable
 fun LoginScreen(modifier: Modifier) {
     val viewModel = getViewModel<LoginScreenViewModel>()

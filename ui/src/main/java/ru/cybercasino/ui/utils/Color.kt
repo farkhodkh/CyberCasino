@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Color
 
 val Dark = Color(0xFF010D26)
 val YellowGradient = Color(0xFFFFDA92)
-val RedGradient = Color(0xFFE80A67)
 val BlueGrey = Color(0xFF4F5E73)
 val СornflowerBlue = Color(0xFF929DFF)
 val DarkBlue = Color(0xFF001C3B)

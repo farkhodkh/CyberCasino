@@ -1,13 +1,13 @@
 package ru.cybercasino.ui.elements
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -19,53 +19,47 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.CyberButtonColorEnd
 import ru.cybercasino.ui.CyberButtonColorStart
+import ru.cybercasino.ui.White
 
 @Composable
-fun CyberButton(
+fun CyberButtonWithBorder(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val gradient =
-        Brush.horizontalGradient(listOf(CyberButtonColorStart, CyberButtonColorEnd))
+        Brush.horizontalGradient(listOf(CyberButtonColorEnd, CyberButtonColorStart))
+    val shape = RoundedCornerShape(16.dp, 5.dp, 16.dp, 5.dp)
 
-    val shape = RoundedCornerShape(12.dp, 4.dp, 12.dp, 4.dp)
-
-    Button(
+    OutlinedButton(
         modifier = modifier,
         onClick = { onClick() },
+        border = BorderStroke(1.dp, gradient),
         shape = shape,
-        contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(
+        colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color.Transparent,
-        ),
+            contentColor = White
+        )
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(gradient),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = title,
-                fontSize = 10.sp,
-                style = TextStyle(
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center
-                )
-            )
-        }
+        Text(
+            text = title,
+            fontSize = 10.sp,
+            style = TextStyle(
+                fontWeight = FontWeight.Normal,
+                textAlign = TextAlign.Center
+            ),
+        )
     }
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-private fun CyberButtonPreview() {
-    CyberButton(
-        "Регистрация",
+private fun CyberButtonWithBorderPreview() {
+    CyberButtonWithBorder(
+        "Войти",
         {},
         Modifier
-            .width(140.dp)
-            .height(41.dp)
+            .width(320.dp)
+            .height(44.dp)
     )
 }

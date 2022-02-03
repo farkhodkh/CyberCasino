@@ -17,8 +17,8 @@ private val ColorPalette = lightColors(
     secondaryVariant = Yelow,
     onSecondary = White,
 
-    surface = White,
-    onSurface = Red,
+    surface = DarkGray,
+    onSurface = White,
 
     background = Dark,
     onBackground = White,
