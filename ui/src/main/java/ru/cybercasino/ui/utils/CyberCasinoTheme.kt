@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val ColorPalette = lightColors(
-    primary = DarkBlue,
+    primary = Dark,
     primaryVariant = BlueGrey,
     onPrimary = White,
 

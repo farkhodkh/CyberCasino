@@ -17,8 +17,6 @@ Y
 )feature-auth/src/main/AndroidManifest.xml,c/8/c8e7893a4bc4fe7d59319179fbfcb69cd66fcc95
 I
 buildSrc/build.gradle.kts,d/9/d90b697280fada81e52ec92d24725920f1cb087b
-n
->feature-auth/src/main/java/ru/cybercasino/feature/auth/Test.kt,6/b/6b3af211b7a48b02f44680bd81d75a73e35876f7
 R
 "buildSrc/src/main/kotlin/Config.kt,7/1/71e79cabbfd272f6d2b75a730fdee924ba7b1e3c
 @
@@ -53,3 +51,15 @@ D
 app/build.gradle.kts,d/2/d2a4383452aad84a18429a5844d31330a012a9e6
 C
 ui/build.gradle.kts,5/7/57cbb61043327439d0d706ebdfd64b6496ce41af
+T
+$.idea/codeStyles/codeStyleConfig.xml,d/d/dd7b3350c29c49497756c7f32c69a3bed18b1cba
+L
+.idea/codeStyles/Project.xml,6/e/6ecd6000a7b6f4a2884412ff19f74193ed089648
+H
+config/detekt/detekt.yml,5/a/5a8eccd34aefbab894eaadc3b79e57f6c456425d
+|
+Lfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/RootScreen.kt,e/b/eb3cda1b8d285743f99e7cafe4be87451b4c9399
+t
+Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
+}
+Mfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/LoginScreen.kt,0/a/0ae0028892ec8217ebeaed75af31e1f5d8d5ae34

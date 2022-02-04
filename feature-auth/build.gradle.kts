@@ -28,6 +28,8 @@ dependencies {
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.accompanist.insets)
     api(libs.accompanist.insetsUi)
+    api(libs.accompanist.pager)
+    api(libs.accompanist.pager.indicators)
 
     implementation(project(":ui"))
 }

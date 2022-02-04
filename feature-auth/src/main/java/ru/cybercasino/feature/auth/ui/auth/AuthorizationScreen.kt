@@ -8,8 +8,8 @@ package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,7 +20,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,11 +36,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.getViewModel
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.ui.LightBlue
+import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
+import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.White
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 
@@ -162,7 +159,9 @@ fun AuthorizationScreen(
                         start.linkTo(refGoogleIcon.end, 16.dp)
                     }
                 },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(DarkBlue)
             ) {
                 Text(
                     modifier = Modifier
@@ -181,6 +180,9 @@ fun AuthorizationScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp)
                         .layoutId("loginField"),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = DarkBlue
+                    ),
                     value = emailPhoneText,
                     onValueChange = {
                         emailPhoneText = it
@@ -189,7 +191,7 @@ fun AuthorizationScreen(
                         Text(
                             text = stringResource(id = R.string.enter_email_or_phone),
                             fontSize = 10.sp,
-                            color = White
+                            color = if (emailPhoneText.text.isEmpty()) DarkGray else White
                         )
                     },
                     placeholder = {
@@ -209,13 +211,16 @@ fun AuthorizationScreen(
                         .layoutId("passwordField")
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = DarkBlue
+                    ),
                     value = password,
                     onValueChange = { password = it },
                     label = {
                         Text(
                             text = stringResource(id = R.string.enter_password),
                             fontSize = 10.sp,
-                            color = White
+                            color = if (password.isEmpty()) DarkGray else White
                         )
                     },
                     placeholder = {
@@ -242,7 +247,7 @@ fun AuthorizationScreen(
                 )
 
                 CyberButtonWithBorder(
-                    title = "Войти",
+                    title = stringResource(R.string.enter_text_2),
                     onClick = { /*TODO*/ },
                     Modifier
                         .layoutId("enterButton")
@@ -261,48 +266,8 @@ fun AuthorizationScreen(
                         color = LightBlue
                     )
                 }
-                Text(
-                    modifier = Modifier
-                        .layoutId("joinWithSocialNetworks"),
-                    text = stringResource(id = R.string.or_join_by_text)
-                )
 
-                IconButton(
-                    onClick = { },
-                    modifier = Modifier
-                        .layoutId("facebookIcon")
-                        .clip(CircleShape)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_fb),
-                        contentDescription = "Facebook"
-                    )
-                }
-
-                IconButton(
-                    onClick = { },
-                    modifier = Modifier
-                        .layoutId("googleIcon")
-                        .clip(CircleShape)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_google),
-                        contentDescription = "Google"
-                    )
-                }
-
-                IconButton(
-                    onClick = { },
-                    modifier = Modifier
-                        .layoutId("tgIcon")
-                        .clip(CircleShape)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_tg),
-                        contentDescription = "Telegram"
-                    )
-                }
-
+                RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_join_by_text)
             }
         },
     )

@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">ui</string>
     <string name="registration_text">Регистрация</string>
+    <string name="registration_text_2">Зарегистрироваться</string>
     <string name="enter_text">Вход</string>
+    <string name="enter_text_2">Войти</string>
     <string name="enter_email_or_phone">Ваш email или номер телефона</string>
     <string name="enter_password">Пароль</string>
     <string name="forget_password">Забыли пароль?</string>
     <string name="or_join_by_text">или войдите с помощью:</string>
+    <string name="or_register_by_text">или зарегистрируйтесь с помощью:</string>
+    <string name="age_limit_label">Мне 18 лет и я принимаю</string>
+    <string name="newsletter_and_offers_label">I agree to receive newsletter with information about software updates and new offers</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Телефон</string>
+    <string name="promo_code">Промокод (необязательно)</string>
+    <string name="regulation">Правила</string>
+    <string name="terms_of_use">Условия использования</string>
+    <string name="privacy_policy">Политику конфиденциальности</string>
+    <string name="and">и</string>
 </resources>
