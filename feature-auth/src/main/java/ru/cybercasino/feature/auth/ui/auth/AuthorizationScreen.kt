@@ -39,6 +39,7 @@ import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
+import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 
@@ -57,44 +58,9 @@ fun AuthorizationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(top = 24.dp),
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            scope.launch { scaffoldState.drawerState.open() }
-                        }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_menu),
-                            contentDescription = "Menu"
-                        )
-                    }
-                },
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.TopCenter,
-                    ) {
-                        Row {
-                            Image(
-                                painter = painterResource(R.drawable.ic_logo),
-                                contentDescription = "",
-                                modifier = Modifier.padding(start = 60.dp)
-                            )
-                            CyberButton(
-                                stringResource(id = R.string.registration_text),
-                                onClick = {
-                                    onClickListener()
-                                },
-                                Modifier
-                                    .padding(top = 14.dp)
-                                    .width(142.dp)
-                                    .height(21.dp)
-                            )
-                        }
-                    }
-                }
+            AppTopAppBar(
+                buttonLabelTextId = R.string.registration_text,
+                onButtonClickListener = onClickListener
             )
         },
         content = {
@@ -161,7 +127,6 @@ fun AuthorizationScreen(
                 },
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(DarkBlue)
             ) {
                 Text(
                     modifier = Modifier

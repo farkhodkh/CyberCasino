@@ -20,7 +20,7 @@ private val ColorPalette = lightColors(
     surface = DarkGray,
     onSurface = White,
 
-    background = Dark,
+    background = DarkBlue,
     onBackground = White,
 )
 
@@ -35,7 +35,7 @@ fun CyberCasinoTheme(content: @Composable () -> Unit) {
 
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color = Color.Transparent,
+            color = Dark,
             darkIcons = true,
             isNavigationBarContrastEnforced = false
         )

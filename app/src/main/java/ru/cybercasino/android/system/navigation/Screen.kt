@@ -18,4 +18,10 @@ sealed class Screen(
      * The class to navigate to the Registration screen
      */
     object Registration : Screen("user/registration")
+
+    /**
+     * The login verification state screen
+     */
+
+    object VerificationScreen: Screen("user/verification")
 }

@@ -1,6 +1,4 @@
 
-C
-settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 Q
 !core/src/main/AndroidManifest.xml,a/e/ae00e14a93cb05cbe86f462a3bad74d51f6b1afc
 ?
@@ -19,10 +17,6 @@ I
 buildSrc/build.gradle.kts,d/9/d90b697280fada81e52ec92d24725920f1cb087b
 R
 "buildSrc/src/main/kotlin/Config.kt,7/1/71e79cabbfd272f6d2b75a730fdee924ba7b1e3c
-@
-build.gradle.kts,d/b/dbcff70658daf80b53ce624f6adcaa529df5ed8d
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 O
 feature-auth/proguard-rules.pro,e/3/e3c36128c1d73f84caa845653b9d0efdae849e54
 L
@@ -43,12 +37,8 @@ p
 ui/.gitignore,0/9/090727f8259e1880ad27928db79e7dcc729c9b9c
 E
 ui/proguard-rules.pro,5/f/5f40bc772cc09c4910befa0aa04bbe21139f68b1
-h
-8app/src/main/java/ru/cybercasino/android/MainActivity.kt,b/c/bca86984a78fd88e3e5fb3a6fdd4d1b32f6d6bfb
 j
 :app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
-D
-app/build.gradle.kts,d/2/d2a4383452aad84a18429a5844d31330a012a9e6
 C
 ui/build.gradle.kts,5/7/57cbb61043327439d0d706ebdfd64b6496ce41af
 T
@@ -59,7 +49,19 @@ H
 config/detekt/detekt.yml,5/a/5a8eccd34aefbab894eaadc3b79e57f6c456425d
 |
 Lfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/RootScreen.kt,e/b/eb3cda1b8d285743f99e7cafe4be87451b4c9399
+j
+:ui/src/main/java/ru/cybercasino/ui/elements/CyberButton.kt,2/8/28f845339803c0889e8d5ddeb7cf113f20782049
+M
+feature-auth/build.gradle.kts,c/0/c0d411e4ca8fd42efd0055e4b0d6eda3931deda3
+v
+Fui/src/main/java/ru/cybercasino/ui/elements/SimpleCheckboxComponent.kt,8/1/8178e734c66c60cb5a65c918991db2adffc5a509
+I
+gradle/libs.versions.toml,d/7/d7595319a0658be6f1ed500ad590d42e4b28bc4f
+a
+1ui/src/main/java/ru/cybercasino/ui/utils/Color.kt,0/e/0e0b48bb7aed683d6e534c254c7255213147625e
 t
-Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
+Dui/src/main/java/ru/cybercasino/ui/elements/CyberButtonWithBorder.kt,7/f/7f3c07246f3d64195c9716037d1fc5bfae04b28d
+q
+Aui/src/main/java/ru/cybercasino/ui/elements/TextFieldComponent.kt,b/b/bba5d93e3a98c14642accacfbeccf5b03758c6fd
 }
 Mfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/LoginScreen.kt,0/a/0ae0028892ec8217ebeaed75af31e1f5d8d5ae34
