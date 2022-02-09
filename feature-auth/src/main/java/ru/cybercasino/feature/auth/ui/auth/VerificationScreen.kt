@@ -1,8 +1,6 @@
 package ru.cybercasino.feature.auth.ui.auth
 
-import android.widget.Toast
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -12,12 +10,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -29,7 +24,8 @@ import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
-import ru.cybercasino.ui.elements.PasswordVerificationScreen
+import ru.cybercasino.ui.elements.CyberButton
+import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 
 @Composable
 fun VerificationScreen(
@@ -55,8 +51,10 @@ fun VerificationScreen(
                     val refPasswordVerificationType = createRefFor("passwordVerificationType")
                     val refUserLoginLabel = createRefFor("userLoginLabel")
                     val refVerificationCodeField = createRefFor("verificationCodeField")
+                    val refConfirmButton = createRefFor("confirmButton")
                     val refResendVerificationCodeLabel = createRefFor("resendVerificationCodeLabel")
-                    val refVerificationCodeTimeoutLabel = createRefFor("verificationCodeTimeoutLabel")
+                    val refVerificationCodeTimeoutLabel =
+                        createRefFor("verificationCodeTimeoutLabel")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
                     val refFacebookIcon = createRefFor("facebookIcon")
                     val refTgIcon = createRefFor("tgIcon")
@@ -85,8 +83,14 @@ fun VerificationScreen(
                         end.linkTo(parent.end, 16.dp)
                     }
 
+                    constrain(refConfirmButton) {
+                        top.linkTo(refVerificationCodeField.bottom, 111.dp)
+                        start.linkTo(parent.start, 16.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
                     constrain(refResendVerificationCodeLabel) {
-                        top.linkTo(refVerificationCodeField.bottom, 131.dp)
+                        top.linkTo(refConfirmButton.bottom, 21.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -164,47 +168,63 @@ fun VerificationScreen(
                     )
                 )
 
-                PasswordVerificationScreen(
+                RegistrationCodeInputScreen(
                     modifier = Modifier
                         .layoutId("verificationCodeField"),
                 )
 
-                when(resendTimeout) {
+                CyberButton(
+                    modifier = Modifier
+                        .layoutId("confirmButton")
+                        .padding(start = 16.dp, end = 16.dp)
+                        .fillMaxWidth()
+                        .height(44.dp),
+                    title = stringResource(id = R.string.confirm),
+                    onClick = { /*TODO*/ },
+                    titleSize = 16.sp,
+                )
+
+                when (resendTimeout) {
                     "" -> {
-                        Text(
+                        Column(
                             modifier = Modifier
                                 .layoutId("resendVerificationCodeLabel"),
-                            text = stringResource(id = R.string.resend_after_text),
-                            fontSize = 12.sp,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                textAlign = TextAlign.Center
+                        ) {
+
+                            CyberButton(
+                                title = stringResource(id = R.string.repeat_require_verification_code),
+                                titleSize = 16.sp,
+                                onClick = { viewModel.requireVerificationCode() },
+                                modifier = Modifier
+                                    .padding(top = 26.dp, start = 16.dp, end = 16.dp)
+                                    .fillMaxWidth()
+                                    .height(44.dp)
                             )
-                        )
+                        }
                     }
                     else -> {
-                        Text(
-                            modifier = Modifier
-                                .layoutId("resendVerificationCodeLabel"),
-                            text = stringResource(id = R.string.resend_after_text),
-                            fontSize = 12.sp,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                textAlign = TextAlign.Center
+                        Row(modifier = Modifier.layoutId("resendVerificationCodeLabel")) {
+                            Text(
+                                text = stringResource(id = R.string.resend_after_text),
+                                fontSize = 12.sp,
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center
+                                )
                             )
-                        )
 
-                        Text(
-                            modifier = Modifier
-                                .layoutId("verificationCodeTimeoutLabel"),
-                            text = resendTimeout,
-                            fontSize = 12.sp,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                textAlign = TextAlign.Center,
-                                color = LightBlue
+                            Text(
+                                modifier = Modifier
+                                    .padding(start = 4.dp),
+                                text = resendTimeout,
+                                fontSize = 12.sp,
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center,
+                                    color = LightBlue
+                                )
                             )
-                        )
+                        }
                     }
                 }
 

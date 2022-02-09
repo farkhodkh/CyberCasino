@@ -1,4 +1,6 @@
 plugins {
+//    id("com.android.application")
+//    id("org.jetbrains.kotlin.android")
     id("com.android.library")
     kotlin("android")
 }
@@ -9,8 +11,6 @@ android {
     defaultConfig {
         minSdk = Config.MIN_SDK
         targetSdk = Config.TARGET_SDK
-
-        consumerProguardFile("consumer-rules.pro")
     }
 
     compileOptions {
@@ -34,16 +34,8 @@ android {
 
 dependencies {
 
-    implementation(libs.accompanist.systemUiController)
-    implementation(libs.androidx.material )
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.constraintlayout.compose)
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.5.0")
 
-    api(libs.androidx.compose.ui.tooling)
-    api(libs.androidx.compose.ui.tooling.preview)
-    api(libs.accompanist.insets)
-    api(libs.accompanist.insetsUi)
-    api(libs.accompanist.systemUiController)
 }

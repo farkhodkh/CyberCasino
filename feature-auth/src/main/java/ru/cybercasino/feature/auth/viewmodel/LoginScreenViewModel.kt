@@ -1,7 +1,6 @@
 package ru.cybercasino.feature.auth.viewmodel
 
 import android.os.CountDownTimer
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,17 +31,12 @@ class LoginScreenViewModel : ViewModel() {
      */
     val resendTimeout: StateFlow<String> = _resendTimeout
 
-    init {
-        val timer = object: CountDownTimer(60000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                _resendTimeout.tryEmit("0:${millisUntilFinished/1000}")
-            }
 
-            override fun onFinish() {
-                _resendTimeout.tryEmit("")
-            }
-        }
-        timer.start()
+    private val resendTimeoutMills = 60000L
+    private val countDownInterval = 1000L
+
+    init {
+        startVerificationCodeRequireCountdown()
     }
 
     /**
@@ -84,6 +78,24 @@ class LoginScreenViewModel : ViewModel() {
     fun onPasswordChanged(pass: String) {
         state.value.passwordRequirementsState = (0..3).random()
     }
+
+    fun requireVerificationCode() {
+        startVerificationCodeRequireCountdown()
+    }
+
+    private fun startVerificationCodeRequireCountdown() {
+        val timer = object : CountDownTimer(resendTimeoutMills, countDownInterval) {
+            override fun onTick(millisUntilFinished: Long) {
+                val lastTime = String.format("0:%02d", millisUntilFinished / 1000)
+                _resendTimeout.tryEmit(lastTime)
+            }
+
+            override fun onFinish() {
+                _resendTimeout.tryEmit("")
+            }
+        }
+        timer.start()
+    }
 }
 
 private val InitialState = LoginScreenViewModel.State(
@@ -96,6 +108,6 @@ private val InitialState = LoginScreenViewModel.State(
 )
 
 sealed class PasswordVerificationType {
-    object EMailVerification: PasswordVerificationType()
-    object PhoneVerification: PasswordVerificationType()
+    object EMailVerification : PasswordVerificationType()
+    object PhoneVerification : PasswordVerificationType()
 }

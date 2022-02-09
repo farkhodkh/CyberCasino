@@ -42,6 +42,8 @@ import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
+import ru.cybercasino.ui.utils.defaultCountryData
+import ru.cybercasino.ui.utils.getCountriesList
 
 /**
  * Authorization screen
@@ -54,6 +56,7 @@ fun AuthorizationScreen(
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    var selectedTabIndex by remember { mutableStateOf(0) }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -67,7 +70,11 @@ fun AuthorizationScreen(
             ConstraintLayout(
                 constraintSet = ConstraintSet {
                     val refEnterTitle = createRefFor("enterTitle")
-                    val refLoginField = createRefFor("loginField")
+                    val refTabRowField = createRefFor("tabRowField")
+                    val refEmailField = createRefFor("emailField")
+                    val refPhoneField = createRefFor("phoneField")
+                    val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refCountryCode = createRefFor("countryCode")
                     val refPasswordField = createRefFor("passwordField")
                     val refEnterButton = createRefFor("enterButton")
                     val refForgotPasswordTitle = createRefFor("forgotPasswordTitle")
@@ -81,14 +88,36 @@ fun AuthorizationScreen(
                         start.linkTo(parent.start, 16.dp)
                     }
 
-                    constrain(refLoginField) {
+                    constrain(refTabRowField) {
                         top.linkTo(refEnterTitle.bottom, 50.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
+                    constrain(refEmailField) {
+                        top.linkTo(refTabRowField.bottom, 26.dp)
+                        start.linkTo(parent.start, 16.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
+                    constrain(refCountriesDropdownMenu) {
+                        top.linkTo(refTabRowField.bottom, 36.dp)
+                        start.linkTo(parent.start, 16.dp)
+                    }
+
+                    constrain(refCountryCode) {
+                        top.linkTo(refTabRowField.bottom, 50.dp)
+                        start.linkTo(refCountriesDropdownMenu.end, 2.dp)
+                    }
+
+                    constrain(refPhoneField) {
+                        top.linkTo(refTabRowField.bottom, 26.dp)
+                        start.linkTo(refCountryCode.end, 46.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
                     constrain(refPasswordField) {
-                        top.linkTo(refLoginField.bottom, 20.dp)
+                        top.linkTo(refTabRowField.bottom, 100.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -138,35 +167,174 @@ fun AuthorizationScreen(
                         textAlign = TextAlign.Center
                     )
                 )
-                var emailPhoneText by remember { mutableStateOf(TextFieldValue("")) }
 
-                TextField(
+                TabRow(
+                    selectedTabIndex = selectedTabIndex,
                     modifier = Modifier
+                        .layoutId("tabRowField")
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp)
-                        .layoutId("loginField"),
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = DarkBlue
-                    ),
-                    value = emailPhoneText,
-                    onValueChange = {
-                        emailPhoneText = it
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.enter_email_or_phone),
-                            fontSize = 10.sp,
-                            color = if (emailPhoneText.text.isEmpty()) DarkGray else White
+                        .padding(start = 16.dp, end = 16.dp),
+                    contentColor = LightBlue,
+                ) {
+                    listOf(
+                        stringResource(R.string.email),
+                        stringResource(R.string.phone)
+                    ).forEachIndexed { index, text ->
+                        Tab(
+                            selected = selectedTabIndex == index,
+                            onClick = { selectedTabIndex = index },
+                            modifier = Modifier
+                                .background(DarkBlue)
+                                .height(50.dp),
+                            text = {
+                                Text(text = text)
+                            },
+                            selectedContentColor = LightBlue,
+                            unselectedContentColor = White
                         )
-                    },
-                    placeholder = {
+                    }
+                }
+
+                var emailText by remember { mutableStateOf(TextFieldValue("")) }
+                var phoneText by remember { mutableStateOf(TextFieldValue("")) }
+
+                when (selectedTabIndex) {
+                    0 -> {
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp)
+                                .layoutId("emailField"),
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = DarkBlue
+                            ),
+                            value = emailText,
+                            onValueChange = {
+                                emailText = it
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.email),
+                                    fontSize = 10.sp,
+                                    color = if (emailText.text.isEmpty()) DarkGray else White
+                                )
+                            },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.email),
+                                    fontSize = 14.sp,
+                                    color = White
+                                )
+                            },
+                        )
+                    }
+                    1 -> {
+
+                        var expanded by remember { mutableStateOf(false) }
+                        val countriesList = getCountriesList()
+                        val selectedItem = remember { mutableStateOf(defaultCountryData) }
+
+                        Box(
+                            modifier = Modifier.layoutId("countriesDropdownMenu"),
+                        ) {
+                            IconButton(onClick = { expanded = true }) {
+                                Row {
+                                    Text( text = selectedItem.value.flag )
+                                    Image(painter = painterResource(id = R.drawable.ic_chevron_down), contentDescription = "")
+                                }
+                            }
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    selectedItem.value = defaultCountryData
+                                    expanded = false
+                                }) {
+                                    Text(defaultCountryData.codeAndFlag)
+                                }
+                                Divider()
+
+                                countriesList.forEach { countryData ->
+                                    DropdownMenuItem(onClick = {
+                                        selectedItem.value = countryData
+                                        expanded = false
+                                    }) {
+                                        Text(countryData.codeAndFlag)
+                                    }
+                                }
+                            }
+                        }
                         Text(
-                            text = stringResource(id = R.string.enter_email_or_phone),
+                            modifier = Modifier
+                                .requiredWidth(90.dp)
+                                .layoutId("countryCode"),
                             fontSize = 14.sp,
-                            color = White
+                            text = selectedItem.value.code,
                         )
-                    },
-                )
+
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp)
+                                .layoutId("phoneField"),
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = DarkBlue
+                            ),
+                            value = phoneText,
+                            onValueChange = {
+                                phoneText = it
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 10.sp,
+                                    color = if (phoneText.text.isEmpty()) DarkGray else White
+                                )
+                            },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 14.sp,
+                                    color = White
+                                )
+                            },
+                            textStyle = TextStyle(
+                                fontSize = 14.sp
+                            )
+                        )
+                    }
+                }
+
+                //var emailPhoneText by remember { mutableStateOf(TextFieldValue("")) }
+
+//                TextField(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(start = 16.dp, end = 16.dp)
+//                        .layoutId("loginField"),
+//                    colors = TextFieldDefaults.textFieldColors(
+//                        backgroundColor = DarkBlue
+//                    ),
+//                    value = emailPhoneText,
+//                    onValueChange = {
+//                        emailPhoneText = it
+//                    },
+//                    label = {
+//                        Text(
+//                            text = stringResource(id = R.string.enter_email_or_phone),
+//                            fontSize = 10.sp,
+//                            color = if (emailPhoneText.text.isEmpty()) DarkGray else White
+//                        )
+//                    },
+//                    placeholder = {
+//                        Text(
+//                            text = stringResource(id = R.string.enter_email_or_phone),
+//                            fontSize = 14.sp,
+//                            color = White
+//                        )
+//                    },
+//                )
 
                 var password by rememberSaveable { mutableStateOf("") }
                 var passwordVisibility by remember { mutableStateOf(false) }

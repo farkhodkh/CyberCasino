@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
 
 /**
@@ -46,14 +47,15 @@ fun AppTopAppBar(
                     Image(
                         painter = painterResource(R.drawable.ic_logo),
                         contentDescription = "",
-                        modifier = Modifier.padding(start = 60.dp)
+                        modifier = Modifier.padding(start = 60.dp, end = 40.dp)
                     )
                     CyberButton(
                         stringResource(id = buttonLabelTextId),
+                        titleSize = 10.sp,
                         onClick = { onButtonClickListener() },
                         Modifier
                             .padding(top = 14.dp)
-                            .width(142.dp)
+                            .width(92.dp)
                             .height(21.dp)
                     )
                 }

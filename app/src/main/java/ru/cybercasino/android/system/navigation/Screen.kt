@@ -22,6 +22,10 @@ sealed class Screen(
     /**
      * The login verification state screen
      */
-
     object VerificationScreen: Screen("user/verification")
+
+    /**
+     * Registration successful finish srceen
+     */
+    object RegistrationFinish: Screen("user/registrationFinish")
 }

@@ -8,15 +8,14 @@
 package ru.cybercasino.feature.auth.ui.auth
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -24,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -50,6 +50,8 @@ import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.elements.SimpleCheckboxComponent
+import ru.cybercasino.ui.utils.defaultCountryData
+import ru.cybercasino.ui.utils.getCountriesList
 
 @Composable
 fun RegistrationScreen(
@@ -57,7 +59,6 @@ fun RegistrationScreen(
     onRegisterClickListener: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
     var selectedTabIndex by remember { mutableStateOf(0) }
 
     val viewModel = getViewModel<LoginScreenViewModel>()
@@ -78,6 +79,7 @@ fun RegistrationScreen(
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refCountryCode = createRefFor("countryCode")
                     val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
                     val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
@@ -113,14 +115,18 @@ fun RegistrationScreen(
                     }
 
                     constrain(refCountriesDropdownMenu) {
-                        top.linkTo(refTabRowField.bottom, 26.dp)
+                        top.linkTo(refTabRowField.bottom, 36.dp)
                         start.linkTo(parent.start, 16.dp)
-                        //end.linkTo(parent.end, 16.dp)
+                    }
+
+                    constrain(refCountryCode) {
+                        top.linkTo(refTabRowField.bottom, 50.dp)
+                        start.linkTo(refCountriesDropdownMenu.end, 2.dp)
                     }
 
                     constrain(refPhoneField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 206.dp)
+                        start.linkTo(refCountryCode.end, 46.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
@@ -280,80 +286,81 @@ fun RegistrationScreen(
                         )
                     }
                     1 -> {
-//                        var expanded by remember { mutableStateOf(true)}
-//                        val cityList = listOf("Россия", "Казахстан", "Беларусь")
-//
-//                        DropdownMenu(
-//                            modifier = Modifier
-//                                .width(140.dp)
-//                                .layoutId("countriesDropdownMenu"),
-//                            expanded = expanded,
-//                            properties = PopupProperties(focusable = true),
-//                            onDismissRequest = {
-//                                expanded = false
-//                            }
-//                        ) {
-//                            cityList.forEach { city ->
-//                                DropdownMenuItem(onClick = {
-//                                    expanded = false
-//                                }) {
-//                                    Text(city)
-//                                }
-//                            }
-//                        }
 
-                        var expanded = remember { mutableStateOf(false) }
+                        var expanded by remember { mutableStateOf(false) }
+                        val countriesList = getCountriesList()
+                        val selectedItem = remember { mutableStateOf(defaultCountryData) }
 
-//                        val iconButton = @Composable {
-//                            IconButton(onClick = { expanded.value = true }) {
-//                                Icon(Icons.Default.MoreVert)
-//                            }
-//                        }
-
-                        DropdownMenu(
-                            expanded = expanded.value,
-                            onDismissRequest = { expanded.value = false },
-                            //toggle = iconButton,
-                            modifier = Modifier.layoutId("countriesDropdownMenu")
+                        Box(
+                            modifier = Modifier.layoutId("countriesDropdownMenu"),
                         ) {
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Share")
+                            IconButton(onClick = { expanded = true }) {
+                                Row {
+                                    Text( text = selectedItem.value.flag )
+                                    Image(painter = painterResource(id = R.drawable.ic_chevron_down), contentDescription = "")
+                                }
                             }
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Report ")
-                            }
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Follow")
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    selectedItem.value = defaultCountryData
+                                    expanded = false
+                                }) {
+                                    Text(defaultCountryData.codeAndFlag)
+                                }
+                                Divider()
+
+                                countriesList.forEach { countryData ->
+                                    DropdownMenuItem(onClick = {
+                                        selectedItem.value = countryData
+                                        expanded = false
+                                    }) {
+                                        Text(countryData.codeAndFlag)
+                                    }
+                                }
                             }
                         }
 
-//                        TextField(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(start = 16.dp, end = 16.dp)
-//                                .layoutId("phoneField"),
-//                            colors = TextFieldDefaults.textFieldColors(
-//                                backgroundColor = DarkBlue
-//                            ),
-//                            value = phoneText,
-//                            onValueChange = {
-//                                phoneText = it
-//                            },
-//                            label = {
-//                                Text(
-//                                    text = stringResource(id = R.string.phone),
-//                                    fontSize = 10.sp,
-//                                    color = if (phoneText.text.isEmpty()) DarkGray else White
-//                                )
-//                            },
-//                            placeholder = {
-//                                Text(
-//                                    text = stringResource(id = R.string.phone),
-//                                    fontSize = 14.sp,
-//                                    color = White
-//                                )
-//                            },
-//                        )
+                        Text(
+                            modifier = Modifier
+                                .requiredWidth(90.dp)
+                                .layoutId("countryCode"),
+                            fontSize = 14.sp,
+                            text = selectedItem.value.code,
+                        )
+
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp)
+                                .layoutId("phoneField"),
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = DarkBlue
+                            ),
+                            value = phoneText,
+                            onValueChange = {
+                                phoneText = it
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 10.sp,
+                                    color = if (phoneText.text.isEmpty()) DarkGray else White
+                                )
+                            },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 14.sp,
+                                    color = White
+                                )
+                            },
+                            textStyle = TextStyle(
+                                fontSize = 14.sp
+                            )
+                        )
                     }
                 }
 
@@ -500,6 +507,7 @@ fun RegistrationScreen(
                 when (state.isFieldsCorrect) {
                     true -> CyberButton(
                         title = stringResource(R.string.registration_text_2),
+                        16.sp,
                         onClick = { onRegisterClickListener() },
                         Modifier
                             .layoutId("registerButton")
