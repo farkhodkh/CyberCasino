@@ -2,6 +2,7 @@ package ru.cybercasino.feature.auth.viewmodel
 
 import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
+import java.util.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -31,8 +32,9 @@ class LoginScreenViewModel : ViewModel() {
      */
     val resendTimeout: StateFlow<String> = _resendTimeout
 
-
+    @Suppress("MagicNumber")
     private val resendTimeoutMills = 60000L
+    @Suppress("MagicNumber")
     private val countDownInterval = 1000L
 
     init {
@@ -75,18 +77,27 @@ class LoginScreenViewModel : ViewModel() {
         var passwordVerificationType: PasswordVerificationType,
     )
 
+    /**
+     * Method for password update
+     */
+    @Suppress("UnusedPrivateMember")
     fun onPasswordChanged(pass: String) {
+        @Suppress("MagicNumber")
         state.value.passwordRequirementsState = (0..3).random()
     }
 
+    /**
+     * Method to require Verification Code
+     */
     fun requireVerificationCode() {
         startVerificationCodeRequireCountdown()
     }
 
+    @Suppress("MagicNumber")
     private fun startVerificationCodeRequireCountdown() {
         val timer = object : CountDownTimer(resendTimeoutMills, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
-                val lastTime = String.format("0:%02d", millisUntilFinished / 1000)
+                val lastTime = String.format(Locale.getDefault(), "0:%02d", millisUntilFinished / 1000)
                 _resendTimeout.tryEmit(lastTime)
             }
 
@@ -107,7 +118,17 @@ private val InitialState = LoginScreenViewModel.State(
     PasswordVerificationType.EMailVerification
 )
 
+/**
+ * Password verification type class
+ */
 sealed class PasswordVerificationType {
+    /**
+     * E-mail based verification
+     */
     object EMailVerification : PasswordVerificationType()
+
+    /**
+     * Phone based verification
+     */
     object PhoneVerification : PasswordVerificationType()
 }

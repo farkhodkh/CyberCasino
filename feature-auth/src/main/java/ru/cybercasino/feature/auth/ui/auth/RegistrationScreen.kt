@@ -10,16 +10,38 @@ package ru.cybercasino.feature.auth.ui.auth
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TabRow
+import androidx.compose.material.Tab
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.IconButton
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -44,15 +66,21 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
+import ru.cybercasino.ui.LightBlue
+import ru.cybercasino.ui.DarkBlue
+import ru.cybercasino.ui.White
+import ru.cybercasino.ui.DarkGray
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.elements.SimpleCheckboxComponent
 import ru.cybercasino.ui.utils.defaultCountryData
 import ru.cybercasino.ui.utils.getCountriesList
 
+/**
+ * Registration of new user screen
+ */
 @Composable
 fun RegistrationScreen(
     onEnterClickListener: () -> Unit,
@@ -297,7 +325,10 @@ fun RegistrationScreen(
                             IconButton(onClick = { expanded = true }) {
                                 Row {
                                     Text( text = selectedItem.value.flag )
-                                    Image(painter = painterResource(id = R.drawable.ic_chevron_down), contentDescription = "")
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ic_chevron_down),
+                                        contentDescription = ""
+                                    )
                                 }
                             }
                             DropdownMenu(
@@ -551,20 +582,25 @@ private fun getAnnotatedText(labelResourceId: Int) = buildAnnotatedString {
 
 @Composable
 private fun getPasswordRequirementsText(someCheck: Int) = when (someCheck) {
-    0 -> "✓ " + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
+    0 -> "✓ " + stringResource(id = R.string.one_letter) +
+            "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
         id = R.string.minimum_symbols
     )
-    1 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   " + stringResource(
+    1 -> "✓ " + stringResource(id = R.string.one_letter) +
+            "   ✓ " + stringResource(id = R.string.one_number) + "   " + stringResource(
         id = R.string.minimum_symbols
     )
-    2 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   ✓ " + stringResource(
+    2 -> "✓ " + stringResource(id = R.string.one_letter) +
+            "   ✓ " + stringResource(id = R.string.one_number) + "   ✓ " + stringResource(
         id = R.string.minimum_symbols
     )
-    else -> "" + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
+    else -> "" + stringResource(id = R.string.one_letter) +
+            "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
         id = R.string.minimum_symbols
     )
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun RegistrationScreenPreview() {

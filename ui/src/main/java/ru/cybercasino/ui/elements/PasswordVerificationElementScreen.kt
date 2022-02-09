@@ -2,7 +2,12 @@ package ru.cybercasino.ui.elements
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -23,6 +28,9 @@ import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.DarkBlue
 import ru.cybercasino.ui.DarkGray
 
+/**
+ * Verification code enter screen
+ */
 @Composable
 fun RegistrationCodeInputScreen(
     modifier: Modifier
@@ -34,7 +42,7 @@ fun RegistrationCodeInputScreen(
 }
 
 @Composable
-fun RegistrationCodeInput(modifier: Modifier, codeLength: Int) {
+private fun RegistrationCodeInput(modifier: Modifier, codeLength: Int) {
     val code = remember { mutableStateOf("") }
     val focusRequester = FocusRequester()
     LaunchedEffect(Unit) {
@@ -94,6 +102,7 @@ private fun CodeEntry(text: String) {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun PasswordVerificationScreenPreview() {

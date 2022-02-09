@@ -1,7 +1,11 @@
 package ru.cybercasino.ui.elements
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -21,6 +25,9 @@ import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.CyberButtonColorEnd
 import ru.cybercasino.ui.CyberButtonColorStart
 
+/**
+ * The app default button style
+ */
 @Composable
 fun CyberButton(
     title: String,
@@ -60,6 +67,7 @@ fun CyberButton(
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun CyberButtonPreview() {

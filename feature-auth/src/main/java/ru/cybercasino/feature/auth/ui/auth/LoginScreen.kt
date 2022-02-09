@@ -14,6 +14,7 @@ import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
  * @param onRegisterClickListener on
  * @param modifier - Modifier
  */
+@Suppress("UnusedPrivateMember")
 @Composable
 fun LoginScreen(
     modifier: Modifier,

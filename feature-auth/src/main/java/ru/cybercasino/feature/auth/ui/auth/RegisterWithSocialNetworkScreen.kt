@@ -12,6 +12,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import ru.cybercasino.ui.R
 
+/**
+ * Register with social network
+ */
 @Composable
 fun RegisterWithSocialNetworkScreen(
     labelResourceId: Int

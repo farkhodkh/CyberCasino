@@ -12,9 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ru.cybercasino.ui.*
+import ru.cybercasino.ui.LightBlue
+import ru.cybercasino.ui.Dark
 
-
+/**
+ * App default checkbox
+ */
 @Composable
 fun SimpleCheckboxComponent(
     modifier: Modifier,

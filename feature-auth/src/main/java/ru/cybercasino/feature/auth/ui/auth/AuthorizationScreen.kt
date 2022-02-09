@@ -9,15 +9,37 @@ package ru.cybercasino.feature.auth.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.TabRow
+import androidx.compose.material.Tab
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.IconButton
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.TextButton
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -35,12 +57,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
-import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
-import ru.cybercasino.ui.*
+import ru.cybercasino.ui.LightBlue
+import ru.cybercasino.ui.DarkBlue
+import ru.cybercasino.ui.White
+import ru.cybercasino.ui.DarkGray
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
-import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.utils.defaultCountryData
 import ru.cybercasino.ui.utils.getCountriesList
@@ -55,7 +78,7 @@ fun AuthorizationScreen(
 ) {
 
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
+    //val scope = rememberCoroutineScope()
     var selectedTabIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -240,7 +263,10 @@ fun AuthorizationScreen(
                             IconButton(onClick = { expanded = true }) {
                                 Row {
                                     Text( text = selectedItem.value.flag )
-                                    Image(painter = painterResource(id = R.drawable.ic_chevron_down), contentDescription = "")
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ic_chevron_down),
+                                        contentDescription = ""
+                                    )
                                 }
                             }
                             DropdownMenu(

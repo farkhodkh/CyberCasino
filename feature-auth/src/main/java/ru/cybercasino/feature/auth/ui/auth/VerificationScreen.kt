@@ -1,6 +1,11 @@
 package ru.cybercasino.feature.auth.ui.auth
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -27,6 +32,9 @@ import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 
+/**
+ * User registration verification screen
+ */
 @Composable
 fun VerificationScreen(
     onEnterClickListener: () -> Unit,
