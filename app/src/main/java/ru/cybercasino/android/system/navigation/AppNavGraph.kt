@@ -93,6 +93,9 @@ fun AppNavGraph(modifier: Modifier) {
                     onEnterClickListener = {
                         navController.navigate(Screen.Login.route)
                     },
+                    onConfirmClickListener = {
+                        navController.navigate(Screen.RegistrationFinish.route)
+                    }
                 )
             }
             composable(Screen.RegistrationFinish.route) {
