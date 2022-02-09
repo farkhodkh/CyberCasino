@@ -65,7 +65,7 @@ fun AppNavGraph(modifier: Modifier) {
                         .background(Dark),
                 )
                 rememberCoroutineScope().launch {
-                    delay(1000)
+                    delay(START_DELAY_TIMEOUT)
                     navController.navigate(Screen.Login.route)
                 }
             }
@@ -118,3 +118,4 @@ fun AppNavGraph(modifier: Modifier) {
 }
 
 private const val TABS_GRAPH_NAV_ROUTE = "root"
+private const val START_DELAY_TIMEOUT = 1000L

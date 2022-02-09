@@ -9,12 +9,17 @@ package ru.cybercasino.feature.auth.ui.auth
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -26,21 +31,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import org.koin.androidx.compose.getViewModel
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 
+/**
+ * Screen for finishing registration of the user
+ */
 @Composable
 fun RegistrationFinishScreen(
     onEnterClickListener: () -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
-    var selectedTabIndex by remember { mutableStateOf(0) }
+    //var selectedTabIndex by remember { mutableStateOf(0) }
 
-    val viewModel = getViewModel<LoginScreenViewModel>()
-    val state by viewModel.state.collectAsState()
+//    val viewModel = getViewModel<LoginScreenViewModel>()
+//    val state by viewModel.state.collectAsState()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -99,6 +105,7 @@ fun RegistrationFinishScreen(
     )
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun RegistrationFinishScreenPreview() {
