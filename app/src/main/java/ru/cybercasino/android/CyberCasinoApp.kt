@@ -1,6 +1,9 @@
 package ru.cybercasino.android
 
 import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import ru.cybercasino.android.system.di.appModule
 
 /**
  * The main application class
@@ -8,6 +11,14 @@ import android.app.Application
 class CyberCasinoApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        //TODO - init libraries here
+        initKoin()
+
+    }
+
+    private fun initKoin() {
+        startKoin {
+            androidContext(this@CyberCasinoApp)
+            modules(appModule)
+        }
     }
 }

@@ -4,14 +4,26 @@
 plugin-gradleTools = "7.0.3"
 
 # Kotlin
-kotlin = "1.6.10"
+#kotlin = "1.6.10"
+kotlin = "1.5.31"
 kotlinCoroutines = "1.5.2"
 
 #Android
-androidx = "1.7.0"
 appcompat = "1.4.1"
 androidMaterial = "1.5.0"
 constraintlayout = "2.1.3"
+
+#AndroidX
+androidx = "1.7.0"
+androidxConstraintlayoutCompose = "1.0.0-beta02"
+androidxActivityCompose = "1.3.1"
+androidxCompose = "1.0.5"
+androidxComposeMaterial3 = "1.0.0-alpha01"
+navigationCompose = "2.4.0-alpha01"
+
+# 3rd parties
+accompanist = "0.20.3"
+koin = "3.1.2"
 
 [libraries]
 
@@ -28,3 +40,33 @@ androidx-core = {module = "androidx.core:core-ktx", version.ref = "androidx"}
 androidx-appcompat = {module = "androidx.appcompat:appcompat", version.ref = "appcompat"}
 androidx-material = {module = "com.google.android.material:material", version.ref = "androidMaterial"}
 androidx-constraintlayout = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout"}
+androidx-constraintlayout-compose = {module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose"}
+
+#Accompanist
+accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
+accompanist-insetsUi = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
+accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanist-navigationMaterial = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
+accompanist-placeholder = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+accompanist-flow = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
+
+androidx-activity-compose = {module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose"}
+androidx-compose-compiler = {module = "androidx.compose.compiler:compiler", version.ref = "androidxCompose"}
+androidx-compose-foundation = {module = "androidx.compose.foundation:foundation", version.ref = "androidxCompose"}
+androidx-compose-material = {module = "androidx.compose.material:material", version.ref = "androidxCompose"}
+androidx-compose-material-icons-extended = {module = "androidx.compose.material:material-icons-extended", version.ref = "androidxCompose"}
+androidx-compose-material3 = {module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3"}
+androidx-compose-runtime = {module = "androidx.compose.runtime:runtime", version.ref = "androidxCompose"}
+androidx-compose-runtime-livedata = {module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxCompose"}
+androidx-compose-ui = {module = "androidx.compose.ui:ui", version.ref = "androidxCompose"}
+androidx-compose-ui-tooling = {module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose"}
+androidx-compose-ui-tooling-preview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxCompose"}
+androidx-navigation-compose = {module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose"}
+
+#Koin
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
