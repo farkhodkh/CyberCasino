@@ -38,6 +38,7 @@ import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 @Composable
 fun VerificationScreen(
     onEnterClickListener: () -> Unit,
+    onConfirmClickListener: () -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
     val viewModel = getViewModel<LoginScreenViewModel>()
@@ -188,7 +189,7 @@ fun VerificationScreen(
                         .fillMaxWidth()
                         .height(44.dp),
                     title = stringResource(id = R.string.confirm),
-                    onClick = { /*TODO*/ },
+                    onClick = { onConfirmClickListener() },
                     titleSize = 16.sp,
                 )
 
