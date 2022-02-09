@@ -5,8 +5,6 @@ Q
 core/.gitignore,8/f/8f16fff20c9abaf19044c2da043c6677c1119e28
 G
 core/proguard-rules.pro,a/e/ae321721a596c5c74bb3bf67ae304581e8f9ae75
-E
-core/build.gradle.kts,d/7/d72846b7b418aa17de692d1ccf924c738cf8dbe5
 G
 feature-auth/.gitignore,8/0/80d7320518b0c39b6037b3d4f7632de80b93e6a1
 ?
@@ -31,8 +29,6 @@ a
 1ui/src/main/java/ru/cybercasino/ui/utils/Shape.kt,8/1/81f1a53cf6543056a5be68bb5803d123775845a2
 `
 0ui/src/main/java/ru/cybercasino/ui/utils/Type.kt,7/6/76f87dacc5d232da0fc9c7afcd63a0ddf4639d69
-p
-@app/src/main/java/ru/cybercasino/android/system/di/KoinModule.kt,a/e/ae79c1188fe65d46458a2f27269e8ae6bd717299
 =
 ui/.gitignore,0/9/090727f8259e1880ad27928db79e7dcc729c9b9c
 E
@@ -51,12 +47,8 @@ H
 Lfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/RootScreen.kt,e/b/eb3cda1b8d285743f99e7cafe4be87451b4c9399
 j
 :ui/src/main/java/ru/cybercasino/ui/elements/CyberButton.kt,2/8/28f845339803c0889e8d5ddeb7cf113f20782049
-M
-feature-auth/build.gradle.kts,c/0/c0d411e4ca8fd42efd0055e4b0d6eda3931deda3
 v
 Fui/src/main/java/ru/cybercasino/ui/elements/SimpleCheckboxComponent.kt,8/1/8178e734c66c60cb5a65c918991db2adffc5a509
-I
-gradle/libs.versions.toml,d/7/d7595319a0658be6f1ed500ad590d42e4b28bc4f
 a
 1ui/src/main/java/ru/cybercasino/ui/utils/Color.kt,0/e/0e0b48bb7aed683d6e534c254c7255213147625e
 t
@@ -65,3 +57,5 @@ q
 Aui/src/main/java/ru/cybercasino/ui/elements/TextFieldComponent.kt,b/b/bba5d93e3a98c14642accacfbeccf5b03758c6fd
 }
 Mfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/LoginScreen.kt,0/a/0ae0028892ec8217ebeaed75af31e1f5d8d5ae34
+E
+core/build.gradle.kts,d/7/d72846b7b418aa17de692d1ccf924c738cf8dbe5

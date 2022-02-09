@@ -19,4 +19,6 @@ rootProject.name = "CyberCasino"
 include(":app")
 include(":core")
 include(":feature-auth")
+include(":feature-auth-api")
 include(":ui")
+include(":network")
