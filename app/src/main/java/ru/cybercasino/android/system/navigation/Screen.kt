@@ -22,8 +22,10 @@ sealed class Screen(
     /**
      * The login verification state screen
      */
-
     object VerificationScreen: Screen("auth/validate-user")
 
+    /**
+     * The main profile screen
+     */
     object ProfileScreen: Screen("profile/main")
 }

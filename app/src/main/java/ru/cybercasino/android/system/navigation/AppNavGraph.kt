@@ -59,7 +59,7 @@ fun AppNavGraph(modifier: Modifier) {
 //                )
 //                rememberCoroutineScope().launch {
 //                    delay(1000)
-                    navController.navigate(Screen.Login.route)
+                navController.navigate(Screen.Login.route)
 //                }
             }
             composable(Screen.Login.route) {

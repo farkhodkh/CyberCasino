@@ -1,109 +1,95 @@
 @file:OptIn(
     ExperimentalAnimationApi::class,
     ExperimentalMaterialApi::class,
-    ExperimentalComposeUiApi::class,
-    ExperimentalPagerApi::class
+    ExperimentalComposeUiApi::class
 )
 
-package ru.cybercasino.feature.auth.ui.auth
+package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
-import com.google.accompanist.pager.ExperimentalPagerApi
-import org.koin.androidx.compose.getViewModel
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import kotlinx.coroutines.launch
+import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
-import ru.cybercasino.ui.elements.SimpleCheckboxComponent
 import ru.cybercasino.ui.utils.defaultCountryData
 import ru.cybercasino.ui.utils.getCountriesList
 
+/**
+ * Authorization screen
+ * @param onClickListener on registration button click listener
+ */
 @Composable
-fun RegistrationScreen(
-    onEnterClickListener: () -> Unit,
-    onRegisterClickListener: () -> Unit
+fun AuthorizationScreen(
+    onClickListener: () -> Unit
 ) {
-    val scaffoldState = rememberScaffoldState()
-    var selectedTabIndex by remember { mutableStateOf(0) }
 
-    val viewModel = getViewModel<LoginScreenViewModel>()
-    val state by viewModel.state.collectAsState()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+    var selectedTabIndex by remember { mutableStateOf(0) }
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             AppTopAppBar(
-                buttonLabelTextId = R.string.enter_text,
-                onButtonClickListener = onEnterClickListener
+                buttonLabelTextId = R.string.registration_text,
+                onButtonClickListener = onClickListener
             )
         },
         content = {
             ConstraintLayout(
                 constraintSet = ConstraintSet {
-                    val refRegistrationTitle = createRefFor("registrationTitle")
+                    val refEnterTitle = createRefFor("enterTitle")
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
+                    val refPhoneField = createRefFor("phoneField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
                     val refCountryCode = createRefFor("countryCode")
-                    val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
-                    val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
-                    val refPromoField = createRefFor("promoField")
-                    val refPrivacyPolicy = createRefFor("privacyPolicyChB")
-                    val refNewsAndOffersChB = createRefFor("newsAndOffersChB")
-                    val refRegisterButton = createRefFor("registerButton")
+                    val refEnterButton = createRefFor("enterButton")
+                    val refForgotPasswordTitle = createRefFor("forgotPasswordTitle")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
                     val refFacebookIcon = createRefFor("facebookIcon")
                     val refTgIcon = createRefFor("tgIcon")
                     val refGoogleIcon = createRefFor("googleIcon")
-                    val refAnd1 = createRefFor("and1")
-                    val refAnd2 = createRefFor("and2")
-                    val refRegulationLabel = createRefFor("regulationLabel")
-                    val refTermsOfUseLabel = createRefFor("termsOfUseLabel")
-                    val refPrivacyPolicyLabel = createRefFor("privacyPolicyLabel")
 
-                    constrain(refRegistrationTitle) {
+                    constrain(refEnterTitle) {
                         top.linkTo(parent.top, 50.dp)
                         start.linkTo(parent.start, 16.dp)
                     }
 
                     constrain(refTabRowField) {
-                        top.linkTo(refRegistrationTitle.bottom, 35.dp)
+                        top.linkTo(refEnterTitle.bottom, 50.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -135,57 +121,14 @@ fun RegistrationScreen(
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
-
-                    constrain(refPasswordRequirementsLabel) {
-                        top.linkTo(refPasswordField.bottom, 8.dp)
+                    constrain(refEnterButton) {
+                        top.linkTo(refPasswordField.bottom, 26.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
-                    constrain(refPromoField) {
-                        top.linkTo(refPasswordField.bottom, 46.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
-                    constrain(refPrivacyPolicy) {
-                        top.linkTo(refPromoField.bottom, 30.dp)
-                        start.linkTo(parent.start, 16.dp)
-                    }
-
-                    constrain(refRegulationLabel) {
-                        top.linkTo(refPrivacyPolicy.bottom, 4.dp)
-                        start.linkTo(refPrivacyPolicy.start, 36.dp)
-                    }
-
-                    constrain(refAnd1) {
-                        top.linkTo(refPrivacyPolicy.bottom, 4.dp)
-                        start.linkTo(refRegulationLabel.end, 4.dp)
-                    }
-
-                    constrain(refTermsOfUseLabel) {
-                        top.linkTo(refPrivacyPolicy.bottom, 4.dp)
-                        start.linkTo(refAnd1.end, 4.dp)
-                    }
-
-                    constrain(refAnd2) {
-                        top.linkTo(refPrivacyPolicy.bottom, 4.dp)
-                        start.linkTo(refTermsOfUseLabel.end, 4.dp)
-                    }
-
-                    constrain(refPrivacyPolicyLabel) {
-                        top.linkTo(refRegulationLabel.bottom, 4.dp)
-                        start.linkTo(refPrivacyPolicy.start, 36.dp)
-                    }
-
-                    constrain(refNewsAndOffersChB) {
-                        top.linkTo(refPrivacyPolicyLabel.bottom, 24.dp)
-                        start.linkTo(parent.start, 16.dp)
-                    }
-
-                    constrain(refRegisterButton) {
-                        top.linkTo(refNewsAndOffersChB.bottom, 26.dp)
-                        start.linkTo(parent.start, 16.dp)
+                    constrain(refForgotPasswordTitle) {
+                        top.linkTo(refEnterButton.bottom, 10.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
@@ -212,12 +155,12 @@ fun RegistrationScreen(
                     }
                 },
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
             ) {
                 Text(
                     modifier = Modifier
-                        .layoutId("registrationTitle"),
-                    text = stringResource(id = R.string.registration_text),
+                        .layoutId("enterTitle"),
+                    text = stringResource(id = R.string.enter_text),
                     fontSize = 32.sp,
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
@@ -322,7 +265,6 @@ fun RegistrationScreen(
                                 }
                             }
                         }
-
                         Text(
                             modifier = Modifier
                                 .requiredWidth(90.dp)
@@ -364,6 +306,36 @@ fun RegistrationScreen(
                     }
                 }
 
+                //var emailPhoneText by remember { mutableStateOf(TextFieldValue("")) }
+
+//                TextField(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(start = 16.dp, end = 16.dp)
+//                        .layoutId("loginField"),
+//                    colors = TextFieldDefaults.textFieldColors(
+//                        backgroundColor = DarkBlue
+//                    ),
+//                    value = emailPhoneText,
+//                    onValueChange = {
+//                        emailPhoneText = it
+//                    },
+//                    label = {
+//                        Text(
+//                            text = stringResource(id = R.string.enter_email_or_phone),
+//                            fontSize = 10.sp,
+//                            color = if (emailPhoneText.text.isEmpty()) DarkGray else White
+//                        )
+//                    },
+//                    placeholder = {
+//                        Text(
+//                            text = stringResource(id = R.string.enter_email_or_phone),
+//                            fontSize = 14.sp,
+//                            color = White
+//                        )
+//                    },
+//                )
+
                 var password by rememberSaveable { mutableStateOf("") }
                 var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -376,10 +348,7 @@ fun RegistrationScreen(
                         backgroundColor = DarkBlue
                     ),
                     value = password,
-                    onValueChange = {
-                        password = it
-                        viewModel.onPasswordChanged(it)
-                    },
+                    onValueChange = { password = it },
                     label = {
                         Text(
                             text = stringResource(id = R.string.enter_password),
@@ -410,163 +379,36 @@ fun RegistrationScreen(
                     }
                 )
 
-                Text(
-                    modifier = Modifier
-                        .layoutId("passwordRequirementsLabel"),
-                    text = getPasswordRequirementsText(state.passwordRequirementsState),
-                    fontSize = 10.sp,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        color = LightBlue
-                    )
-                )
-
-                var promoCodeText by remember { mutableStateOf(TextFieldValue("")) }
-
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                CyberButtonWithBorder(
+                    title = stringResource(R.string.enter_text_2),
+                    onClick = { /*TODO*/ },
+                    Modifier
+                        .layoutId("enterButton")
                         .padding(start = 16.dp, end = 16.dp)
-                        .layoutId("promoField"),
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = DarkBlue
-                    ),
-                    value = promoCodeText,
-                    onValueChange = {
-                        promoCodeText = it
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.promo_code),
-                            fontSize = 10.sp,
-                            color = if (promoCodeText.text.isEmpty()) DarkGray else White
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            text = stringResource(id = R.string.promo_code),
-                            fontSize = 14.sp,
-                            color = White
-                        )
-                    },
+                        .fillMaxWidth()
+                        .height(44.dp)
                 )
 
-                SimpleCheckboxComponent(
-                    modifier = Modifier.layoutId("privacyPolicyChB"),
-                    titleResourceId = R.string.age_limit_label
-                )
-
-                ClickableText(
-                    modifier = Modifier
-                        .layoutId("regulationLabel"),
-                    text = getAnnotatedText(R.string.regulation),
-                    onClick = {
-                        //TODO
-                    }
-                )
-
-                Text(
-                    modifier = Modifier
-                        .layoutId("and1"),
-                    fontSize = 12.sp,
-                    text = stringResource(id = R.string.and)
-                )
-
-                ClickableText(
-                    modifier = Modifier
-                        .layoutId("termsOfUseLabel"),
-                    text = getAnnotatedText(R.string.terms_of_use),
-                    onClick = {
-                        //TODO
-                    }
-                )
-
-                Text(
-                    modifier = Modifier
-                        .layoutId("and2"),
-                    fontSize = 12.sp,
-                    text = stringResource(id = R.string.and)
-                )
-
-                ClickableText(
-                    modifier = Modifier
-                        .layoutId("privacyPolicyLabel"),
-                    text = getAnnotatedText(R.string.privacy_policy),
-                    onClick = {
-                        //TODO
-                    }
-                )
-
-                SimpleCheckboxComponent(
-                    modifier = Modifier.layoutId("newsAndOffersChB"),
-                    titleResourceId = R.string.newsletter_and_offers_label
-                )
-
-
-                when (state.isFieldsCorrect) {
-                    true -> CyberButton(
-                        title = stringResource(R.string.registration_text_2),
-                        16.sp,
-                        onClick = { onRegisterClickListener() },
-                        Modifier
-                            .layoutId("registerButton")
-                            .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
-                            .height(44.dp)
-                    )
-                    else -> CyberButtonWithBorder(
-                        title = stringResource(R.string.registration_text_2),
-                        onClick = {
-                            /*TODO*/
-                        },
-                        Modifier
-                            .layoutId("registerButton")
-                            .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
-                            .height(44.dp)
+                TextButton(
+                    onClick = {},
+                    modifier = Modifier.layoutId("forgotPasswordTitle")
+                ) {
+                    Text(
+                        stringResource(id = R.string.forget_password),
+                        fontSize = 16.sp,
+                        color = LightBlue
                     )
                 }
 
-                RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_register_by_text)
+                RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_join_by_text)
             }
         },
     )
 }
 
-@Composable
-private fun getAnnotatedText(labelResourceId: Int) = buildAnnotatedString {
-    withStyle(
-        style = SpanStyle(
-            color = LightBlue,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Default,
-            background = DarkBlue,
-        )
-    ) {
-        append(text = stringResource(id = labelResourceId))
-    }
-}
-
-@Composable
-private fun getPasswordRequirementsText(someCheck: Int) = when (someCheck) {
-    0 -> "✓ " + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    1 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    2 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   ✓ " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    else -> "" + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
-}
-
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-private fun RegistrationScreenPreview() {
-    RegistrationScreen({}, {})
+private fun AuthorizationScreenPreview() {
+    AuthorizationScreen({})
 }

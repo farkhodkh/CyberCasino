@@ -1,9 +1,6 @@
 package ru.cybercasino.feature.auth.ui.auth
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -22,20 +19,17 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
+import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
 import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.Red
-import ru.cybercasino.ui.elements.AppTopAppBarRegistration
+import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
-import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 
 @Composable
 fun VerificationScreen(
     onEnterClickListener: () -> Unit,
-    goToProfileScreen: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val viewModel = getViewModel<LoginScreenViewModel>()
@@ -45,7 +39,7 @@ fun VerificationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBarRegistration(
+            AppTopAppBar(
                 buttonLabelTextId = R.string.enter_text,
                 onButtonClickListener = onEnterClickListener
             )
@@ -56,12 +50,11 @@ fun VerificationScreen(
                     val refVerificationTitle = createRefFor("verificationTitle")
                     val refPasswordVerificationType = createRefFor("passwordVerificationType")
                     val refUserLoginLabel = createRefFor("userLoginLabel")
-                    val refVerificationCodeErrorField = createRefFor("verificationCodeErrorField")
                     val refVerificationCodeField = createRefFor("verificationCodeField")
-                    val refEnterButton = createRefFor("enterButton")
-                    val refResendVerificationButton = createRefFor("resendVerificationButton")
+                    val refConfirmButton = createRefFor("confirmButton")
                     val refResendVerificationCodeLabel = createRefFor("resendVerificationCodeLabel")
-                    val refVerificationCodeTimeoutLabel = createRefFor("verificationCodeTimeoutLabel")
+                    val refVerificationCodeTimeoutLabel =
+                        createRefFor("verificationCodeTimeoutLabel")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
                     val refFacebookIcon = createRefFor("facebookIcon")
                     val refTgIcon = createRefFor("tgIcon")
@@ -84,38 +77,26 @@ fun VerificationScreen(
                         end.linkTo(parent.end, 16.dp)
                     }
 
-                    constrain(refVerificationCodeErrorField) {
-                        top.linkTo(refUserLoginLabel.bottom, 45.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
                     constrain(refVerificationCodeField) {
                         top.linkTo(refUserLoginLabel.bottom, 58.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
-                    constrain(refEnterButton) {
-                        top.linkTo(refVerificationCodeField.bottom, 56.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
-                    constrain(refResendVerificationButton) {
-                        top.linkTo(refEnterButton.bottom, 16.dp)
+                    constrain(refConfirmButton) {
+                        top.linkTo(refVerificationCodeField.bottom, 111.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
                     constrain(refResendVerificationCodeLabel) {
-                        top.linkTo(refEnterButton.bottom, 16.dp)
+                        top.linkTo(refConfirmButton.bottom, 21.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
                     constrain(refVerificationCodeTimeoutLabel) {
-                        top.linkTo(refEnterButton.bottom, 16.dp)
+                        top.linkTo(refVerificationCodeField.bottom, 131.dp)
                         start.linkTo(refResendVerificationCodeLabel.end, 4.dp)
                     }
 
@@ -155,11 +136,11 @@ fun VerificationScreen(
                     )
                 )
 
-                val verificationTypeText = when (state.authentificationType) {
-                    AuthentificationType.EMail -> {
+                val verificationTypeText = when (state.passwordVerificationType) {
+                    PasswordVerificationType.EMailVerification -> {
                         stringResource(id = R.string.verification_code_sended_to_email_text)
                     }
-                    AuthentificationType.Phone -> {
+                    PasswordVerificationType.PhoneVerification -> {
                         stringResource(id = R.string.verification_code_sended_to_phone_text)
                     }
                 }
@@ -179,7 +160,7 @@ fun VerificationScreen(
                 Text(
                     modifier = Modifier
                         .layoutId("userLoginLabel"),
-                    text = state.email.orEmpty(),
+                    text = state.userLogin,
                     fontSize = 14.sp,
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
@@ -187,88 +168,64 @@ fun VerificationScreen(
                     )
                 )
 
-                Text(
-                    text = state.verificationCodeError,
-                    modifier = Modifier
-                        .layoutId("verificationCodeErrorField"),
-                    color = Red
-                )
-
                 RegistrationCodeInputScreen(
-                    onCodeEnter = { verificationCode ->
-                        viewModel.updateViewState(verificationCode = verificationCode)
-                    },
                     modifier = Modifier
                         .layoutId("verificationCodeField"),
                 )
 
-                when(state.verificationCode) {
-                    "" -> {
-                        CyberButtonWithBorder(title = stringResource(id = R.string.enter_text_2),
-                        modifier = Modifier
-                            .layoutId("enterButton")
-                            .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
-                            .height(44.dp)
-                        )
-                    }
-                    else -> {
-                        CyberButton(title = stringResource(id = R.string.enter_text_2),
-                            titleSize = 16.sp,
-                            onClick = {
-                                viewModel.checkCode()
-                            },
-                            modifier = Modifier
-                                .layoutId("enterButton")
-                                .padding(start = 16.dp, end = 16.dp)
-                                .fillMaxWidth()
-                                .height(44.dp)
-                        )
-                    }
-                }
+                CyberButton(
+                    modifier = Modifier
+                        .layoutId("confirmButton")
+                        .padding(start = 16.dp, end = 16.dp)
+                        .fillMaxWidth()
+                        .height(44.dp),
+                    title = stringResource(id = R.string.confirm),
+                    onClick = { /*TODO*/ },
+                    titleSize = 16.sp,
+                )
 
-                when(resendTimeout) {
+                when (resendTimeout) {
                     "" -> {
-                        CyberButton(title = stringResource(id = R.string.retry),
-                            titleSize = 16.sp,
-                            onClick = {
-                                viewModel.sendCode()
-                            },
-                            modifier = Modifier
-                                .layoutId("resendVerificationButton")
-                                .padding(start = 16.dp, end = 16.dp)
-                                .fillMaxWidth()
-                                .height(44.dp)
-                        )
-                    }
-                    else -> {
-                        Text(
+                        Column(
                             modifier = Modifier
                                 .layoutId("resendVerificationCodeLabel"),
-                            text = stringResource(id = R.string.resend_after_text),
-                            fontSize = 12.sp,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                textAlign = TextAlign.Center
-                            )
-                        )
+                        ) {
 
-                        Text(
-                            modifier = Modifier
-                                .layoutId("verificationCodeTimeoutLabel"),
-                            text = resendTimeout,
-                            fontSize = 12.sp,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Normal,
-                                textAlign = TextAlign.Center,
-                                color = LightBlue
+                            CyberButton(
+                                title = stringResource(id = R.string.repeat_require_verification_code),
+                                titleSize = 16.sp,
+                                onClick = { viewModel.requireVerificationCode() },
+                                modifier = Modifier
+                                    .padding(top = 26.dp, start = 16.dp, end = 16.dp)
+                                    .fillMaxWidth()
+                                    .height(44.dp)
                             )
-                        )
+                        }
                     }
-                }
+                    else -> {
+                        Row(modifier = Modifier.layoutId("resendVerificationCodeLabel")) {
+                            Text(
+                                text = stringResource(id = R.string.resend_after_text),
+                                fontSize = 12.sp,
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center
+                                )
+                            )
 
-                if (state.isAuthorised) {
-                    goToProfileScreen()
+                            Text(
+                                modifier = Modifier
+                                    .padding(start = 4.dp),
+                                text = resendTimeout,
+                                fontSize = 12.sp,
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Normal,
+                                    textAlign = TextAlign.Center,
+                                    color = LightBlue
+                                )
+                            )
+                        }
+                    }
                 }
 
                 RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_register_by_text)
