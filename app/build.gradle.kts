@@ -48,6 +48,6 @@ dependencies {
 
     implementation(project(":ui"))
     implementation(project(":feature-auth"))
-    implementation(project(":feature-auth-api"))
-    implementation(project(":network"))
+//    implementation(project(":feature-auth-api"))
+//    implementation(project(":service-network"))
 }

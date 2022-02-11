@@ -7,8 +7,6 @@
 package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -17,11 +15,9 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,12 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
-import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
+import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
-import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 
 /**
@@ -51,6 +47,8 @@ import ru.cybercasino.ui.elements.CyberButtonWithBorder
 fun AuthorizationScreen(
     onClickListener: () -> Unit
 ) {
+    val viewModel = getViewModel<LoginScreenViewModel>()
+    val state by viewModel.state.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -213,7 +211,9 @@ fun AuthorizationScreen(
 
                 CyberButtonWithBorder(
                     title = stringResource(R.string.enter_text_2),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        viewModel.login()
+                    },
                     Modifier
                         .layoutId("enterButton")
                         .padding(start = 16.dp, end = 16.dp)

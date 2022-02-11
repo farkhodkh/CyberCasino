@@ -32,4 +32,7 @@ dependencies {
     api(libs.accompanist.pager.indicators)
 
     implementation(project(":ui"))
+    implementation(project(":core"))
+//    implementation(project(":service-network"))
+//    implementation(project(":feature-auth-api"))
 }
