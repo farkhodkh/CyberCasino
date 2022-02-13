@@ -327,33 +327,33 @@ fun RegistrationScreen(
                             }
                         }
 
-//                        TextField(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(start = 16.dp, end = 16.dp)
-//                                .layoutId("phoneField"),
-//                            colors = TextFieldDefaults.textFieldColors(
-//                                backgroundColor = DarkBlue
-//                            ),
-//                            value = phoneText,
-//                            onValueChange = {
-//                                phoneText = it
-//                            },
-//                            label = {
-//                                Text(
-//                                    text = stringResource(id = R.string.phone),
-//                                    fontSize = 10.sp,
-//                                    color = if (phoneText.text.isEmpty()) DarkGray else White
-//                                )
-//                            },
-//                            placeholder = {
-//                                Text(
-//                                    text = stringResource(id = R.string.phone),
-//                                    fontSize = 14.sp,
-//                                    color = White
-//                                )
-//                            },
-//                        )
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp)
+                                .layoutId("phoneField"),
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = DarkBlue
+                            ),
+                            value = phoneText,
+                            onValueChange = {
+                                phoneText = it
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 10.sp,
+                                    color = if (phoneText.text.isEmpty()) DarkGray else White
+                                )
+                            },
+                            placeholder = {
+                                Text(
+                                    text = stringResource(id = R.string.phone),
+                                    fontSize = 14.sp,
+                                    color = White
+                                )
+                            },
+                        )
                     }
                 }
 
@@ -500,7 +500,12 @@ fun RegistrationScreen(
                 when (state.isFieldsCorrect) {
                     true -> CyberButton(
                         title = stringResource(R.string.registration_text_2),
-                        onClick = { onRegisterClickListener() },
+                        onClick = {
+                            viewModel.register(
+
+                            )
+                            onRegisterClickListener()
+                                  },
                         Modifier
                             .layoutId("registerButton")
                             .padding(start = 16.dp, end = 16.dp)

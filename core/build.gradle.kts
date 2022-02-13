@@ -16,13 +16,13 @@ android {
 }
 
 dependencies {
-    api(libs.kotlinCoroutines)
-
     api(libs.koin.android)
-
-    api(libs.retrofit)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.activity.compose)
+    api(libs.kotlinCoroutines)
     api(libs.retrofitConverter)
-    implementation(libs.retrofitLoggingInterceptor)
+    api(libs.retrofit)
+    implementation(libs.datastore.preferences)
 
     api(libs.moshi)
     kapt(libs.moshiCodeGen)

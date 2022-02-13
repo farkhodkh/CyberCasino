@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.LoginController
 
 /**
@@ -89,7 +90,17 @@ class LoginScreenViewModel(
     }
 
     fun login() {
-        loginController.login()
+        viewModelScope.launch {
+            loginController
+                .login()
+        }
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            loginController
+                .registerNewUser()
+        }
     }
 }
 
