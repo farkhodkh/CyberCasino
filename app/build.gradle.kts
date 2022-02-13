@@ -16,8 +16,11 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isMinifyEnabled = false
         }
     }
     compileOptions {
@@ -45,7 +48,11 @@ dependencies {
     api(libs.accompanist.insetsUi)
     api(libs.accompanist.systemUiController)
     implementation(libs.koin.compose)
+//    implementation(libs.androidx.compose.runtime)
 
     implementation(project(":ui"))
+    implementation(project(":core"))
     implementation(project(":feature-auth"))
+    implementation(project(":feature-auth-api"))
+    implementation(project(":service-network"))
 }

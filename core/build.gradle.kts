@@ -1,45 +1,29 @@
 plugins {
-    id("org.jetbrains.kotlin.android")
-    id("com.android.application")
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
-    compileSdk = 31
+    compileSdk = Config.COMPILE_SDK
 
-    defaultConfig {
-        applicationId = "ru.cybercasino.core"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    buildFeatures {
+        compose = true
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxCompose.get()
     }
 }
 
 dependencies {
+    api(libs.koin.android)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.activity.compose)
+    api(libs.kotlinCoroutines)
+    api(libs.retrofitConverter)
+    api(libs.retrofit)
+    implementation(libs.datastore.preferences)
 
-//    implementation("androidx.core:core-ktx:1.7.0")
-//    implementation("androidx.appcompat:appcompat:1.3.0")
-//    implementation("com.google.android.material:material:1.4.0")
-//    testImplementation("junit:junit:4.13.2")
-//    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-//    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    api(libs.moshi)
+    kapt(libs.moshiCodeGen)
 }

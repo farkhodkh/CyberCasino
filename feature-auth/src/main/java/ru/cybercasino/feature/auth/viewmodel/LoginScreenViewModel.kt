@@ -1,15 +1,19 @@
 package ru.cybercasino.feature.auth.viewmodel
 
 import android.os.CountDownTimer
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import ru.cybercasino.feature.auth.LoginController
 
 /**
  * Login view model
  */
-class LoginScreenViewModel : ViewModel() {
+class LoginScreenViewModel(
+    private val loginController: LoginController
+) : ViewModel() {
 
     /**
      * TODO - update after repo added
@@ -83,6 +87,20 @@ class LoginScreenViewModel : ViewModel() {
 
     fun onPasswordChanged(pass: String) {
         state.value.passwordRequirementsState = (0..3).random()
+    }
+
+    fun login() {
+        viewModelScope.launch {
+            loginController
+                .login()
+        }
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            loginController
+                .registerNewUser()
+        }
     }
 }
 

@@ -1,17 +1,37 @@
 package ru.cybercasino.android.system.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.service_network.interceptors.ApiHeadersInterceptor
+import ru.cybercasino.service_network.retrofit.RetrofitProvider
+import ru.cybercasino.service_network.retrofit.RetrofitProviderImpl
 
 /**
  * The application module.
  */
 val appModule = module {
-//    factory<NavigationIntentProvider> { NavigationIntentProviderImpl() }
+
+    factory { ApiHeadersInterceptor() }
+    single<RetrofitProvider> { RetrofitProviderImpl() }
+
+//    single {
+//        LoginController(
+//            CoroutineScope(Dispatchers.Default),
+//            get<Retrofit>(named(Environment.Basic)).create(
+//                AuthenticationApi::class.java
+//            )
+//        )
+//    }
 //
-//    single(named(Basic)) { createBasicRetrofit() }
+//    single(named(Environment.Basic.buildType)) { createBasicRetrofit() }
+//
+//    viewModel { LoginScreenViewModel(get()) }
 //    single(named(Authenticated)) { createAuthenticatedRetrofit() }
 
-    viewModel { LoginScreenViewModel() }
 }
+
+//private fun Scope.createBasicRetrofit() =
+//    get<RetrofitProvider>().provide(
+//        interceptors = listOf(
+//            get<ApiHeadersInterceptor>(),
+//        )
+//    )

@@ -36,7 +36,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
+import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
@@ -51,6 +53,8 @@ import ru.cybercasino.ui.elements.CyberButtonWithBorder
 fun AuthorizationScreen(
     onClickListener: () -> Unit
 ) {
+    val viewModel = getViewModel<LoginScreenViewModel>()
+    val state by viewModel.state.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -213,7 +217,7 @@ fun AuthorizationScreen(
 
                 CyberButtonWithBorder(
                     title = stringResource(R.string.enter_text_2),
-                    onClick = { /*TODO*/ },
+                    onClick = { viewModel.login() },
                     Modifier
                         .layoutId("enterButton")
                         .padding(start = 16.dp, end = 16.dp)
