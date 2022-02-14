@@ -7,6 +7,7 @@ import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -21,9 +22,10 @@ import ru.cybercasino.ui.Dark
 @Composable
 fun SimpleCheckboxComponent(
     modifier: Modifier,
-    titleResourceId: Int
+    titleResourceId: Int,
+    checkedStateValue: MutableState<Boolean>
 ) {
-    val checkedState = remember { mutableStateOf(false) }
+    val checkedState = remember { checkedStateValue }
 
     Row(
         modifier = modifier,

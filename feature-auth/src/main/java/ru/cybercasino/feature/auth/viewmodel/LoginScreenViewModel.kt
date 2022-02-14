@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.LoginController
+import ru.cybercasino.ui.utils.CountryCodeAndFlag
+import ru.cybercasino.ui.utils.defaultCountryData
 
 /**
  * Login view model
@@ -27,7 +29,8 @@ class LoginScreenViewModel(
 //            )
 //        } ?: InitialState
 //    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), InitialState)
-    val state: StateFlow<State> = MutableStateFlow(InitialState)
+    val _state: MutableStateFlow<State> = MutableStateFlow(InitialState)
+    val state: StateFlow<State> = _state
 
     private val _resendTimeout: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -65,9 +68,39 @@ class LoginScreenViewModel(
         val isAuthorised: Boolean,
 
         /**
-         * User login
+         * User e-mail
          */
-        val userLogin: String,
+        val email: String,
+
+        /**
+         * User phone
+         */
+        val phone: String,
+
+        /**
+         * User country
+         */
+        val selectedCountry: CountryCodeAndFlag,
+
+        /**
+         * User country
+         */
+        val password: String,
+
+        /**
+         * User promo code
+         */
+        val promoCodeText: String,
+
+        /**
+         * User privacy policy accepted
+         */
+        val privacyPolicyCheckedState: Boolean,
+
+        /**
+         * Usernews and offers accepted
+         */
+        val newsAndOffersCheckedState: Boolean,
 
         /**
          * If the all required fields correctly filled
@@ -84,6 +117,38 @@ class LoginScreenViewModel(
          */
         var passwordVerificationType: PasswordVerificationType,
     )
+
+    fun updateViewState(
+        email: String? = null,
+        phone: String? = null,
+        selectedCountry: CountryCodeAndFlag? = null,
+        password: String? = null,
+        promoCodeText: String? = null,
+        privacyPolicyCheckedState: Boolean? = null,
+        newsAndOffersCheckedState: Boolean? = null,
+    ) {
+        val isFieldsCorrect =
+            !email.isNullOrEmpty() &&
+                    !phone.isNullOrEmpty() &&
+                    !password.isNullOrEmpty() &&
+                    privacyPolicyCheckedState == true &&
+                    newsAndOffersCheckedState == true
+
+        val currentState = _state.value
+
+        val newState = _state.value.copy(
+            phone = phone ?: currentState.phone,
+            email = email ?: currentState.email,
+            selectedCountry = selectedCountry ?: currentState.selectedCountry,
+            password = password ?: currentState.password,
+            promoCodeText = promoCodeText ?: currentState.promoCodeText,
+            privacyPolicyCheckedState = privacyPolicyCheckedState ?: currentState.privacyPolicyCheckedState,
+            newsAndOffersCheckedState = privacyPolicyCheckedState ?: currentState.newsAndOffersCheckedState,
+            isFieldsCorrect = isFieldsCorrect
+        )
+
+        _state.tryEmit(newState)
+    }
 
     fun onPasswordChanged(pass: String) {
         state.value.passwordRequirementsState = (0..3).random()
@@ -107,8 +172,14 @@ class LoginScreenViewModel(
 private val InitialState = LoginScreenViewModel.State(
     isLoading = false,
     isAuthorised = false,
-    userLogin = "Alabay@gmail.com",
-    isFieldsCorrect = true,
+    email = "Alabay@gmail.com",
+    phone = "9654513156",
+    selectedCountry = defaultCountryData,
+    password = "",
+    promoCodeText = "",
+    privacyPolicyCheckedState = false,
+    newsAndOffersCheckedState = false,
+    isFieldsCorrect = false,
     0,
     PasswordVerificationType.EMailVerification
 )

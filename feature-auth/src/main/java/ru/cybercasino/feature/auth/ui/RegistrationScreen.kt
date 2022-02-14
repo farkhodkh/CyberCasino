@@ -19,7 +19,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -63,6 +62,19 @@ fun RegistrationScreen(
 
     val viewModel = getViewModel<LoginScreenViewModel>()
     val state by viewModel.state.collectAsState()
+
+    var emailText by remember { mutableStateOf(TextFieldValue("")) }
+    var phoneText by remember { mutableStateOf(TextFieldValue("")) }
+    val countriesCodeList = getCountriesList()
+    var selectedCountryItemIndex by remember {
+        mutableStateOf(
+            countriesCodeList.indexOf(
+                defaultCountryData
+            )
+        )
+    }
+    var password by rememberSaveable { mutableStateOf("") }
+    var promoCodeText by remember { mutableStateOf(TextFieldValue("")) }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -252,9 +264,6 @@ fun RegistrationScreen(
                     }
                 }
 
-                var emailText by remember { mutableStateOf(TextFieldValue("")) }
-                var phoneText by remember { mutableStateOf(TextFieldValue("")) }
-
                 when (selectedTabIndex) {
                     0 -> {
                         TextField(
@@ -268,6 +277,7 @@ fun RegistrationScreen(
                             value = emailText,
                             onValueChange = {
                                 emailText = it
+                                viewModel.updateViewState( email = it.text )
                             },
                             label = {
                                 Text(
@@ -288,21 +298,13 @@ fun RegistrationScreen(
                     }
                     1 -> {
                         var expanded by remember { mutableStateOf(false) }
-                        val items = getCountriesList()
-                        var selectedIndex by remember {
-                            mutableStateOf(
-                                items.indexOf(
-                                    defaultCountryData
-                                )
-                            )
-                        }
 
                         Box(
                             modifier = Modifier
                                 .layoutId("countriesDropdownMenu")
                         ) {
                             Text(
-                                items[selectedIndex].flag,
+                                countriesCodeList[selectedCountryItemIndex].flag,
                                 modifier = Modifier
                                     .padding(top = 26.dp)
                                     .width(40.dp)
@@ -314,7 +316,7 @@ fun RegistrationScreen(
                                 onDismissRequest = { expanded = false },
                             ) {
                                 DropdownMenuItem(onClick = {
-                                    selectedIndex = items.indexOf(defaultCountryData)
+                                    selectedCountryItemIndex = countriesCodeList.indexOf(defaultCountryData)
                                     expanded = false
                                 }) {
                                     Text(
@@ -324,9 +326,9 @@ fun RegistrationScreen(
 
                                 Divider()
 
-                                items.forEachIndexed { index, s ->
+                                countriesCodeList.forEachIndexed { index, s ->
                                     DropdownMenuItem(onClick = {
-                                        selectedIndex = index
+                                        selectedCountryItemIndex = index
                                         expanded = false
                                     }) {
                                         Text(
@@ -338,7 +340,7 @@ fun RegistrationScreen(
                         }
 
                         Text(
-                            text = items[selectedIndex].code,
+                            text = countriesCodeList[selectedCountryItemIndex].code,
                             modifier = Modifier
                                 .padding(top = 26.dp)
                                 .layoutId("countriesCodeField")
@@ -376,7 +378,6 @@ fun RegistrationScreen(
                     }
                 }
 
-                var password by rememberSaveable { mutableStateOf("") }
                 var passwordVisibility by remember { mutableStateOf(false) }
 
                 TextField(
@@ -434,8 +435,6 @@ fun RegistrationScreen(
                     )
                 )
 
-                var promoCodeText by remember { mutableStateOf(TextFieldValue("")) }
-
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -464,9 +463,12 @@ fun RegistrationScreen(
                     },
                 )
 
+                val privacyPolicyCheckedState = mutableStateOf(false)
+
                 SimpleCheckboxComponent(
                     modifier = Modifier.layoutId("privacyPolicyChB"),
-                    titleResourceId = R.string.age_limit_label
+                    titleResourceId = R.string.age_limit_label,
+                    checkedStateValue = privacyPolicyCheckedState
                 )
 
                 ClickableText(
@@ -506,24 +508,23 @@ fun RegistrationScreen(
                         .layoutId("privacyPolicyLabel"),
                     text = getAnnotatedText(R.string.privacy_policy),
                     onClick = {
-                        //TODO
+                        viewModel.updateViewState()
                     }
                 )
 
+                val newsAndOffersChBCheckedState = mutableStateOf(false)
+
                 SimpleCheckboxComponent(
                     modifier = Modifier.layoutId("newsAndOffersChB"),
-                    titleResourceId = R.string.newsletter_and_offers_label
+                    titleResourceId = R.string.newsletter_and_offers_label,
+                    checkedStateValue = newsAndOffersChBCheckedState
                 )
-
 
                 when (state.isFieldsCorrect) {
                     true -> CyberButton(
                         title = stringResource(R.string.registration_text_2),
                         onClick = {
-                            viewModel.register(
-
-                            )
-                            onRegisterClickListener()
+                            viewModel.register()
                         },
                         modifier = Modifier
                             .layoutId("registerButton")
@@ -534,9 +535,6 @@ fun RegistrationScreen(
                     )
                     else -> CyberButtonWithBorder(
                         title = stringResource(R.string.registration_text_2),
-                        onClick = {
-                            /*TODO*/
-                        },
                         Modifier
                             .layoutId("registerButton")
                             .padding(start = 16.dp, end = 16.dp)

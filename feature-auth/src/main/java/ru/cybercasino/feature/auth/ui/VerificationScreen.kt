@@ -151,7 +151,7 @@ fun VerificationScreen(
                 Text(
                     modifier = Modifier
                         .layoutId("userLoginLabel"),
-                    text = state.userLogin,
+                    text = state.email,
                     fontSize = 14.sp,
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
