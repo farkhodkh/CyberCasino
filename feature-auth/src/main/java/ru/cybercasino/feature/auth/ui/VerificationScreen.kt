@@ -24,7 +24,7 @@ import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
-import ru.cybercasino.ui.elements.PasswordVerificationScreen
+import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 
 @Composable
 fun VerificationScreen(
@@ -159,7 +159,7 @@ fun VerificationScreen(
                     )
                 )
 
-                PasswordVerificationScreen(
+                RegistrationCodeInputScreen(
                     modifier = Modifier
                         .layoutId("verificationCodeField"),
                 )

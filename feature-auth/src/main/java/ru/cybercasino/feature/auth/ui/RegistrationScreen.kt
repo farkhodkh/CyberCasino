@@ -9,10 +9,8 @@ package ru.cybercasino.feature.auth.ui.auth
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -21,6 +19,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -50,6 +49,8 @@ import ru.cybercasino.ui.elements.AppTopAppBar
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.elements.SimpleCheckboxComponent
+import ru.cybercasino.ui.utils.defaultCountryData
+import ru.cybercasino.ui.utils.getCountriesList
 
 @Composable
 fun RegistrationScreen(
@@ -78,6 +79,7 @@ fun RegistrationScreen(
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refCountriesCodeField = createRefFor("countriesCodeField")
                     val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
                     val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
@@ -115,12 +117,16 @@ fun RegistrationScreen(
                     constrain(refCountriesDropdownMenu) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
                         start.linkTo(parent.start, 16.dp)
-                        //end.linkTo(parent.end, 16.dp)
+                    }
+
+                    constrain(refCountriesCodeField) {
+                        top.linkTo(refTabRowField.bottom, 26.dp)
+                        start.linkTo(refCountriesDropdownMenu.end, 8.dp)
                     }
 
                     constrain(refPhoneField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 206.dp)
+                        start.linkTo(refCountriesCodeField.end, 36.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
@@ -277,55 +283,67 @@ fun RegistrationScreen(
                                     color = White
                                 )
                             },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                         )
                     }
                     1 -> {
-//                        var expanded by remember { mutableStateOf(true)}
-//                        val cityList = listOf("Россия", "Казахстан", "Беларусь")
-//
-//                        DropdownMenu(
-//                            modifier = Modifier
-//                                .width(140.dp)
-//                                .layoutId("countriesDropdownMenu"),
-//                            expanded = expanded,
-//                            properties = PopupProperties(focusable = true),
-//                            onDismissRequest = {
-//                                expanded = false
-//                            }
-//                        ) {
-//                            cityList.forEach { city ->
-//                                DropdownMenuItem(onClick = {
-//                                    expanded = false
-//                                }) {
-//                                    Text(city)
-//                                }
-//                            }
-//                        }
+                        var expanded by remember { mutableStateOf(false) }
+                        val items = getCountriesList()
+                        var selectedIndex by remember {
+                            mutableStateOf(
+                                items.indexOf(
+                                    defaultCountryData
+                                )
+                            )
+                        }
 
-                        var expanded = remember { mutableStateOf(false) }
-
-//                        val iconButton = @Composable {
-//                            IconButton(onClick = { expanded.value = true }) {
-//                                Icon(Icons.Default.MoreVert)
-//                            }
-//                        }
-
-                        DropdownMenu(
-                            expanded = expanded.value,
-                            onDismissRequest = { expanded.value = false },
-                            //toggle = iconButton,
-                            modifier = Modifier.layoutId("countriesDropdownMenu")
+                        Box(
+                            modifier = Modifier
+                                .layoutId("countriesDropdownMenu")
                         ) {
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Share")
-                            }
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Report ")
-                            }
-                            DropdownMenuItem(onClick = { }) {
-                                Text("Follow")
+                            Text(
+                                items[selectedIndex].flag,
+                                modifier = Modifier
+                                    .padding(top = 26.dp)
+                                    .width(40.dp)
+                                    .clickable(onClick = { expanded = true }),
+                                fontSize = 16.sp
+                            )
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    selectedIndex = items.indexOf(defaultCountryData)
+                                    expanded = false
+                                }) {
+                                    Text(
+                                        text = defaultCountryData.codeAndFlag,
+                                    )
+                                }
+
+                                Divider()
+
+                                items.forEachIndexed { index, s ->
+                                    DropdownMenuItem(onClick = {
+                                        selectedIndex = index
+                                        expanded = false
+                                    }) {
+                                        Text(
+                                            text = s.codeAndFlag,
+                                        )
+                                    }
+                                }
                             }
                         }
+
+                        Text(
+                            text = items[selectedIndex].code,
+                            modifier = Modifier
+                                .padding(top = 26.dp)
+                                .layoutId("countriesCodeField")
+                                .width(120.dp)
+                        )
 
                         TextField(
                             modifier = Modifier
@@ -353,6 +371,7 @@ fun RegistrationScreen(
                                     color = White
                                 )
                             },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                         )
                     }
                 }
@@ -505,12 +524,13 @@ fun RegistrationScreen(
 
                             )
                             onRegisterClickListener()
-                                  },
-                        Modifier
+                        },
+                        modifier = Modifier
                             .layoutId("registerButton")
                             .padding(start = 16.dp, end = 16.dp)
                             .fillMaxWidth()
-                            .height(44.dp)
+                            .height(44.dp),
+                        titleSize = 16.sp
                     )
                     else -> CyberButtonWithBorder(
                         title = stringResource(R.string.registration_text_2),
