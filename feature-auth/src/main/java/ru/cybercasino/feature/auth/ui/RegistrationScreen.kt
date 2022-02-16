@@ -94,7 +94,7 @@ fun RegistrationScreen(
                     val refCountriesCodeField = createRefFor("countriesCodeField")
                     val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
-                    val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
+//                    val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
                     val refPromoField = createRefFor("promoField")
                     val refPrivacyPolicy = createRefFor("privacyPolicyChB")
                     val refNewsAndOffersChB = createRefFor("newsAndOffersChB")
@@ -148,11 +148,11 @@ fun RegistrationScreen(
                         end.linkTo(parent.end, 16.dp)
                     }
 
-                    constrain(refPasswordRequirementsLabel) {
-                        top.linkTo(refPasswordField.bottom, 8.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
+//                    constrain(refPasswordRequirementsLabel) {
+//                        top.linkTo(refPasswordField.bottom, 8.dp)
+//                        start.linkTo(parent.start, 16.dp)
+//                        end.linkTo(parent.end, 16.dp)
+//                    }
 
                     constrain(refPromoField) {
                         top.linkTo(refPasswordField.bottom, 46.dp)
@@ -277,13 +277,20 @@ fun RegistrationScreen(
                             value = emailText,
                             onValueChange = {
                                 emailText = it
-                                viewModel.updateViewState( email = it.text )
+                                viewModel.updateViewState(email = it.text)
                             },
                             label = {
                                 Text(
-                                    text = stringResource(id = R.string.email),
+                                    text = if (state.emailErrors.isNotEmpty()) state.emailErrors.first() else stringResource(
+                                        id = R.string.email
+                                    ),
                                     fontSize = 10.sp,
-                                    color = if (emailText.text.isEmpty()) DarkGray else White
+                                    color = if (password.isEmpty())
+                                        DarkGray
+                                    else if (state.emailErrors.isNotEmpty())
+                                        Red
+                                    else
+                                        White
                                 )
                             },
                             placeholder = {
@@ -315,10 +322,14 @@ fun RegistrationScreen(
                                 expanded = expanded,
                                 onDismissRequest = { expanded = false },
                             ) {
-                                DropdownMenuItem(onClick = {
-                                    selectedCountryItemIndex = countriesCodeList.indexOf(defaultCountryData)
-                                    expanded = false
-                                }) {
+                                DropdownMenuItem(
+                                    onClick = {
+                                        selectedCountryItemIndex =
+                                            countriesCodeList.indexOf(defaultCountryData)
+                                        viewModel.updateViewState(selectedCountry = countriesCodeList[selectedCountryItemIndex])
+                                        expanded = false
+                                    })
+                                {
                                     Text(
                                         text = defaultCountryData.codeAndFlag,
                                     )
@@ -329,6 +340,7 @@ fun RegistrationScreen(
                                 countriesCodeList.forEachIndexed { index, s ->
                                     DropdownMenuItem(onClick = {
                                         selectedCountryItemIndex = index
+                                        viewModel.updateViewState(selectedCountry = countriesCodeList[selectedCountryItemIndex])
                                         expanded = false
                                     }) {
                                         Text(
@@ -357,13 +369,21 @@ fun RegistrationScreen(
                             ),
                             value = phoneText,
                             onValueChange = {
+                                viewModel.updateViewState(phone = it.text)
                                 phoneText = it
                             },
                             label = {
                                 Text(
-                                    text = stringResource(id = R.string.phone),
+                                    text = if (state.phoneErrors.isNotEmpty()) state.phoneErrors.first() else stringResource(
+                                        id = R.string.phone
+                                    ),
                                     fontSize = 10.sp,
-                                    color = if (phoneText.text.isEmpty()) DarkGray else White
+                                    color = if (password.isEmpty())
+                                        DarkGray
+                                    else if (state.phoneErrors.isNotEmpty())
+                                        Red
+                                    else
+                                        White
                                 )
                             },
                             placeholder = {
@@ -392,12 +412,21 @@ fun RegistrationScreen(
                     onValueChange = {
                         password = it
                         viewModel.onPasswordChanged(it)
+                        viewModel.updateViewState(password = it)
                     },
                     label = {
                         Text(
-                            text = stringResource(id = R.string.enter_password),
+                            text = if (state.passwordErrors.isNotEmpty()) state.passwordErrors.first() else stringResource(
+                                id = R.string.enter_password
+                            ),
                             fontSize = 10.sp,
-                            color = if (password.isEmpty()) DarkGray else White
+                            color =
+                            if (password.isEmpty())
+                                DarkGray
+                            else if (state.passwordErrors.isNotEmpty())
+                                Red
+                            else
+                                White
                         )
                     },
                     placeholder = {
@@ -423,17 +452,17 @@ fun RegistrationScreen(
                     }
                 )
 
-                Text(
-                    modifier = Modifier
-                        .layoutId("passwordRequirementsLabel"),
-                    text = getPasswordRequirementsText(state.passwordRequirementsState),
-                    fontSize = 10.sp,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center,
-                        color = LightBlue
-                    )
-                )
+//                Text(
+//                    modifier = Modifier
+//                        .layoutId("passwordRequirementsLabel"),
+//                    text = getPasswordRequirementsText(state.passwordRequirementsState),
+//                    fontSize = 10.sp,
+//                    style = TextStyle(
+//                        fontWeight = FontWeight.Normal,
+//                        textAlign = TextAlign.Center,
+//                        color = LightBlue
+//                    )
+//                )
 
                 TextField(
                     modifier = Modifier
@@ -468,7 +497,12 @@ fun RegistrationScreen(
                 SimpleCheckboxComponent(
                     modifier = Modifier.layoutId("privacyPolicyChB"),
                     titleResourceId = R.string.age_limit_label,
-                    checkedStateValue = privacyPolicyCheckedState
+                    checkedStateValue = privacyPolicyCheckedState,
+                    onCheckedChanged = { value ->
+                        viewModel.updateViewState(
+                            privacyPolicyCheckedState = value
+                        )
+                    }
                 )
 
                 ClickableText(
@@ -517,14 +551,19 @@ fun RegistrationScreen(
                 SimpleCheckboxComponent(
                     modifier = Modifier.layoutId("newsAndOffersChB"),
                     titleResourceId = R.string.newsletter_and_offers_label,
-                    checkedStateValue = newsAndOffersChBCheckedState
+                    checkedStateValue = newsAndOffersChBCheckedState,
+                    onCheckedChanged = { value ->
+                        viewModel.updateViewState(
+                            newsAndOffersCheckedState = value
+                        )
+                    }
                 )
 
                 when (state.isFieldsCorrect) {
                     true -> CyberButton(
                         title = stringResource(R.string.registration_text_2),
                         onClick = {
-                            viewModel.register()
+                            viewModel.validateNewUser()
                         },
                         modifier = Modifier
                             .layoutId("registerButton")
@@ -541,6 +580,10 @@ fun RegistrationScreen(
                             .fillMaxWidth()
                             .height(44.dp)
                     )
+                }
+
+                if (state.verificationCodeRequest) {
+                    onRegisterClickListener()
                 }
 
                 RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_register_by_text)

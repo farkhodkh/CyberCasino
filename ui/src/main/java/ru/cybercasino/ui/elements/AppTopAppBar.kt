@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
+import ru.cybercasino.ui.utils.defaultCountryData
 
 /**
  * Application top bar screen
@@ -37,9 +39,9 @@ fun AppTopAppBar(
                     //scope.launch { scaffoldState.drawerState.open() }
                 }
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_menu),
-                    contentDescription = "Menu"
+                Text(
+                    text = defaultCountryData.flag,
+                    fontSize = 16.sp
                 )
             }
         },

@@ -20,8 +20,6 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.activity.compose)
     api(libs.kotlinCoroutines)
-    api(libs.retrofitConverter)
-    api(libs.retrofit)
     implementation(libs.datastore.preferences)
 
     api(libs.moshi)

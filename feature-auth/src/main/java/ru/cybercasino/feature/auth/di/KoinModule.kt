@@ -31,7 +31,7 @@ val appModuleAuth = module {
             get()
         )
     }
-    viewModel { LoginScreenViewModel(get()) }
+    viewModel { LoginScreenViewModel(get(), get()) }
 }
 
 private fun Scope.createBasicRetrofit() =

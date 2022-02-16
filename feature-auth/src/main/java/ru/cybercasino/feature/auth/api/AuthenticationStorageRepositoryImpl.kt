@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import ru.cybercasino.core.network.security.EncryptionResult
 import ru.cybercasino.core.network.security.SecurityHelper
@@ -21,7 +22,7 @@ import ru.cybercasino.feature.auth.ClientStatus
 @Suppress("TooManyFunctions")
 class AuthenticationStorageRepositoryImpl(
     private val context: Context,
-    private val security: SecurityHelper
+    private val security: SecurityHelper,
 ) : AuthenticationStorageRepository {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
@@ -35,7 +36,8 @@ class AuthenticationStorageRepositoryImpl(
     override suspend fun getStatus(): Flow<ClientStatus> =
         context.dataStore.data
             .map { preferences ->
-                preferences[KEY_STATUS]?.let { ClientStatus.valueOf(it) } ?: ClientStatus.NOT_LOGGED_IN
+                preferences[KEY_STATUS]?.let { ClientStatus.valueOf(it) }
+                    ?: ClientStatus.NOT_LOGGED_IN
             }
 
     override suspend fun setToken(value: String?) =
@@ -48,15 +50,49 @@ class AuthenticationStorageRepositoryImpl(
         setEncrypted(KEY_LOGIN_EMAIL, value)
     }
 
-    override suspend fun getLoginEmail(): Flow<String?> =
-        getEncrypted(KEY_LOGIN_EMAIL)
+    override suspend fun getLoginEmail(): Flow<String?> = getEncrypted(KEY_LOGIN_EMAIL)
 
     override suspend fun setLoginName(value: String?) {
         setEncrypted(KEY_LOGIN_NAME, value)
     }
 
+    override suspend fun getLoginPhone(): Flow<String?> = getEncrypted(KEY_PHONE)
+
+    override suspend fun setLoginPhone(value: String?) {
+        setEncrypted(KEY_PHONE, value)
+    }
+
     override suspend fun getLoginName(): Flow<String?> =
         getEncrypted(KEY_LOGIN_NAME)
+
+    override suspend fun setPass(value: String?) {
+        setEncrypted(KEY_PASS, value)
+    }
+
+    override suspend fun getPass(): Flow<String> = getEncrypted(KEY_PASS)
+
+    override suspend fun getVerificationCode(): Flow<String> = getEncrypted(KEY_VERIFICATION_CODE)
+
+    override suspend fun setVerificationCode(value: String?) {
+        setEncrypted(KEY_VERIFICATION_CODE, value)
+    }
+
+    override suspend fun getLoginInfo(): Flow<LoginInfo?> = combine(
+        getStatus(),
+        getLoginEmail(),
+        getLoginPhone(),
+        getPass(),
+        getVerificationCode()
+    ) { status, email, phone, pass, verificationCode->
+
+        if (email?.isEmpty() == true && phone?.isEmpty() == true) {
+            null
+        } else if (status in listOf(ClientStatus.LOGGED_IN, ClientStatus.VERIFICATION)) {
+            LoginInfo(email, phone, pass, verificationCode)
+        } else {
+            null
+        }
+    }
 
     private suspend fun setEncrypted(key: Preferences.Key<String>, value: String?) {
         context.dataStore.edit { preferences ->
@@ -68,17 +104,21 @@ class AuthenticationStorageRepositoryImpl(
         }
     }
 
-    private suspend fun getEncrypted(key: Preferences.Key<String>): Flow<String?> =
+    private suspend fun getEncrypted(key: Preferences.Key<String>): Flow<String> =
         context.dataStore.data
             .map { preferences ->
-                preferences[key]?.let { security.decrypt(EncryptionResult.deserialize(it)) }
+                preferences[key]?.let { security.decrypt(EncryptionResult.deserialize(it)) } ?: ""
             }
 }
 
+class LoginInfo(val email: String?, val phone: String?, val password: String = "", val verificationCode: String = "")
+
 private const val PREFERENCES_NAME = "cz.kosik.library.auth.info"
 
+private val KEY_PASS = stringPreferencesKey("password")
+private val KEY_VERIFICATION_CODE = stringPreferencesKey("verification_code")
 private val KEY_STATUS = stringPreferencesKey("status")
-private val KEY_UUID = stringPreferencesKey("uuid")
+private val KEY_PHONE = stringPreferencesKey("phone")
 private val KEY_TOKEN = stringPreferencesKey("access_token")
 private val KEY_LOGIN_EMAIL = stringPreferencesKey("login_email")
 private val KEY_LOGIN_NAME = stringPreferencesKey("login_name")

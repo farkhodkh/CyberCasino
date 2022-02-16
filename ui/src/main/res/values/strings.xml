@@ -26,6 +26,7 @@
     <string name="verification_code_sended_to_phone_text">Проверочный код отправлен на номер</string>
     <string name="resend_after_text">Отправить повторно через</string>
     <string name="confirm">Подтвердить</string>
+    <string name="retry">Повторить</string>
     <string name="repeat_require_verification_code">Запросить код повторно</string>
     <string name="registration_finish">Регистрация прошла успешно</string>
     <string name="congratulations_registration_finish">Поздравляем!\n Вы успешно зарегестрировались</string>

@@ -24,7 +24,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.compose.material.icons.extended)
-//    implementation(libs.androidx.compose.runtime)
+    implementation(libs.gson)
 
     api(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)

@@ -44,6 +44,18 @@ interface AuthenticationStorageRepository {
     suspend fun getLoginEmail(): Flow<String?>
 
     /**
+     * Sets the phone the client used during login.
+     *
+     * @param value The new value.
+     */
+    suspend fun setLoginPhone(value: String?)
+
+    /**
+     * Gets the flow with phone the client used during login.
+     */
+    suspend fun getLoginPhone(): Flow<String?>
+
+    /**
      * Sets the name the client used during login.
      *
      * @param value The new value.
@@ -54,4 +66,33 @@ interface AuthenticationStorageRepository {
      * Gets the flow with name the client used during login.
      */
     suspend fun getLoginName(): Flow<String?>
+
+    /**
+     * Sets the pass
+     *
+     * @param value The new value.
+     */
+    suspend fun setPass(value: String?)
+
+    /**
+     * Gets the pass.
+     */
+    suspend fun getPass(): Flow<String?>
+
+    /**
+     * Sets the pass
+     *
+     * @param value The new value.
+     */
+    suspend fun setVerificationCode(value: String?)
+
+    /**
+     * Gets the pass.
+     */
+    suspend fun getVerificationCode(): Flow<String?>
+
+    /**
+     * Gets login info
+     */
+    suspend fun getLoginInfo(): Flow<LoginInfo?>
 }

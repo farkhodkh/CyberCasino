@@ -20,7 +20,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity.compose)
     api(project(":core"))
+
+    implementation(libs.androidx.activity.compose)
+    api(libs.retrofitConverter)
+    api(libs.retrofit)
+    api(libs.retrofitLoggingInterceptor)
     kapt(libs.moshiCodeGen)
 }

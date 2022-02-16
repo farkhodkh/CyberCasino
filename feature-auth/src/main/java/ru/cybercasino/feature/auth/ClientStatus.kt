@@ -23,5 +23,10 @@ enum class ClientStatus {
      * The main application screen should be shown when application is starting. However force login may be necessary
      * when user is trying to perform logged-user-specific actions.
      */
-    GUEST
+    GUEST,
+
+    /**
+     * User has send verification code
+     */
+    VERIFICATION
 }
