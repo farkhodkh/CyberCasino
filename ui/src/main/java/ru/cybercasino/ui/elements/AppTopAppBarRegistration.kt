@@ -27,7 +27,7 @@ import ru.cybercasino.ui.utils.defaultCountryData
  * @param onButtonClickListener - On button click action
  */
 @Composable
-fun AppTopAppBar(
+fun AppTopAppBarRegistration(
     buttonLabelTextId: Int,
     onButtonClickListener: () -> Unit
 ) {

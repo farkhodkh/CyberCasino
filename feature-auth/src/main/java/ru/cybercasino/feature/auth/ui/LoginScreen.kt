@@ -39,7 +39,7 @@ import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.elements.AppTopAppBar
+import ru.cybercasino.ui.elements.AppTopAppBarRegistration
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.utils.defaultCountryData
@@ -65,7 +65,7 @@ fun LoginScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBar(
+            AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.registration_text,
                 onButtonClickListener = onClickListener
             )
