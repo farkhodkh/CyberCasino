@@ -3,7 +3,7 @@
     package="ru.cybercasino.service_network" >
 
     <uses-sdk
-        android:minSdkVersion="1"
-        android:targetSdkVersion="1" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="31" />
 
 </manifest>

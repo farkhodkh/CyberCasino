@@ -7,6 +7,11 @@ plugins {
 android {
     compileSdk = Config.COMPILE_SDK
 
+    defaultConfig {
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
+    }
+
     buildFeatures {
         compose = true
     }
@@ -26,5 +31,6 @@ dependencies {
     api(libs.retrofitConverter)
     api(libs.retrofit)
     api(libs.retrofitLoggingInterceptor)
+    implementation(libs.gson)
     kapt(libs.moshiCodeGen)
 }

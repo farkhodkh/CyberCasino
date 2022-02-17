@@ -58,15 +58,15 @@ fun AppNavGraph(modifier: Modifier) {
             startDestination = TABS_GRAPH_NAV_ROUTE
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
-                RootScreen(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Dark),
-                )
-                rememberCoroutineScope().launch {
-                    delay(1000)
-                navController.navigate(Screen.Login.route)
-                }
+//                RootScreen(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(Dark),
+//                )
+//                rememberCoroutineScope().launch {
+//                    delay(1000)
+                    navController.navigate(Screen.Login.route)
+//                }
             }
             composable(Screen.Login.route) {
                 LoginScreen(

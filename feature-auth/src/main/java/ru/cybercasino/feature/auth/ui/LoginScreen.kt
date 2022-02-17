@@ -406,7 +406,7 @@ fun LoginScreen(
                         CyberButton(
                             title = stringResource(R.string.enter_text_2),
                             titleSize = 20.sp,
-                            onClick = { viewModel.validateUser() },
+                            onClick = { viewModel.login() },
                             Modifier
                                 .layoutId("enterButton")
                                 .padding(start = 16.dp, end = 16.dp)

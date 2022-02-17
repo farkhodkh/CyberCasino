@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.cybercasino.core.network.common.DefaultHttpErrorSchema
+import ru.cybercasino.core.network.common.ResponseSchema
 import ru.cybercasino.feature.auth.ClientStatus
 import ru.cybercasino.feature.auth.LoginController
 import ru.cybercasino.feature.auth.api.AuthenticationStorageRepository
@@ -38,7 +40,7 @@ class LoginScreenViewModel(
             .loginState
             .onEach { loginState ->
                 loginState.response?.let {
-                    catchLoginResponse(it)
+                    catchAuthenticationResponse(it)
                 }
             }
             .launchIn(viewModelScope)
@@ -218,7 +220,7 @@ class LoginScreenViewModel(
         }
     }
 
-    private fun catchLoginResponse(response: ResponseSchema) {
+    private fun catchAuthenticationResponse(response: ResponseSchema) {
         when (response) {
             is UserValidationResponseSchema -> {
                 _state.tryEmit(
@@ -292,6 +294,31 @@ class LoginScreenViewModel(
             }
             is LoginResponseSchema -> {
                 val b = 0
+            }
+            is DefaultHttpErrorSchema -> {
+                _state.tryEmit(
+                    _state.value.copy(
+                        emailErrors = response.email ?: emptyList(),
+                        passwordErrors = response.password ?: emptyList(),
+                        phoneErrors = response.phone ?: emptyList()
+                    )
+                )
+                when(_state.value.passwordVerificationType) {
+                    PasswordVerificationType.EMailVerification -> {
+                        if (response.email.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                login()
+                            }
+                        }
+                    }
+                    PasswordVerificationType.PhoneVerification -> {
+                        if (response.phone.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                login()
+                            }
+                        }
+                    }
+                }
             }
             else -> {
                 val b = 0
