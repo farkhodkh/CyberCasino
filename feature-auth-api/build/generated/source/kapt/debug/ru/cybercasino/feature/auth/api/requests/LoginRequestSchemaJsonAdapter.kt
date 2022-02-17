@@ -20,50 +20,50 @@ import kotlin.collections.emptySet
 import kotlin.jvm.Volatile
 import kotlin.text.buildString
 
-public class AuthenticationRequestSchemaJsonAdapter(
+public class LoginRequestSchemaJsonAdapter(
   moshi: Moshi
-) : JsonAdapter<AuthenticationRequestSchema>() {
-  private val options: JsonReader.Options = JsonReader.Options.of("username", "email", "password",
-      "phone")
+) : JsonAdapter<LoginRequestSchema>() {
+  private val options: JsonReader.Options = JsonReader.Options.of("username", "email", "phone",
+      "password")
+
+  private val nullableStringAdapter: JsonAdapter<String?> = moshi.adapter(String::class.java,
+      emptySet(), "username")
 
   private val stringAdapter: JsonAdapter<String> = moshi.adapter(String::class.java, emptySet(),
-      "username")
+      "password")
 
   @Volatile
-  private var constructorRef: Constructor<AuthenticationRequestSchema>? = null
+  private var constructorRef: Constructor<LoginRequestSchema>? = null
 
-  public override fun toString(): String = buildString(49) {
-      append("GeneratedJsonAdapter(").append("AuthenticationRequestSchema").append(')') }
+  public override fun toString(): String = buildString(40) {
+      append("GeneratedJsonAdapter(").append("LoginRequestSchema").append(')') }
 
-  public override fun fromJson(reader: JsonReader): AuthenticationRequestSchema {
+  public override fun fromJson(reader: JsonReader): LoginRequestSchema {
     var username: String? = null
     var email: String? = null
-    var password: String? = null
     var phone: String? = null
+    var password: String? = null
     var mask0 = -1
     reader.beginObject()
     while (reader.hasNext()) {
       when (reader.selectName(options)) {
         0 -> {
-          username = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("username",
-              "username", reader)
+          username = nullableStringAdapter.fromJson(reader)
           // $mask = $mask and (1 shl 0).inv()
           mask0 = mask0 and 0xfffffffe.toInt()
         }
         1 -> {
-          email = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("email", "email",
-              reader)
+          email = nullableStringAdapter.fromJson(reader)
           // $mask = $mask and (1 shl 1).inv()
           mask0 = mask0 and 0xfffffffd.toInt()
         }
-        2 -> password = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("password",
-            "password", reader)
-        3 -> {
-          phone = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("phone", "phone",
-              reader)
-          // $mask = $mask and (1 shl 3).inv()
-          mask0 = mask0 and 0xfffffff7.toInt()
+        2 -> {
+          phone = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 2).inv()
+          mask0 = mask0 and 0xfffffffb.toInt()
         }
+        3 -> password = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("password",
+            "password", reader)
         -1 -> {
           // Unknown name, skip it.
           reader.skipName()
@@ -72,45 +72,45 @@ public class AuthenticationRequestSchemaJsonAdapter(
       }
     }
     reader.endObject()
-    if (mask0 == 0xfffffff4.toInt()) {
+    if (mask0 == 0xfffffff8.toInt()) {
       // All parameters with defaults are set, invoke the constructor directly
-      return  AuthenticationRequestSchema(
-          username = username as String,
-          email = email as String,
-          password = password ?: throw Util.missingProperty("password", "password", reader),
-          phone = phone as String
+      return  LoginRequestSchema(
+          username = username,
+          email = email,
+          phone = phone,
+          password = password ?: throw Util.missingProperty("password", "password", reader)
       )
     } else {
       // Reflectively invoke the synthetic defaults constructor
       @Suppress("UNCHECKED_CAST")
-      val localConstructor: Constructor<AuthenticationRequestSchema> = this.constructorRef ?:
-          AuthenticationRequestSchema::class.java.getDeclaredConstructor(String::class.java,
+      val localConstructor: Constructor<LoginRequestSchema> = this.constructorRef ?:
+          LoginRequestSchema::class.java.getDeclaredConstructor(String::class.java,
           String::class.java, String::class.java, String::class.java, Int::class.javaPrimitiveType,
           Util.DEFAULT_CONSTRUCTOR_MARKER).also { this.constructorRef = it }
       return localConstructor.newInstance(
           username,
           email,
-          password ?: throw Util.missingProperty("password", "password", reader),
           phone,
+          password ?: throw Util.missingProperty("password", "password", reader),
           mask0,
           /* DefaultConstructorMarker */ null
       )
     }
   }
 
-  public override fun toJson(writer: JsonWriter, value_: AuthenticationRequestSchema?): Unit {
+  public override fun toJson(writer: JsonWriter, value_: LoginRequestSchema?): Unit {
     if (value_ == null) {
       throw NullPointerException("value_ was null! Wrap in .nullSafe() to write nullable values.")
     }
     writer.beginObject()
     writer.name("username")
-    stringAdapter.toJson(writer, value_.username)
+    nullableStringAdapter.toJson(writer, value_.username)
     writer.name("email")
-    stringAdapter.toJson(writer, value_.email)
+    nullableStringAdapter.toJson(writer, value_.email)
+    writer.name("phone")
+    nullableStringAdapter.toJson(writer, value_.phone)
     writer.name("password")
     stringAdapter.toJson(writer, value_.password)
-    writer.name("phone")
-    stringAdapter.toJson(writer, value_.phone)
     writer.endObject()
   }
 }

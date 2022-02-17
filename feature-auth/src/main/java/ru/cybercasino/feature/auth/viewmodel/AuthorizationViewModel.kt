@@ -9,10 +9,7 @@ import ru.cybercasino.feature.auth.ClientStatus
 import ru.cybercasino.feature.auth.LoginController
 import ru.cybercasino.feature.auth.api.AuthenticationStorageRepository
 import ru.cybercasino.feature.auth.api.LoginInfo
-import ru.cybercasino.feature.auth.api.requests.CheckCodeRequestSchema
-import ru.cybercasino.feature.auth.api.requests.RegistrationRequestSchema
-import ru.cybercasino.feature.auth.api.requests.SendCodeRequestSchema
-import ru.cybercasino.feature.auth.api.requests.UserValidationRequestSchema
+import ru.cybercasino.feature.auth.api.requests.*
 import ru.cybercasino.feature.auth.api.responses.*
 import ru.cybercasino.ui.utils.CountryCodeAndFlag
 import ru.cybercasino.ui.utils.defaultCountryData
@@ -94,18 +91,42 @@ class LoginScreenViewModel(
         _state.tryEmit(newState)
     }
 
+    fun updateLoginViewState(
+        email: String? = null,
+        phone: String? = null,
+        selectedCountry: CountryCodeAndFlag? = null,
+        password: String? = null,
+        promoCodeText: String? = null,
+        verificationCode: String? = null,
+        passwordVerificationType: PasswordVerificationType? = null
+    ) {
+        val currentState = _state.value
+
+        //TODO - Перенести всю эту байде в поля get
+        val isFieldsCorrect =
+            ((email ?: currentState.email.orEmpty()).isNotEmpty() ||
+                    (phone ?: currentState.phone.orEmpty()).isNotEmpty()) &&
+                    ((password ?: currentState.password).isNotEmpty())
+
+        val newState = _state.value.copy(
+            phone = phone ?: currentState.phone,
+            email = email ?: currentState.email,
+            selectedCountry = selectedCountry ?: currentState.selectedCountry,
+            password = password ?: currentState.password,
+            promoCodeText = promoCodeText ?: currentState.promoCodeText,
+            isFieldsCorrect = isFieldsCorrect,
+            verificationCode = verificationCode ?: "",
+            passwordVerificationType = passwordVerificationType ?: currentState.passwordVerificationType
+        )
+
+        _state.tryEmit(newState)
+    }
+
     fun onPasswordChanged(pass: String) {
         state.value.passwordRequirementsState = (0..3).random()
     }
 
     fun login() {
-        viewModelScope.launch {
-            loginController
-                .login()
-        }
-    }
-
-    fun validateNewUser() {
         viewModelScope.launch {
             val currentState = _state.value
 
@@ -113,12 +134,53 @@ class LoginScreenViewModel(
             authenticationStorageRepository.setLoginPhone(currentState.phone)
             authenticationStorageRepository.setPass(currentState.password)
 
-            val request = UserValidationRequestSchema(
-                email = currentState.email,
-                phone = currentState.phone,
-                password = currentState.password,
-                reset = false,
-            )
+            viewModelScope.launch {
+
+                val request = when(currentState.passwordVerificationType) {
+                    PasswordVerificationType.EMailVerification -> {
+                        LoginRequestSchema(
+                            email = currentState.email ?: "",
+                            password = currentState.password
+                        )
+                    }
+                    PasswordVerificationType.PhoneVerification -> {
+                        LoginRequestSchema(
+                            phone = currentState.phone ?: "",
+                            password = currentState.password
+                        )
+                    }
+                }
+
+                loginController
+                    .login(request)
+            }
+        }
+    }
+
+    fun validateUser() {
+        viewModelScope.launch {
+            val currentState = _state.value
+
+            authenticationStorageRepository.setLoginEmail(currentState.email)
+            authenticationStorageRepository.setLoginPhone(currentState.phone)
+            authenticationStorageRepository.setPass(currentState.password)
+
+            val request = when(currentState.passwordVerificationType) {
+                PasswordVerificationType.EMailVerification -> {
+                    UserValidationRequestSchema(
+                        email = currentState.email,
+                        password = currentState.password,
+                        reset = false,
+                    )
+                }
+                PasswordVerificationType.PhoneVerification -> {
+                    UserValidationRequestSchema(
+                        phone = currentState.phone,
+                        password = currentState.password,
+                        reset = false,
+                    )
+                }
+            }
 
             loginController.validateNewUser(request)
         }
@@ -228,7 +290,7 @@ class LoginScreenViewModel(
                     }
                 }
             }
-            is AuthenticationResponseSchema -> {
+            is LoginResponseSchema -> {
                 val b = 0
             }
             else -> {

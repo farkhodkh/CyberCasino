@@ -42,6 +42,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
@@ -251,7 +252,13 @@ fun RegistrationScreen(
                     ).forEachIndexed { index, text ->
                         Tab(
                             selected = selectedTabIndex == index,
-                            onClick = { selectedTabIndex = index },
+                            onClick = {
+                                when (index) {
+                                    0 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.EMailVerification)
+                                    1 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.PhoneVerification)
+                                }
+                                selectedTabIndex = index
+                            },
                             modifier = Modifier
                                 .background(DarkBlue)
                                 .height(50.dp),
@@ -285,7 +292,7 @@ fun RegistrationScreen(
                                         id = R.string.email
                                     ),
                                     fontSize = 10.sp,
-                                    color = if (password.isEmpty())
+                                    color = if (emailText.text.isEmpty())
                                         DarkGray
                                     else if (state.emailErrors.isNotEmpty())
                                         Red
@@ -378,7 +385,7 @@ fun RegistrationScreen(
                                         id = R.string.phone
                                     ),
                                     fontSize = 10.sp,
-                                    color = if (password.isEmpty())
+                                    color = if (phoneText.text.isEmpty())
                                         DarkGray
                                     else if (state.phoneErrors.isNotEmpty())
                                         Red
@@ -551,7 +558,7 @@ fun RegistrationScreen(
                     true -> CyberButton(
                         title = stringResource(R.string.registration_text_2),
                         onClick = {
-                            viewModel.validateNewUser()
+                            viewModel.validateUser()
                         },
                         modifier = Modifier
                             .layoutId("registerButton")

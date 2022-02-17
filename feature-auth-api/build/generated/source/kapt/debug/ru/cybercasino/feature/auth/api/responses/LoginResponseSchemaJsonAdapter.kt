@@ -16,9 +16,9 @@ import kotlin.Unit
 import kotlin.collections.emptySet
 import kotlin.text.buildString
 
-public class AuthenticationResponseSchemaJsonAdapter(
+public class LoginResponseSchemaJsonAdapter(
   moshi: Moshi
-) : JsonAdapter<AuthenticationResponseSchema>() {
+) : JsonAdapter<LoginResponseSchema>() {
   private val options: JsonReader.Options = JsonReader.Options.of("token", "user")
 
   private val nullableStringAdapter: JsonAdapter<String?> = moshi.adapter(String::class.java,
@@ -27,10 +27,10 @@ public class AuthenticationResponseSchemaJsonAdapter(
   private val nullableUserResponseSchemaAdapter: JsonAdapter<UserResponseSchema?> =
       moshi.adapter(UserResponseSchema::class.java, emptySet(), "user")
 
-  public override fun toString(): String = buildString(50) {
-      append("GeneratedJsonAdapter(").append("AuthenticationResponseSchema").append(')') }
+  public override fun toString(): String = buildString(41) {
+      append("GeneratedJsonAdapter(").append("LoginResponseSchema").append(')') }
 
-  public override fun fromJson(reader: JsonReader): AuthenticationResponseSchema {
+  public override fun fromJson(reader: JsonReader): LoginResponseSchema {
     var token: String? = null
     var user: UserResponseSchema? = null
     reader.beginObject()
@@ -46,13 +46,13 @@ public class AuthenticationResponseSchemaJsonAdapter(
       }
     }
     reader.endObject()
-    return AuthenticationResponseSchema(
+    return LoginResponseSchema(
         token = token,
         user = user
     )
   }
 
-  public override fun toJson(writer: JsonWriter, value_: AuthenticationResponseSchema?): Unit {
+  public override fun toJson(writer: JsonWriter, value_: LoginResponseSchema?): Unit {
     if (value_ == null) {
       throw NullPointerException("value_ was null! Wrap in .nullSafe() to write nullable values.")
     }

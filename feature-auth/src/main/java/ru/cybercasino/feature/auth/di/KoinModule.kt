@@ -1,6 +1,5 @@
 package ru.cybercasino.feature.auth.di
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,25 +16,29 @@ import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.feature.auth_api.AuthenticationApi
 import ru.cybercasino.service_network.interceptors.ApiHeadersInterceptor
 import ru.cybercasino.service_network.retrofit.RetrofitProvider
+import ru.cybercasino.service_network.retrofit.RetrofitProviderImpl
 
+/**
+ * Authentification module
+ */
 val appModuleAuth = module {
+    factory { ApiHeadersInterceptor() }
+    single<RetrofitProvider> { RetrofitProviderImpl() }
     single<SecurityHelper> { SecurityHelperImpl(Dispatchers.Default) }
     single<AuthenticationStorageRepository> { AuthenticationStorageRepositoryImpl(androidContext(), get()) }
     single(named(RetrofitProvider.Type.Basic)) { createBasicRetrofit() }
     single {
         LoginController(
-            CoroutineScope(Dispatchers.Default),
             get<Retrofit>(named(RetrofitProvider.Type.Basic)).create(
                 AuthenticationApi::class.java
-            ),
-            get()
+            )
         )
     }
     viewModel { LoginScreenViewModel(get(), get()) }
 }
 
 private fun Scope.createBasicRetrofit() =
-    get<ru.cybercasino.service_network.retrofit.RetrofitProvider>().provide(
+    get<RetrofitProvider>().provide(
         interceptors = listOf(
             get<ApiHeadersInterceptor>(),
         )
