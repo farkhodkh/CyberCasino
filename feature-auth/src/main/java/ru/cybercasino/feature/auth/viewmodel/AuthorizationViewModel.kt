@@ -51,6 +51,9 @@ class LoginScreenViewModel(
                 .collect { loginInfo ->
                     loginInfo?.let {
                         userLoginInfo = it
+                        if (it.status == ClientStatus.LOGGED_IN){
+                            _state.tryEmit(_state.value.copy(isAuthorised = true))
+                        }
                     }
                 }
         }
@@ -277,7 +280,8 @@ class LoginScreenViewModel(
             }
             is RegistrationResponseSchema -> {
                 viewModelScope.launch {
-                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                    //TODO - go to login view
+                    //authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
                 }
             }
             is UserResponseSchema -> {
@@ -293,7 +297,12 @@ class LoginScreenViewModel(
                 }
             }
             is LoginResponseSchema -> {
-                val b = 0
+                viewModelScope.launch {
+                    authenticationStorageRepository.setLoginEmail(response.email)
+                    authenticationStorageRepository.setToken(response.token)
+                    authenticationStorageRepository.setUser(response.user)
+                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                }
             }
             is DefaultHttpErrorSchema -> {
                 _state.tryEmit(

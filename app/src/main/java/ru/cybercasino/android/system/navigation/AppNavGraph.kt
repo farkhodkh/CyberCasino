@@ -73,6 +73,9 @@ fun AppNavGraph(modifier: Modifier) {
                     onClickListener = {navController.navigate(Screen.Registration.route)},
                     onRegisterClickListener = {
                         navController.navigate(Screen.VerificationScreen.route)
+                    },
+                    goToProfileScreen = {
+                        navController.navigate(Screen.ProfileScreen.route)
                     }
                 )
             }
@@ -92,6 +95,9 @@ fun AppNavGraph(modifier: Modifier) {
                         navController.navigate(Screen.Login.route)
                     },
                 )
+            }
+            composable(Screen.ProfileScreen.route) {
+
             }
         }
     }

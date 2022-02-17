@@ -39,8 +39,6 @@ k
 Pui/src/main/java/ru/cybercasino/ui/elements/PasswordVerificationElementScreen.kt,e/f/ef98f34ce4fbb1d8b935cd301a591bf1d947e61b
 v
 Fui/src/main/java/ru/cybercasino/ui/elements/SimpleCheckboxComponent.kt,8/1/8178e734c66c60cb5a65c918991db2adffc5a509
-v
-Ffeature-auth/src/main/java/ru/cybercasino/feature/auth/ClientStatus.kt,1/7/173d6740cc7a30edd5212c14f14e72f43ba4f847
 
 Ofeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/VerificationScreen.kt,3/c/3c1d8ac395d4b388f12589c992b323fff75da67b
 ä
@@ -49,10 +47,6 @@ E
 core/build.gradle.kts,d/7/d72846b7b418aa17de692d1ccf924c738cf8dbe5
 I
 gradle/libs.versions.toml,d/7/d7595319a0658be6f1ed500ad590d42e4b28bc4f
-ç
-]feature-auth/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationStorageRepository.kt,a/3/a3b4ab51a732d9ef5173542b36be829636c39d70
-
-Ofeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/RegistrationScreen.kt,4/9/49d88bdb6943cb510b7c60fb44169ecfc0ad38c0
 w
 Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/di/KoinModule.kt,d/7/d7abeb52a9189ada486d2bbd573141ccfa322d48
 C
