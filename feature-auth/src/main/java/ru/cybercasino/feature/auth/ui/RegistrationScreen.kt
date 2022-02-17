@@ -452,18 +452,6 @@ fun RegistrationScreen(
                     }
                 )
 
-//                Text(
-//                    modifier = Modifier
-//                        .layoutId("passwordRequirementsLabel"),
-//                    text = getPasswordRequirementsText(state.passwordRequirementsState),
-//                    fontSize = 10.sp,
-//                    style = TextStyle(
-//                        fontWeight = FontWeight.Normal,
-//                        textAlign = TextAlign.Center,
-//                        color = LightBlue
-//                    )
-//                )
-
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()

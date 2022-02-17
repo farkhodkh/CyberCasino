@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 
-class RetrofitProviderImpl : ru.cybercasino.service_network.retrofit.RetrofitProvider {
+class RetrofitProviderImpl : RetrofitProvider {
     private val V1 = "v1"
     override val defaultBaseUrl = "http://kazino-back.dev2.itdept.cloud/api/$V1/"
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
