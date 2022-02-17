@@ -16,6 +16,10 @@ android {
 }
 
 dependencies {
+//    implementation(libs.androidx.activity.compose)
     implementation(libs.koin.compose)
+//    implementation(libs.androidx.core)
+
+    implementation(project(":ui"))
 //    kapt(libs.moshiCodeGen)
 }

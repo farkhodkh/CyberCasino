@@ -15,7 +15,6 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.plusAssign
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -23,12 +22,11 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.cybercasino.feature.auth.ui.LoginScreen
 import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
 import ru.cybercasino.feature.auth.ui.auth.RootScreen
 import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
+import ru.cybercasino.feature.user.profile.ui.MainProfile
 import ru.cybercasino.ui.Dark
 
 /**
@@ -58,19 +56,18 @@ fun AppNavGraph(modifier: Modifier) {
             startDestination = TABS_GRAPH_NAV_ROUTE
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
-//                RootScreen(
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .background(Dark),
-//                )
-//                rememberCoroutineScope().launch {
-//                    delay(1000)
-                    navController.navigate(Screen.Login.route)
-//                }
+                RootScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Dark),
+                    goToProfileScreen = {
+                        navController.navigate(Screen.ProfileScreen.route)
+                    }
+                )
             }
             composable(Screen.Login.route) {
                 LoginScreen(
-                    onClickListener = {navController.navigate(Screen.Registration.route)},
+                    onClickListener = { navController.navigate(Screen.Registration.route) },
                     onRegisterClickListener = {
                         navController.navigate(Screen.VerificationScreen.route)
                     },
@@ -97,7 +94,7 @@ fun AppNavGraph(modifier: Modifier) {
                 )
             }
             composable(Screen.ProfileScreen.route) {
-
+                MainProfile()
             }
         }
     }
