@@ -77,8 +77,6 @@ p
 @app/src/main/java/ru/cybercasino/android/system/di/KoinModule.kt,a/e/ae79c1188fe65d46458a2f27269e8ae6bd717299
 t
 Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
-w
-Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/di/KoinModule.kt,d/7/d7abeb52a9189ada486d2bbd573141ccfa322d48
 Y
 )feature-auth/src/main/AndroidManifest.xml,c/8/c8e7893a4bc4fe7d59319179fbfcb69cd66fcc95
 ]

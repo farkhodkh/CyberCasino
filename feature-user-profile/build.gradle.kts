@@ -16,5 +16,6 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.koin.compose)
+//    kapt(libs.moshiCodeGen)
 }
