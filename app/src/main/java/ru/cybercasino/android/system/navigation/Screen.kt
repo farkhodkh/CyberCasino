@@ -24,4 +24,6 @@ sealed class Screen(
      */
 
     object VerificationScreen: Screen("auth/validate-user")
+
+    object ProfileScreen: Screen("profile/main")
 }

@@ -6,12 +6,14 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import ru.cybercasino.core.network.security.EncryptionResult
 import ru.cybercasino.core.network.security.SecurityHelper
 import ru.cybercasino.feature.auth.ClientStatus
+import ru.cybercasino.feature.auth.api.responses.UserResponseSchema
 
 /**
  * The implementation of the [AuthenticationStorageRepository] with [DataStore].
@@ -26,6 +28,7 @@ class AuthenticationStorageRepositoryImpl(
 ) : AuthenticationStorageRepository {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
+    private val gson = Gson()
 
     override suspend fun setStatus(value: ClientStatus) {
         context.dataStore.edit { preferences ->
@@ -77,6 +80,20 @@ class AuthenticationStorageRepositoryImpl(
         setEncrypted(KEY_VERIFICATION_CODE, value)
     }
 
+    override suspend fun setUser(value: UserResponseSchema?) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_USER] = gson.toJson(value)
+        }
+    }
+
+    override suspend fun getUser(): Flow<UserResponseSchema?> =
+        context.dataStore.data
+            .map { preferences ->
+                preferences[KEY_USER]?.let { gson.fromJson(it, UserResponseSchema::class.java) }
+                    ?: UserResponseSchema()
+            }
+
+
     override suspend fun getLoginInfo(): Flow<LoginInfo?> = combine(
         getStatus(),
         getLoginEmail(),
@@ -88,7 +105,7 @@ class AuthenticationStorageRepositoryImpl(
         if (email?.isEmpty() == true && phone?.isEmpty() == true) {
             null
         } else if (status in listOf(ClientStatus.LOGGED_IN, ClientStatus.VERIFICATION)) {
-            LoginInfo(email, phone, pass, verificationCode)
+            LoginInfo(email, phone, pass, verificationCode, status)
         } else {
             null
         }
@@ -111,7 +128,13 @@ class AuthenticationStorageRepositoryImpl(
             }
 }
 
-class LoginInfo(val email: String?, val phone: String?, val password: String = "", val verificationCode: String = "")
+class LoginInfo(
+    val email: String?,
+    val phone: String?,
+    val password: String = "",
+    val verificationCode: String = "",
+    val status: ClientStatus
+)
 
 private const val PREFERENCES_NAME = "cz.kosik.library.auth.info"
 
@@ -122,3 +145,4 @@ private val KEY_PHONE = stringPreferencesKey("phone")
 private val KEY_TOKEN = stringPreferencesKey("access_token")
 private val KEY_LOGIN_EMAIL = stringPreferencesKey("login_email")
 private val KEY_LOGIN_NAME = stringPreferencesKey("login_name")
+private val KEY_USER = stringPreferencesKey("user")

@@ -2,6 +2,7 @@ package ru.cybercasino.feature.auth.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.cybercasino.feature.auth.ClientStatus
+import ru.cybercasino.feature.auth.api.responses.UserResponseSchema
 
 interface AuthenticationStorageRepository {
     /**
@@ -90,6 +91,18 @@ interface AuthenticationStorageRepository {
      * Gets the pass.
      */
     suspend fun getVerificationCode(): Flow<String?>
+
+    /**
+     * Sets the client access token.
+     *
+     * @param value The new value.
+     */
+    suspend fun setUser(value: UserResponseSchema?)
+
+    /**
+     * Gets the flow with client access token.
+     */
+    suspend fun getUser(): Flow<UserResponseSchema?>
 
     /**
      * Gets login info

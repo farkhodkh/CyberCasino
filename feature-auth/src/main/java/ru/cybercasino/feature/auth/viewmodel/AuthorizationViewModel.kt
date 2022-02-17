@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.cybercasino.core.network.common.DefaultHttpErrorSchema
+import ru.cybercasino.core.network.common.ResponseSchema
 import ru.cybercasino.feature.auth.ClientStatus
 import ru.cybercasino.feature.auth.LoginController
 import ru.cybercasino.feature.auth.api.AuthenticationStorageRepository
@@ -38,7 +40,7 @@ class LoginScreenViewModel(
             .loginState
             .onEach { loginState ->
                 loginState.response?.let {
-                    catchLoginResponse(it)
+                    catchAuthenticationResponse(it)
                 }
             }
             .launchIn(viewModelScope)
@@ -49,6 +51,9 @@ class LoginScreenViewModel(
                 .collect { loginInfo ->
                     loginInfo?.let {
                         userLoginInfo = it
+                        if (it.status == ClientStatus.LOGGED_IN){
+                            _state.tryEmit(_state.value.copy(isAuthorised = true))
+                        }
                     }
                 }
         }
@@ -218,7 +223,7 @@ class LoginScreenViewModel(
         }
     }
 
-    private fun catchLoginResponse(response: ResponseSchema) {
+    private fun catchAuthenticationResponse(response: ResponseSchema) {
         when (response) {
             is UserValidationResponseSchema -> {
                 _state.tryEmit(
@@ -275,7 +280,8 @@ class LoginScreenViewModel(
             }
             is RegistrationResponseSchema -> {
                 viewModelScope.launch {
-                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                    //TODO - go to login view
+                    //authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
                 }
             }
             is UserResponseSchema -> {
@@ -291,7 +297,37 @@ class LoginScreenViewModel(
                 }
             }
             is LoginResponseSchema -> {
-                val b = 0
+                viewModelScope.launch {
+                    authenticationStorageRepository.setLoginEmail(response.email)
+                    authenticationStorageRepository.setToken(response.token)
+                    authenticationStorageRepository.setUser(response.user)
+                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                }
+            }
+            is DefaultHttpErrorSchema -> {
+                _state.tryEmit(
+                    _state.value.copy(
+                        emailErrors = response.email ?: emptyList(),
+                        passwordErrors = response.password ?: emptyList(),
+                        phoneErrors = response.phone ?: emptyList()
+                    )
+                )
+                when(_state.value.passwordVerificationType) {
+                    PasswordVerificationType.EMailVerification -> {
+                        if (response.email.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                login()
+                            }
+                        }
+                    }
+                    PasswordVerificationType.PhoneVerification -> {
+                        if (response.phone.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                login()
+                            }
+                        }
+                    }
+                }
             }
             else -> {
                 val b = 0
