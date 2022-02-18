@@ -60,6 +60,9 @@ fun AppNavGraph(modifier: Modifier) {
                     modifier = Modifier
                         .fillMaxSize()
                         .background(Dark),
+                    goToLoginScreen = {
+                        navController.navigate(Screen.Login.route)
+                    },
                     goToProfileScreen = {
                         navController.navigate(Screen.ProfileScreen.route)
                     }

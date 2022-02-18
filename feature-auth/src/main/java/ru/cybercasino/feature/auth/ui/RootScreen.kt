@@ -1,5 +1,6 @@
 package ru.cybercasino.feature.auth.ui.auth
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -16,10 +17,12 @@ import ru.cybercasino.ui.R
  * Application root screen
  * @param modifier - Modifier
  */
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun RootScreen(
     modifier: Modifier,
-    goToProfileScreen: () -> Unit
+    goToProfileScreen: () -> Unit,
+    goToLoginScreen: () -> Unit,
 ) {
     val viewModel = getViewModel<LoginScreenViewModel>()
     val state by viewModel.state.collectAsState()
@@ -41,5 +44,7 @@ fun RootScreen(
                 contentDescription = "",
             )
         }
+
+        goToLoginScreen()
     }
 }

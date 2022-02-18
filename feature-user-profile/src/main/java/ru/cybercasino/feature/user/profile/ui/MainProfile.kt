@@ -19,7 +19,7 @@ fun MainProfile() {
         modifier = Modifier
             .padding(top = 50.dp, start = 16.dp)
             .layoutId("enterTitle"),
-        text = stringResource(id = R.string.enter_text),
+        text = "Основной профиль приложения",
         fontSize = 32.sp,
         style = TextStyle(
             fontWeight = FontWeight.Normal,

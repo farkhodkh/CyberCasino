@@ -302,7 +302,24 @@ class LoginScreenViewModel(
                     authenticationStorageRepository.setLoginEmail(response.email)
                     authenticationStorageRepository.setToken(response.token)
                     authenticationStorageRepository.setUser(response.user)
-                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                    authenticationStorageRepository.setPass(response.password)
+                }
+
+                when (_state.value.passwordVerificationType) {
+                    PasswordVerificationType.EMailVerification -> {
+                        if (response.password.isNullOrEmpty() && response.email.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                            }
+                        }
+                    }
+                    PasswordVerificationType.PhoneVerification -> {
+                        if (response.password.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
+                            viewModelScope.launch {
+                                authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                            }
+                        }
+                    }
                 }
             }
             is DefaultHttpErrorSchema -> {

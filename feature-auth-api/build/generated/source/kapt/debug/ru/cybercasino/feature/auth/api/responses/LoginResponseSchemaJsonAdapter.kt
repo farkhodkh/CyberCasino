@@ -19,7 +19,8 @@ import kotlin.text.buildString
 public class LoginResponseSchemaJsonAdapter(
   moshi: Moshi
 ) : JsonAdapter<LoginResponseSchema>() {
-  private val options: JsonReader.Options = JsonReader.Options.of("token", "user", "email")
+  private val options: JsonReader.Options = JsonReader.Options.of("token", "user", "email", "phone",
+      "password")
 
   private val nullableStringAdapter: JsonAdapter<String?> = moshi.adapter(String::class.java,
       emptySet(), "token")
@@ -34,12 +35,16 @@ public class LoginResponseSchemaJsonAdapter(
     var token: String? = null
     var user: UserResponseSchema? = null
     var email: String? = null
+    var phone: String? = null
+    var password: String? = null
     reader.beginObject()
     while (reader.hasNext()) {
       when (reader.selectName(options)) {
         0 -> token = nullableStringAdapter.fromJson(reader)
         1 -> user = nullableUserResponseSchemaAdapter.fromJson(reader)
         2 -> email = nullableStringAdapter.fromJson(reader)
+        3 -> phone = nullableStringAdapter.fromJson(reader)
+        4 -> password = nullableStringAdapter.fromJson(reader)
         -1 -> {
           // Unknown name, skip it.
           reader.skipName()
@@ -51,7 +56,9 @@ public class LoginResponseSchemaJsonAdapter(
     return LoginResponseSchema(
         token = token,
         user = user,
-        email = email
+        email = email,
+        phone = phone,
+        password = password
     )
   }
 
@@ -66,6 +73,10 @@ public class LoginResponseSchemaJsonAdapter(
     nullableUserResponseSchemaAdapter.toJson(writer, value_.user)
     writer.name("email")
     nullableStringAdapter.toJson(writer, value_.email)
+    writer.name("phone")
+    nullableStringAdapter.toJson(writer, value_.phone)
+    writer.name("password")
+    nullableStringAdapter.toJson(writer, value_.password)
     writer.endObject()
   }
 }
