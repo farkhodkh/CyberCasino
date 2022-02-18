@@ -15,8 +15,6 @@ Ffeature-auth/src/main/java/ru/cybercasino/feature/auth/ClientStatus.kt,1/7/173
 Ofeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/RegistrationScreen.kt,4/9/49d88bdb6943cb510b7c60fb44169ecfc0ad38c0
 t
 Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
-C
-settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 M
 feature-auth/build.gradle.kts,c/0/c0d411e4ca8fd42efd0055e4b0d6eda3931deda3
 U
