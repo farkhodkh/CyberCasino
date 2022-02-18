@@ -2,10 +2,11 @@
 
 package ru.cybercasino.ui
 
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.lightColors
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val ColorPalette = lightColors(
@@ -13,8 +14,8 @@ private val ColorPalette = lightColors(
     primaryVariant = BlueGrey,
     onPrimary = White,
 
-    secondary = СornflowerBlue,
-    secondaryVariant = Yelow,
+    secondary = Blue1,
+    secondaryVariant = Yellow,
     onSecondary = White,
 
     surface = DarkGray,

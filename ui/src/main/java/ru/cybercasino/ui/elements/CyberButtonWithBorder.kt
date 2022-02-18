@@ -21,10 +21,12 @@ import ru.cybercasino.ui.CyberButtonColorEnd
 import ru.cybercasino.ui.CyberButtonColorStart
 import ru.cybercasino.ui.White
 
+/**
+ * The app default bordered button style
+ */
 @Composable
 fun CyberButtonWithBorder(
     title: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val gradient =
@@ -33,7 +35,7 @@ fun CyberButtonWithBorder(
 
     OutlinedButton(
         modifier = modifier,
-        onClick = { onClick() },
+        onClick = { },
         border = BorderStroke(1.dp, gradient),
         shape = shape,
         colors = ButtonDefaults.outlinedButtonColors(
@@ -52,12 +54,12 @@ fun CyberButtonWithBorder(
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun CyberButtonWithBorderPreview() {
     CyberButtonWithBorder(
         "Войти",
-        {},
         Modifier
             .width(320.dp)
             .height(44.dp)

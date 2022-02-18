@@ -1,0 +1,129 @@
+Type-safe dependency accessors is an incubating feature.
+> Task :buildSrc:compileKotlin UP-TO-DATE
+> Task :buildSrc:compileJava NO-SOURCE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources NO-SOURCE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:inspectClassesForKotlinIC UP-TO-DATE
+> Task :buildSrc:jar UP-TO-DATE
+> Task :buildSrc:assemble UP-TO-DATE
+> Task :buildSrc:compileTestKotlin NO-SOURCE
+> Task :buildSrc:pluginUnderTestMetadata UP-TO-DATE
+> Task :buildSrc:compileTestJava NO-SOURCE
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses UP-TO-DATE
+> Task :buildSrc:test NO-SOURCE
+> Task :buildSrc:validatePlugins UP-TO-DATE
+> Task :buildSrc:check UP-TO-DATE
+> Task :buildSrc:build UP-TO-DATE
+> Task :assemble UP-TO-DATE
+> Task :detekt NO-SOURCE
+> Task :spotlessCheck UP-TO-DATE
+> Task :check UP-TO-DATE
+> Task :build UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :feature-auth:preBuild UP-TO-DATE
+> Task :feature-auth:preDebugBuild UP-TO-DATE
+> Task :feature-auth-api:preBuild UP-TO-DATE
+> Task :feature-auth-api:preDebugBuild UP-TO-DATE
+> Task :feature-auth-api:compileDebugAidl NO-SOURCE
+> Task :service-network:preBuild UP-TO-DATE
+> Task :service-network:preDebugBuild UP-TO-DATE
+> Task :service-network:compileDebugAidl NO-SOURCE
+> Task :ui:preBuild UP-TO-DATE
+> Task :ui:preDebugBuild UP-TO-DATE
+> Task :ui:compileDebugAidl NO-SOURCE
+> Task :feature-auth:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :feature-auth:packageDebugRenderscript NO-SOURCE
+> Task :feature-auth-api:packageDebugRenderscript NO-SOURCE
+> Task :service-network:packageDebugRenderscript NO-SOURCE
+> Task :ui:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :feature-auth:writeDebugAarMetadata UP-TO-DATE
+> Task :feature-auth-api:writeDebugAarMetadata UP-TO-DATE
+> Task :service-network:writeDebugAarMetadata UP-TO-DATE
+> Task :ui:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :feature-auth:compileDebugRenderscript NO-SOURCE
+> Task :feature-auth:generateDebugResValues UP-TO-DATE
+> Task :feature-auth:generateDebugResources UP-TO-DATE
+> Task :feature-auth:packageDebugResources UP-TO-DATE
+> Task :feature-auth-api:compileDebugRenderscript NO-SOURCE
+> Task :feature-auth-api:generateDebugResValues UP-TO-DATE
+> Task :feature-auth-api:generateDebugResources UP-TO-DATE
+> Task :feature-auth-api:packageDebugResources UP-TO-DATE
+> Task :service-network:compileDebugRenderscript NO-SOURCE
+> Task :service-network:generateDebugResValues UP-TO-DATE
+> Task :service-network:generateDebugResources UP-TO-DATE
+> Task :service-network:packageDebugResources UP-TO-DATE
+> Task :ui:compileDebugRenderscript NO-SOURCE
+> Task :ui:generateDebugResValues UP-TO-DATE
+> Task :ui:generateDebugResources UP-TO-DATE
+> Task :ui:packageDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :core:preBuild UP-TO-DATE
+> Task :core:preDebugBuild UP-TO-DATE
+> Task :core:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-auth:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-auth:processDebugManifest UP-TO-DATE
+> Task :feature-auth-api:extractDeepLinksDebug UP-TO-DATE
+> Task :feature-auth-api:processDebugManifest UP-TO-DATE
+> Task :service-network:extractDeepLinksDebug UP-TO-DATE
+> Task :service-network:processDebugManifest UP-TO-DATE
+> Task :ui:extractDeepLinksDebug UP-TO-DATE
+> Task :ui:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :core:checkDebugAarMetadata UP-TO-DATE
+> Task :core:compileDebugRenderscript NO-SOURCE
+> Task :core:generateDebugResValues UP-TO-DATE
+> Task :core:generateDebugResources UP-TO-DATE
+> Task :core:mergeDebugResources UP-TO-DATE
+> Task :core:packageDebugResources UP-TO-DATE
+> Task :core:parseDebugLocalResources UP-TO-DATE
+> Task :core:createDebugCompatibleScreenManifests UP-TO-DATE
+
+> Task :core:processDebugMainManifest
+/Users/farkhod/AndroidStudioProjects/CyberCasino/core/src/main/AndroidManifest.xml:9:5-11:41 Warning:
+	uses-sdk:minSdkVersion value (24) specified in the manifest file is ignored. It is overridden by the value declared in the DSL or the variant API, or 1 if not declared/present. Current value is (21).
+
+> Task :core:processDebugManifest
+> Task :feature-auth:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-auth:parseDebugLocalResources UP-TO-DATE
+> Task :feature-auth:generateDebugRFile UP-TO-DATE
+> Task :feature-auth-api:compileDebugLibraryResources UP-TO-DATE
+> Task :feature-auth-api:parseDebugLocalResources UP-TO-DATE
+> Task :feature-auth-api:generateDebugRFile UP-TO-DATE
+> Task :service-network:compileDebugLibraryResources UP-TO-DATE
+> Task :service-network:parseDebugLocalResources UP-TO-DATE
+> Task :service-network:generateDebugRFile UP-TO-DATE
+> Task :ui:compileDebugLibraryResources UP-TO-DATE
+> Task :ui:parseDebugLocalResources UP-TO-DATE
+> Task :ui:generateDebugRFile UP-TO-DATE
+> Task :core:compileDebugAidl NO-SOURCE
+> Task :core:generateDebugBuildConfig UP-TO-DATE
+> Task :core:javaPreCompileDebug UP-TO-DATE
+> Task :feature-auth:generateDebugBuildConfig UP-TO-DATE
+> Task :feature-auth-api:generateDebugBuildConfig UP-TO-DATE
+> Task :feature-auth-api:javaPreCompileDebug UP-TO-DATE
+> Task :service-network:generateDebugBuildConfig UP-TO-DATE
+> Task :service-network:javaPreCompileDebug UP-TO-DATE
+> Task :ui:generateDebugBuildConfig UP-TO-DATE
+
+> Task :ui:compileDebugKotlin FAILED
+
+> Task :app:processDebugManifestForPackage
+> Task :core:processDebugManifestForPackage
+68 actionable tasks: 7 executed, 61 up-to-date
