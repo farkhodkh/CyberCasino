@@ -1,15 +1,13 @@
 package ru.cybercasino.feature.user.profile.di
 
-import kotlinx.coroutines.Dispatchers
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import ru.cybercasino.feature.user.profile.viewmodel.UserProfileViewModel
 
 /**
  * User profile module
  */
-val appModuleAuth = module {
+val appModuleMainProfile = module {
 //    factory { ApiHeadersInterceptor() }
 //    single<RetrofitProvider> { RetrofitProviderImpl() }
 //    single<SecurityHelper> { SecurityHelperImpl(Dispatchers.Default) }
@@ -22,5 +20,5 @@ val appModuleAuth = module {
 //            )
 //        )
 //    }
-//    viewModel { LoginScreenViewModel(get(), get()) }
+    viewModel { UserProfileViewModel() }
 }

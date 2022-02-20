@@ -26,7 +26,7 @@ import ru.cybercasino.feature.auth.ui.LoginScreen
 import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
 import ru.cybercasino.feature.auth.ui.auth.RootScreen
 import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
-import ru.cybercasino.feature.user.profile.ui.MainProfile
+import ru.cybercasino.feature.user.profile.ui.UserProfileScreen
 import ru.cybercasino.ui.Dark
 
 /**
@@ -97,7 +97,12 @@ fun AppNavGraph(modifier: Modifier) {
                 )
             }
             composable(Screen.ProfileScreen.route) {
-                MainProfile()
+                UserProfileScreen(
+                    onEnterClickListener = {
+                        //TODO - go to user profile
+                        navController.navigate(Screen.Login.route)
+                    }
+                )
             }
         }
     }
