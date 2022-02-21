@@ -42,7 +42,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
+import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBarRegistration
@@ -55,7 +55,7 @@ import ru.cybercasino.ui.utils.getCountriesList
 @Composable
 fun RegistrationScreen(
     onEnterClickListener: () -> Unit,
-    onRegisterClickListener: () -> Unit
+    onVerificationCodeRequest: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -254,8 +254,8 @@ fun RegistrationScreen(
                             selected = selectedTabIndex == index,
                             onClick = {
                                 when (index) {
-                                    0 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.EMailVerification)
-                                    1 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.PhoneVerification)
+                                    0 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.EMail)
+                                    1 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.Phone)
                                 }
                                 selectedTabIndex = index
                             },
@@ -288,9 +288,11 @@ fun RegistrationScreen(
                             },
                             label = {
                                 Text(
-                                    text = if (state.emailErrors.isNotEmpty()) state.emailErrors.first() else stringResource(
-                                        id = R.string.email
-                                    ),
+                                    text = state.emailErrors.ifEmpty {
+                                        stringResource(
+                                            id = R.string.email
+                                        )
+                                    },
                                     fontSize = 10.sp,
                                     color = if (emailText.text.isEmpty())
                                         DarkGray
@@ -381,9 +383,11 @@ fun RegistrationScreen(
                             },
                             label = {
                                 Text(
-                                    text = if (state.phoneErrors.isNotEmpty()) state.phoneErrors.first() else stringResource(
-                                        id = R.string.phone
-                                    ),
+                                    text = state.phoneErrors.ifEmpty {
+                                        stringResource(
+                                            id = R.string.phone
+                                        )
+                                    },
                                     fontSize = 10.sp,
                                     color = if (phoneText.text.isEmpty())
                                         DarkGray
@@ -423,9 +427,11 @@ fun RegistrationScreen(
                     },
                     label = {
                         Text(
-                            text = if (state.passwordErrors.isNotEmpty()) state.passwordErrors.first() else stringResource(
-                                id = R.string.enter_password
-                            ),
+                            text = state.passwordErrors.ifEmpty {
+                                stringResource(
+                                    id = R.string.enter_password
+                                )
+                            },
                             fontSize = 10.sp,
                             color =
                             if (password.isEmpty())
@@ -578,7 +584,7 @@ fun RegistrationScreen(
                 }
 
                 if (state.verificationCodeRequest) {
-                    onRegisterClickListener()
+                    onVerificationCodeRequest()
                 }
 
                 RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_register_by_text)

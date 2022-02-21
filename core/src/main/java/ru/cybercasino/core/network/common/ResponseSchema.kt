@@ -1,3 +1,5 @@
 package ru.cybercasino.core.network.common
 
-interface ResponseSchema
+interface ResponseSchema{
+    var isSuccessful: Boolean
+}

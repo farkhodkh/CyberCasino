@@ -30,7 +30,7 @@ public class RegistrationRequestSchemaJsonAdapter(
       emptySet(), "email")
 
   private val stringAdapter: JsonAdapter<String> = moshi.adapter(String::class.java, emptySet(),
-      "password")
+      "currency")
 
   @Volatile
   private var constructorRef: Constructor<RegistrationRequestSchema>? = null
@@ -58,10 +58,16 @@ public class RegistrationRequestSchemaJsonAdapter(
           // $mask = $mask and (1 shl 1).inv()
           mask0 = mask0 and 0xfffffffd.toInt()
         }
-        2 -> password = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("password",
-            "password", reader)
-        3 -> code = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("code", "code",
-            reader)
+        2 -> {
+          password = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 2).inv()
+          mask0 = mask0 and 0xfffffffb.toInt()
+        }
+        3 -> {
+          code = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 3).inv()
+          mask0 = mask0 and 0xfffffff7.toInt()
+        }
         4 -> currency = stringAdapter.fromJson(reader) ?: throw Util.unexpectedNull("currency",
             "currency", reader)
         -1 -> {
@@ -72,13 +78,13 @@ public class RegistrationRequestSchemaJsonAdapter(
       }
     }
     reader.endObject()
-    if (mask0 == 0xfffffffc.toInt()) {
+    if (mask0 == 0xfffffff0.toInt()) {
       // All parameters with defaults are set, invoke the constructor directly
       return  RegistrationRequestSchema(
           email = email,
           phone = phone,
-          password = password ?: throw Util.missingProperty("password", "password", reader),
-          code = code ?: throw Util.missingProperty("code", "code", reader),
+          password = password,
+          code = code,
           currency = currency ?: throw Util.missingProperty("currency", "currency", reader)
       )
     } else {
@@ -92,8 +98,8 @@ public class RegistrationRequestSchemaJsonAdapter(
       return localConstructor.newInstance(
           email,
           phone,
-          password ?: throw Util.missingProperty("password", "password", reader),
-          code ?: throw Util.missingProperty("code", "code", reader),
+          password,
+          code,
           currency ?: throw Util.missingProperty("currency", "currency", reader),
           mask0,
           /* DefaultConstructorMarker */ null
@@ -111,9 +117,9 @@ public class RegistrationRequestSchemaJsonAdapter(
     writer.name("phone")
     nullableStringAdapter.toJson(writer, value_.phone)
     writer.name("password")
-    stringAdapter.toJson(writer, value_.password)
+    nullableStringAdapter.toJson(writer, value_.password)
     writer.name("code")
-    stringAdapter.toJson(writer, value_.code)
+    nullableStringAdapter.toJson(writer, value_.code)
     writer.name("currency")
     stringAdapter.toJson(writer, value_.currency)
     writer.endObject()
