@@ -38,6 +38,7 @@
         <entry key="feature-auth/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="ui/src/main/res/drawable/background_loading_screen.xml" value="0.218" />
         <entry key="ui/src/main/res/drawable/ic_menu.xml" value="0.165" />
+        <entry key="ui/src/main/res/drawable/ic_profile_button.xml" value="0.177" />
         <entry key="ui/src/main/res/drawable/ic_vk.xml" value="0.149" />
       </map>
     </option>

@@ -1,8 +1,6 @@
 
 j
 :app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
-C
-settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 w
 Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/RootScreen.kt,c/e/ce9c1b1258c6165f44deb8fd156e1d04cf80b6a0
 w
@@ -21,12 +19,6 @@ M
 feature-auth/build.gradle.kts,c/0/c0d411e4ca8fd42efd0055e4b0d6eda3931deda3
 ì
 cfeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/CheckCodeResponseSchema.kt,8/e/8e1a349eccc9a80136cf0e1776a29dfdcdaa931d
-è
-_feature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/LoginResponseSchema.kt,3/4/34247335a9b9346ef222b3ab78d7970a535623d7
-ñ
-ffeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/RegistrationResponseSchema.kt,0/e/0e5b10b5113bb41117e485d1b318946cec1821d3
-í
-bfeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/SendCodeResponseSchema.kt,e/f/ef03905d8a272d0cdbdf0eda13145f4f106d6f88
 é
 ^feature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/UserResponseSchema.kt,d/4/d47ffc1b0c76727cf8b5346498cddb5ad811fd65
 ò
