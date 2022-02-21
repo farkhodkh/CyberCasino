@@ -9,19 +9,26 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.`internal`.Util
 import java.lang.NullPointerException
+import java.lang.reflect.Constructor
+import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.collections.emptySet
+import kotlin.jvm.Volatile
 import kotlin.text.buildString
 
 public class UserResponseSchemaJsonAdapter(
   moshi: Moshi
 ) : JsonAdapter<UserResponseSchema>() {
-  private val options: JsonReader.Options = JsonReader.Options.of("pk", "username", "email",
-      "first_name", "last_name", "domain")
+  private val options: JsonReader.Options = JsonReader.Options.of("isSuccessful", "pk", "username",
+      "email", "first_name", "last_name", "domain")
+
+  private val booleanAdapter: JsonAdapter<Boolean> = moshi.adapter(Boolean::class.java, emptySet(),
+      "isSuccessful")
 
   private val nullableIntAdapter: JsonAdapter<Int?> = moshi.adapter(Int::class.javaObjectType,
       emptySet(), "pk")
@@ -29,25 +36,60 @@ public class UserResponseSchemaJsonAdapter(
   private val nullableStringAdapter: JsonAdapter<String?> = moshi.adapter(String::class.java,
       emptySet(), "username")
 
+  @Volatile
+  private var constructorRef: Constructor<UserResponseSchema>? = null
+
   public override fun toString(): String = buildString(40) {
       append("GeneratedJsonAdapter(").append("UserResponseSchema").append(')') }
 
   public override fun fromJson(reader: JsonReader): UserResponseSchema {
+    var isSuccessful: Boolean? = false
     var pk: Int? = null
     var username: String? = null
     var email: String? = null
     var firstName: String? = null
     var lastName: String? = null
     var domain: String? = null
+    var mask0 = -1
     reader.beginObject()
     while (reader.hasNext()) {
       when (reader.selectName(options)) {
-        0 -> pk = nullableIntAdapter.fromJson(reader)
-        1 -> username = nullableStringAdapter.fromJson(reader)
-        2 -> email = nullableStringAdapter.fromJson(reader)
-        3 -> firstName = nullableStringAdapter.fromJson(reader)
-        4 -> lastName = nullableStringAdapter.fromJson(reader)
-        5 -> domain = nullableStringAdapter.fromJson(reader)
+        0 -> {
+          isSuccessful = booleanAdapter.fromJson(reader) ?:
+              throw Util.unexpectedNull("isSuccessful", "isSuccessful", reader)
+          // $mask = $mask and (1 shl 0).inv()
+          mask0 = mask0 and 0xfffffffe.toInt()
+        }
+        1 -> {
+          pk = nullableIntAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 1).inv()
+          mask0 = mask0 and 0xfffffffd.toInt()
+        }
+        2 -> {
+          username = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 2).inv()
+          mask0 = mask0 and 0xfffffffb.toInt()
+        }
+        3 -> {
+          email = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 3).inv()
+          mask0 = mask0 and 0xfffffff7.toInt()
+        }
+        4 -> {
+          firstName = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 4).inv()
+          mask0 = mask0 and 0xffffffef.toInt()
+        }
+        5 -> {
+          lastName = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 5).inv()
+          mask0 = mask0 and 0xffffffdf.toInt()
+        }
+        6 -> {
+          domain = nullableStringAdapter.fromJson(reader)
+          // $mask = $mask and (1 shl 6).inv()
+          mask0 = mask0 and 0xffffffbf.toInt()
+        }
         -1 -> {
           // Unknown name, skip it.
           reader.skipName()
@@ -56,14 +98,37 @@ public class UserResponseSchemaJsonAdapter(
       }
     }
     reader.endObject()
-    return UserResponseSchema(
-        pk = pk,
-        username = username,
-        email = email,
-        firstName = firstName,
-        lastName = lastName,
-        domain = domain
-    )
+    if (mask0 == 0xffffff80.toInt()) {
+      // All parameters with defaults are set, invoke the constructor directly
+      return  UserResponseSchema(
+          isSuccessful = isSuccessful as Boolean,
+          pk = pk,
+          username = username,
+          email = email,
+          firstName = firstName,
+          lastName = lastName,
+          domain = domain
+      )
+    } else {
+      // Reflectively invoke the synthetic defaults constructor
+      @Suppress("UNCHECKED_CAST")
+      val localConstructor: Constructor<UserResponseSchema> = this.constructorRef ?:
+          UserResponseSchema::class.java.getDeclaredConstructor(Boolean::class.javaPrimitiveType,
+          Int::class.javaObjectType, String::class.java, String::class.java, String::class.java,
+          String::class.java, String::class.java, Int::class.javaPrimitiveType,
+          Util.DEFAULT_CONSTRUCTOR_MARKER).also { this.constructorRef = it }
+      return localConstructor.newInstance(
+          isSuccessful,
+          pk,
+          username,
+          email,
+          firstName,
+          lastName,
+          domain,
+          mask0,
+          /* DefaultConstructorMarker */ null
+      )
+    }
   }
 
   public override fun toJson(writer: JsonWriter, value_: UserResponseSchema?): Unit {
@@ -71,6 +136,8 @@ public class UserResponseSchemaJsonAdapter(
       throw NullPointerException("value_ was null! Wrap in .nullSafe() to write nullable values.")
     }
     writer.beginObject()
+    writer.name("isSuccessful")
+    booleanAdapter.toJson(writer, value_.isSuccessful)
     writer.name("pk")
     nullableIntAdapter.toJson(writer, value_.pk)
     writer.name("username")

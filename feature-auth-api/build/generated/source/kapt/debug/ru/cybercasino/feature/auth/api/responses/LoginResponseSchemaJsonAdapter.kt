@@ -9,7 +9,9 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.`internal`.Util
 import java.lang.NullPointerException
+import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
@@ -19,7 +21,11 @@ import kotlin.text.buildString
 public class LoginResponseSchemaJsonAdapter(
   moshi: Moshi
 ) : JsonAdapter<LoginResponseSchema>() {
-  private val options: JsonReader.Options = JsonReader.Options.of("token", "user", "email")
+  private val options: JsonReader.Options = JsonReader.Options.of("isSuccessful", "token", "user",
+      "email", "phone", "password")
+
+  private val booleanAdapter: JsonAdapter<Boolean> = moshi.adapter(Boolean::class.java, emptySet(),
+      "isSuccessful")
 
   private val nullableStringAdapter: JsonAdapter<String?> = moshi.adapter(String::class.java,
       emptySet(), "token")
@@ -31,15 +37,22 @@ public class LoginResponseSchemaJsonAdapter(
       append("GeneratedJsonAdapter(").append("LoginResponseSchema").append(')') }
 
   public override fun fromJson(reader: JsonReader): LoginResponseSchema {
+    var isSuccessful: Boolean? = null
     var token: String? = null
     var user: UserResponseSchema? = null
     var email: String? = null
+    var phone: String? = null
+    var password: String? = null
     reader.beginObject()
     while (reader.hasNext()) {
       when (reader.selectName(options)) {
-        0 -> token = nullableStringAdapter.fromJson(reader)
-        1 -> user = nullableUserResponseSchemaAdapter.fromJson(reader)
-        2 -> email = nullableStringAdapter.fromJson(reader)
+        0 -> isSuccessful = booleanAdapter.fromJson(reader) ?:
+            throw Util.unexpectedNull("isSuccessful", "isSuccessful", reader)
+        1 -> token = nullableStringAdapter.fromJson(reader)
+        2 -> user = nullableUserResponseSchemaAdapter.fromJson(reader)
+        3 -> email = nullableStringAdapter.fromJson(reader)
+        4 -> phone = nullableStringAdapter.fromJson(reader)
+        5 -> password = nullableStringAdapter.fromJson(reader)
         -1 -> {
           // Unknown name, skip it.
           reader.skipName()
@@ -49,9 +62,13 @@ public class LoginResponseSchemaJsonAdapter(
     }
     reader.endObject()
     return LoginResponseSchema(
+        isSuccessful = isSuccessful ?: throw Util.missingProperty("isSuccessful", "isSuccessful",
+            reader),
         token = token,
         user = user,
-        email = email
+        email = email,
+        phone = phone,
+        password = password
     )
   }
 
@@ -60,12 +77,18 @@ public class LoginResponseSchemaJsonAdapter(
       throw NullPointerException("value_ was null! Wrap in .nullSafe() to write nullable values.")
     }
     writer.beginObject()
+    writer.name("isSuccessful")
+    booleanAdapter.toJson(writer, value_.isSuccessful)
     writer.name("token")
     nullableStringAdapter.toJson(writer, value_.token)
     writer.name("user")
     nullableUserResponseSchemaAdapter.toJson(writer, value_.user)
     writer.name("email")
     nullableStringAdapter.toJson(writer, value_.email)
+    writer.name("phone")
+    nullableStringAdapter.toJson(writer, value_.phone)
+    writer.name("password")
+    nullableStringAdapter.toJson(writer, value_.password)
     writer.endObject()
   }
 }

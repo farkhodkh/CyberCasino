@@ -22,7 +22,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
+import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.R
@@ -35,6 +35,7 @@ import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
 @Composable
 fun VerificationScreen(
     onEnterClickListener: () -> Unit,
+    goToProfileScreen: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val viewModel = getViewModel<LoginScreenViewModel>()
@@ -154,11 +155,11 @@ fun VerificationScreen(
                     )
                 )
 
-                val verificationTypeText = when (state.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
+                val verificationTypeText = when (state.authentificationType) {
+                    AuthentificationType.EMail -> {
                         stringResource(id = R.string.verification_code_sended_to_email_text)
                     }
-                    PasswordVerificationType.PhoneVerification -> {
+                    AuthentificationType.Phone -> {
                         stringResource(id = R.string.verification_code_sended_to_phone_text)
                     }
                 }
@@ -264,6 +265,10 @@ fun VerificationScreen(
                             )
                         )
                     }
+                }
+
+                if (state.isAuthorised) {
+                    goToProfileScreen()
                 }
 
                 RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_register_by_text)

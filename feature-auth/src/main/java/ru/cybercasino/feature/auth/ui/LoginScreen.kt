@@ -36,7 +36,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.feature.auth.viewmodel.PasswordVerificationType
+import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppTopAppBar
@@ -191,8 +191,8 @@ fun LoginScreen(
                             selected = selectedTabIndex == index,
                             onClick = {
                                 when(index) {
-                                    0 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.EMailVerification)
-                                    1 -> viewModel.updateLoginViewState(passwordVerificationType = PasswordVerificationType.PhoneVerification)
+                                    0 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.EMail)
+                                    1 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.Phone)
                                 }
                                 selectedTabIndex = index
                             },
@@ -228,9 +228,11 @@ fun LoginScreen(
                             },
                             label = {
                                 Text(
-                                    text = if (state.emailErrors.isNotEmpty()) state.emailErrors.first() else stringResource(
-                                        id = R.string.email
-                                    ),
+                                    text = state.emailErrors.ifEmpty {
+                                        stringResource(
+                                            id = R.string.email
+                                        )
+                                    },
                                     fontSize = 10.sp,
                                     color = if (emailText.text.isEmpty())
                                         DarkGray
@@ -324,9 +326,11 @@ fun LoginScreen(
                             },
                             label = {
                                 Text(
-                                    text = if (state.phoneErrors.isNotEmpty()) state.phoneErrors.first() else stringResource(
-                                        id = R.string.phone
-                                    ),
+                                    text = state.phoneErrors.ifEmpty {
+                                        stringResource(
+                                            id = R.string.phone
+                                        )
+                                    },
                                     fontSize = 10.sp,
                                     color = if (phoneText.text.isEmpty())
                                         DarkGray
@@ -367,9 +371,11 @@ fun LoginScreen(
                     },
                     label = {
                         Text(
-                            text = if (state.passwordErrors.isNotEmpty()) state.passwordErrors.first() else stringResource(
-                                id = R.string.enter_password
-                            ),
+                            text = state.passwordErrors.ifEmpty {
+                                stringResource(
+                                    id = R.string.enter_password
+                                )
+                            },
                             fontSize = 10.sp,
                             color =
                             if (password.isEmpty())

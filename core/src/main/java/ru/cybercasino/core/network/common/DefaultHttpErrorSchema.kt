@@ -1,26 +1,26 @@
 package ru.cybercasino.core.network.common
 
-import ru.cybercasino.core.network.common.ResponseSchema
-
 abstract class DefaultHttpErrorSchema(
-    var email: List<String>? = null,
-    var phone: List<String>?= null,
-    var password: List<String>?= null,
+    var email: String? = null,
+    var phone: String?= null,
+    var password: String?= null,
 ) : ResponseSchema
 
 class DefaultHttpErrorSchemaBuilder() : DefaultHttpErrorSchema() {
 
-    fun setEmail(email: List<String>) : DefaultHttpErrorSchema {
-        this.email = email.toList()
+    override var isSuccessful: Boolean = false
+
+    fun setEmail(email: String) : DefaultHttpErrorSchema {
+        this.email = email
         return this
     }
 
-    fun setPhone(phone: List<String>) : DefaultHttpErrorSchema {
+    fun setPhone(phone: String) : DefaultHttpErrorSchema {
         this.phone = phone
         return this
     }
 
-    fun setPassword(password: List<String>) : DefaultHttpErrorSchema {
+    fun setPassword(password: String) : DefaultHttpErrorSchema {
         this.password = password
         return this
     }

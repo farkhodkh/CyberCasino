@@ -72,9 +72,9 @@ class AuthenticationStorageRepositoryImpl(
         setEncrypted(KEY_PASS, value)
     }
 
-    override suspend fun getPass(): Flow<String> = getEncrypted(KEY_PASS)
+    override suspend fun getPass(): Flow<String?> = getEncrypted(KEY_PASS)
 
-    override suspend fun getVerificationCode(): Flow<String> = getEncrypted(KEY_VERIFICATION_CODE)
+    override suspend fun getVerificationCode(): Flow<String?> = getEncrypted(KEY_VERIFICATION_CODE)
 
     override suspend fun setVerificationCode(value: String?) {
         setEncrypted(KEY_VERIFICATION_CODE, value)
@@ -121,18 +121,18 @@ class AuthenticationStorageRepositoryImpl(
         }
     }
 
-    private suspend fun getEncrypted(key: Preferences.Key<String>): Flow<String> =
+    private suspend fun getEncrypted(key: Preferences.Key<String>): Flow<String?> =
         context.dataStore.data
             .map { preferences ->
-                preferences[key]?.let { security.decrypt(EncryptionResult.deserialize(it)) } ?: ""
+                preferences[key]?.let { security.decrypt(EncryptionResult.deserialize(it)) } ?: null
             }
 }
 
 class LoginInfo(
-    val email: String?,
-    val phone: String?,
-    val password: String = "",
-    val verificationCode: String = "",
+    val email: String? = null,
+    val phone: String? = null,
+    val password: String? = null,
+    val verificationCode: String? = null,
     val status: ClientStatus
 )
 
