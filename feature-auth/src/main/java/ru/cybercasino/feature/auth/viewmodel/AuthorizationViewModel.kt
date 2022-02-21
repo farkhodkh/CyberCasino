@@ -39,9 +39,7 @@ class LoginScreenViewModel(
         loginController
             .loginState
             .onEach { loginState ->
-                loginState.response?.let {
-                    catchAuthenticationResponse(it)
-                }
+                catchAuthenticationResponse(loginState.response)
             }
             .launchIn(viewModelScope)
 
@@ -103,7 +101,7 @@ class LoginScreenViewModel(
         password: String? = null,
         promoCodeText: String? = null,
         verificationCode: String? = null,
-        passwordVerificationType: PasswordVerificationType? = null
+        authentificationType: AuthentificationType? = null
     ) {
         val currentState = _state.value
 
@@ -121,8 +119,7 @@ class LoginScreenViewModel(
             promoCodeText = promoCodeText ?: currentState.promoCodeText,
             isFieldsCorrect = isFieldsCorrect,
             verificationCode = verificationCode ?: "",
-            passwordVerificationType = passwordVerificationType
-                ?: currentState.passwordVerificationType
+            authentificationType = authentificationType ?: currentState.authentificationType
         )
 
         _state.tryEmit(newState)
@@ -142,14 +139,14 @@ class LoginScreenViewModel(
 
             viewModelScope.launch {
 
-                val request = when (currentState.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
+                val request = when (currentState.authentificationType) {
+                    AuthentificationType.EMail -> {
                         LoginRequestSchema(
                             email = currentState.email ?: "",
                             password = currentState.password
                         )
                     }
-                    PasswordVerificationType.PhoneVerification -> {
+                    AuthentificationType.Phone -> {
                         LoginRequestSchema(
                             phone = currentState.phone ?: "",
                             password = currentState.password
@@ -171,15 +168,15 @@ class LoginScreenViewModel(
             authenticationStorageRepository.setLoginPhone(currentState.phone)
             authenticationStorageRepository.setPass(currentState.password)
 
-            val request = when (currentState.passwordVerificationType) {
-                PasswordVerificationType.EMailVerification -> {
+            val request = when (currentState.authentificationType) {
+                AuthentificationType.EMail -> {
                     UserValidationRequestSchema(
                         email = currentState.email,
                         password = currentState.password,
                         reset = false,
                     )
                 }
-                PasswordVerificationType.PhoneVerification -> {
+                AuthentificationType.Phone -> {
                     UserValidationRequestSchema(
                         phone = currentState.phone,
                         password = currentState.password,
@@ -194,7 +191,7 @@ class LoginScreenViewModel(
 
     fun sendCode() {
         viewModelScope.launch {
-
+            _state.value
             startVerificationCodeRequestTimer()
 
             userLoginInfo?.let { loginInfo ->
@@ -224,55 +221,57 @@ class LoginScreenViewModel(
         }
     }
 
-    private fun catchAuthenticationResponse(response: ResponseSchema) {
+    private fun catchAuthenticationResponse(response: ResponseSchema?) {
         when (response) {
             is UserValidationResponseSchema -> {
-                _state.tryEmit(
-                    _state.value.copy(
-                        emailErrors = response.email ?: emptyList(),
-                        passwordErrors = response.password ?: emptyList(),
-                        phoneErrors = response.phone ?: emptyList()
-                    )
-                )
-                when (_state.value.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
-                        if (response.password.isNullOrEmpty() && response.email.isNullOrEmpty()) {
-                            _state.tryEmit(_state.value.copy(verificationCodeRequest = true))
-                            sendCode()
-                        } else {
-                            setLoginDefaultState()
-                        }
+                if (response.isSuccessful) {
+                    viewModelScope.launch {
+                        setEmptyErrorState()
+                        authenticationStorageRepository.setStatus(ClientStatus.VERIFICATION)
+                        _state.tryEmit(_state.value.copy(verificationCodeRequest = true))
+                        sendCode()
                     }
-                    PasswordVerificationType.PhoneVerification -> {
-                        if (response.password.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
-                            _state.tryEmit(_state.value.copy(verificationCodeRequest = true))
-                            sendCode()
-                        } else {
-                            setLoginDefaultState()
+                }
+                else {
+                    when (_state.value.authentificationType) {
+                        AuthentificationType.EMail -> {
+                            if (!response.isSuccessful && response.password.isNullOrEmpty() && response.email.isNullOrEmpty()) {
+                                viewModelScope.launch {
+                                    authenticationStorageRepository.setStatus(ClientStatus.VERIFICATION)
+                                    _state.tryEmit(_state.value.copy(verificationCodeRequest = true))
+                                    sendCode()
+                                }
+                            } else {
+                                setLoginDefaultState()
+                            }
+                        }
+                        AuthentificationType.Phone -> {
+                            if (!response.isSuccessful && response.password.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
+                                viewModelScope.launch {
+                                    authenticationStorageRepository.setStatus(ClientStatus.VERIFICATION)
+                                    _state.tryEmit(_state.value.copy(verificationCodeRequest = true))
+                                    sendCode()
+                                }
+                            } else {
+                                setLoginDefaultState()
+                            }
                         }
                     }
                 }
             }
             is CheckCodeResponseSchema -> {
-                _state.tryEmit(
-                    _state.value.copy(
-                        emailErrors = response.email ?: emptyList(),
-                        verificationCodeError = response.code ?: "",
-                        phoneErrors = response.phone ?: emptyList()
-                    )
-                )
-
-                when (_state.value.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
-                        if (response.code.isNullOrEmpty() && response.email.isNullOrEmpty()) {
-                            viewModelScope.launch {
+                setEmptyErrorState()
+                if (response.isSuccessful) {
+                    register()
+                } else {
+                    when (_state.value.authentificationType) {
+                        AuthentificationType.EMail -> {
+                            if (response.code.isNullOrEmpty() && response.email.isNullOrEmpty()) {
                                 register()
                             }
                         }
-                    }
-                    PasswordVerificationType.PhoneVerification -> {
-                        if (response.code.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
-                            viewModelScope.launch {
+                        AuthentificationType.Phone -> {
+                            if (response.code.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
                                 register()
                             }
                         }
@@ -281,19 +280,45 @@ class LoginScreenViewModel(
             }
             is RegistrationResponseSchema -> {
                 viewModelScope.launch {
-                    //TODO - go to login view
-                    //authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                    if (response.isSuccessful) {
+                        authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                        _state.tryEmit(_state.value.copy(isAuthorised = true))
+                    } else {
+                        when (_state.value.authentificationType) {
+                            AuthentificationType.EMail -> {
+                                if (response.email.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                                    _state.tryEmit(_state.value.copy(isAuthorised = true))
+                                }
+                            }
+                            AuthentificationType.Phone -> {
+                                if (response.phone.isNullOrEmpty() && response.password.isNullOrEmpty()) {
+                                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
+                                    _state.tryEmit(_state.value.copy(isAuthorised = true))
+                                }
+                            }
+                        }
+                    }
                 }
             }
             is UserResponseSchema -> {
                 val b = 0
             }
             is SendCodeResponseSchema -> {
-                if (response.email.isNullOrEmpty()
-                    || response.phone.isNullOrEmpty()
-                ) {
-                    viewModelScope.launch {
-                        authenticationStorageRepository.setStatus(ClientStatus.VERIFICATION)
+                when (_state.value.authentificationType) {
+                    AuthentificationType.EMail -> {
+                        _state.tryEmit(
+                            _state.value.copy(
+                                emailErrors = response.email ?: ""
+                            )
+                        )
+                    }
+                    AuthentificationType.Phone -> {
+                        _state.tryEmit(
+                            _state.value.copy(
+                                emailErrors = response.phone ?: ""
+                            )
+                        )
                     }
                 }
             }
@@ -302,46 +327,29 @@ class LoginScreenViewModel(
                     authenticationStorageRepository.setLoginEmail(response.email)
                     authenticationStorageRepository.setToken(response.token)
                     authenticationStorageRepository.setUser(response.user)
-                    authenticationStorageRepository.setPass(response.password)
-                }
-
-                when (_state.value.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
-                        if (response.password.isNullOrEmpty() && response.email.isNullOrEmpty()) {
-                            viewModelScope.launch {
-                                authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
-                            }
-                        }
-                    }
-                    PasswordVerificationType.PhoneVerification -> {
-                        if (response.password.isNullOrEmpty() && response.phone.isNullOrEmpty()) {
-                            viewModelScope.launch {
-                                authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
-                            }
-                        }
-                    }
+                    authenticationStorageRepository.setStatus(ClientStatus.LOGGED_IN)
                 }
             }
             is DefaultHttpErrorSchema -> {
                 _state.tryEmit(
                     _state.value.copy(
-                        emailErrors = response.email ?: emptyList(),
-                        passwordErrors = response.password ?: emptyList(),
-                        phoneErrors = response.phone ?: emptyList()
+                        emailErrors = response.email ?: "",
+                        passwordErrors = response.password ?: "",
+                        phoneErrors = response.phone ?: ""
                     )
                 )
-                when (_state.value.passwordVerificationType) {
-                    PasswordVerificationType.EMailVerification -> {
+                when (_state.value.authentificationType) {
+                    AuthentificationType.EMail -> {
                         if (response.email.isNullOrEmpty() && response.password.isNullOrEmpty()) {
                             viewModelScope.launch {
-                                login()
+                                //login()
                             }
                         }
                     }
-                    PasswordVerificationType.PhoneVerification -> {
+                    AuthentificationType.Phone -> {
                         if (response.phone.isNullOrEmpty() && response.password.isNullOrEmpty()) {
                             viewModelScope.launch {
-                                login()
+                                //login()
                             }
                         }
                     }
@@ -353,9 +361,8 @@ class LoginScreenViewModel(
         }
     }
 
-    private suspend fun register() {
+    private fun register() {
         viewModelScope.launch {
-            //TODO - тут нужна прослойка маппинга
             userLoginInfo?.let { logInfo ->
                 val request = RegistrationRequestSchema(
                     email = logInfo.email,
@@ -364,9 +371,7 @@ class LoginScreenViewModel(
                     code = logInfo.verificationCode,
                     currency = "EUR"
                 )
-                //TODO - END
-
-                //loginController.registerNewUser(request)
+                loginController.registerNewUser(request)
             }
         }
     }
@@ -391,6 +396,16 @@ class LoginScreenViewModel(
             authenticationStorageRepository.setPass("")
             authenticationStorageRepository.setStatus(ClientStatus.NOT_LOGGED_IN)
         }
+    }
+
+    private fun setEmptyErrorState() {
+        _state.tryEmit(
+            _state.value.copy(
+                emailErrors = "",
+                passwordErrors = "",
+                phoneErrors = "",
+            )
+        )
     }
 
     override fun onCleared() {
@@ -422,7 +437,7 @@ class LoginScreenViewModel(
         /**
          * E-mail error descriptions list
          */
-        val emailErrors: List<String>,
+        val emailErrors: String,
 
         /**
          * User phone
@@ -432,7 +447,7 @@ class LoginScreenViewModel(
         /**
          * Phone error descriptions list
          */
-        val phoneErrors: List<String>,
+        val phoneErrors: String,
 
         /**
          * User country
@@ -447,7 +462,7 @@ class LoginScreenViewModel(
         /**
          * Password error descriptions list
          */
-        val passwordErrors: List<String>,
+        val passwordErrors: String,
 
         /**
          * User promo code
@@ -492,7 +507,7 @@ class LoginScreenViewModel(
         /**
          * The type of the user password verification type
          */
-        var passwordVerificationType: PasswordVerificationType,
+        var authentificationType: AuthentificationType,
     )
 }
 
@@ -500,12 +515,12 @@ private val InitialState = LoginScreenViewModel.State(
     isLoading = false,
     isAuthorised = false,
     email = null,
-    emptyList(),
+    "",
     phone = null,
-    emptyList(),
+    "",
     selectedCountry = defaultCountryData,
     password = "",
-    emptyList(),
+    "",
     promoCodeText = "",
     verificationCode = "",
     "",
@@ -514,11 +529,11 @@ private val InitialState = LoginScreenViewModel.State(
     isFieldsCorrect = false,
     verificationCodeRequest = false,
     0,
-    PasswordVerificationType.EMailVerification
+    AuthentificationType.EMail
 )
 
-sealed class PasswordVerificationType {
-    object EMailVerification : PasswordVerificationType()
-    object PhoneVerification : PasswordVerificationType()
+sealed class AuthentificationType {
+    object EMail : AuthentificationType()
+    object Phone : AuthentificationType()
 }
 

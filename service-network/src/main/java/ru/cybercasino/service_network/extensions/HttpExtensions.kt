@@ -11,11 +11,13 @@ import ru.cybercasino.core.network.common.ResponseSchema
 val gson = Gson()
 
 @RequiresApi(Build.VERSION_CODES.N)
-inline fun <reified T: ResponseSchema> Response<T>.httpErrorHandler() : ResponseSchema {
+inline fun <reified T: ResponseSchema> Response<T>.httpErrorHandler() : ResponseSchema? {
     val response = this
 
     if (this.isSuccessful) {
-        return this.body() as T
+        return (response.body() as T).apply {
+            this.isSuccessful = true
+        }
     } else {
         val errorBodyStr = InputStreamReader(response.errorBody()?.byteStream()).readText()
         try {

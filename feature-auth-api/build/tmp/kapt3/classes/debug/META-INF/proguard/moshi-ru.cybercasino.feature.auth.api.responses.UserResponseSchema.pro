@@ -8,5 +8,5 @@
 -keepnames class kotlin.jvm.internal.DefaultConstructorMarker
 -if class ru.cybercasino.feature.auth.api.responses.UserResponseSchema
 -keepclassmembers class ru.cybercasino.feature.auth.api.responses.UserResponseSchema {
-    public synthetic <init>(java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,int,kotlin.jvm.internal.DefaultConstructorMarker);
+    public synthetic <init>(boolean,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,int,kotlin.jvm.internal.DefaultConstructorMarker);
 }
