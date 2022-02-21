@@ -102,9 +102,7 @@ class AuthenticationStorageRepositoryImpl(
         getVerificationCode()
     ) { status, email, phone, pass, verificationCode->
 
-        if (email?.isEmpty() == true && phone?.isEmpty() == true) {
-            null
-        } else if (status in listOf(ClientStatus.LOGGED_IN, ClientStatus.VERIFICATION)) {
+        if (status in listOf(ClientStatus.LOGGED_IN, ClientStatus.VERIFICATION)) {
             LoginInfo(email, phone, pass, verificationCode, status)
         } else {
             null

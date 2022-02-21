@@ -27,7 +27,7 @@ import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.Red
-import ru.cybercasino.ui.elements.AppTopAppBar
+import ru.cybercasino.ui.elements.AppTopAppBarRegistration
 import ru.cybercasino.ui.elements.CyberButton
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.elements.RegistrationCodeInputScreen
@@ -45,7 +45,7 @@ fun VerificationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBar(
+            AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.enter_text,
                 onButtonClickListener = onEnterClickListener
             )

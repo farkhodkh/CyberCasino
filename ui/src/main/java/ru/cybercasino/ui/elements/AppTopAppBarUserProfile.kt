@@ -1,13 +1,7 @@
 package ru.cybercasino.ui.elements
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.Icon
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -21,15 +15,11 @@ import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.utils.defaultCountryData
 
-/**
- * Application top bar screen
- * @param buttonLabelTextId - Id for button text
- * @param onButtonClickListener - On button click action
- */
 @Composable
-fun AppTopAppBar(
-    buttonLabelTextId: Int,
-    onButtonClickListener: () -> Unit
+fun AppTopAppBarUserProfile(
+    barLabelTextId: Int,
+    onNotificationButtonClickListener: () -> Unit,
+    onUserProfileButtonClickListener: () -> Unit,
 ) {
     TopAppBar(
         modifier = Modifier.padding(top = 24.dp),
@@ -57,9 +47,9 @@ fun AppTopAppBar(
                         modifier = Modifier.padding(start = 60.dp, end = 40.dp)
                     )
                     CyberButton(
-                        stringResource(id = buttonLabelTextId),
+                        stringResource(id = barLabelTextId),
                         titleSize = 10.sp,
-                        onClick = { onButtonClickListener() },
+                        onClick = { onNotificationButtonClickListener() },
                         Modifier
                             .padding(top = 14.dp)
                             .width(92.dp)

@@ -48,11 +48,16 @@ dependencies {
     api(libs.accompanist.insetsUi)
     api(libs.accompanist.systemUiController)
     implementation(libs.koin.compose)
-//    implementation(libs.androidx.compose.runtime)
 
     implementation(project(":ui"))
     implementation(project(":core"))
+
+    //Features
     implementation(project(":feature-auth"))
     implementation(project(":feature-auth-api"))
+    implementation(project(":feature-user-profile"))
+    implementation(project(":feature-user-profile-api"))
+
+    //Services
     implementation(project(":service-network"))
 }

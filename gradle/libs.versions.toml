@@ -5,7 +5,6 @@ plugin-gradleTools = "7.0.3"
 
 # Kotlin
 kotlin = "1.5.31"
-#kotlin = "1.6.10"
 kotlinCoroutines = "1.5.2"
 
 #Android
