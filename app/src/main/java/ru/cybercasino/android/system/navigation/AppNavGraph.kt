@@ -23,6 +23,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import ru.cybercasino.feature.auth.ui.LoginScreen
 import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
 import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
+import ru.cybercasino.feature.user.profile.ui.UserProfileScreen
 
 /**
  * The application's navigation graph.
@@ -93,7 +94,12 @@ fun AppNavGraph(modifier: Modifier) {
                 )
             }
             composable(Screen.ProfileScreen.route) {
+                UserProfileScreen(
+                    onEnterClickListener = {
 
+
+                    }
+                )
             }
         }
     }

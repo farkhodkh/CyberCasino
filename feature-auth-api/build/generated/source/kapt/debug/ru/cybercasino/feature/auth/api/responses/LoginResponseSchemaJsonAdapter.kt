@@ -11,11 +11,14 @@ import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.`internal`.Util
 import java.lang.NullPointerException
+import java.lang.reflect.Constructor
 import kotlin.Boolean
+import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.collections.emptySet
+import kotlin.jvm.Volatile
 import kotlin.text.buildString
 
 public class LoginResponseSchemaJsonAdapter(
@@ -33,21 +36,29 @@ public class LoginResponseSchemaJsonAdapter(
   private val nullableUserResponseSchemaAdapter: JsonAdapter<UserResponseSchema?> =
       moshi.adapter(UserResponseSchema::class.java, emptySet(), "user")
 
+  @Volatile
+  private var constructorRef: Constructor<LoginResponseSchema>? = null
+
   public override fun toString(): String = buildString(41) {
       append("GeneratedJsonAdapter(").append("LoginResponseSchema").append(')') }
 
   public override fun fromJson(reader: JsonReader): LoginResponseSchema {
-    var isSuccessful: Boolean? = null
+    var isSuccessful: Boolean? = false
     var token: String? = null
     var user: UserResponseSchema? = null
     var email: String? = null
     var phone: String? = null
     var password: String? = null
+    var mask0 = -1
     reader.beginObject()
     while (reader.hasNext()) {
       when (reader.selectName(options)) {
-        0 -> isSuccessful = booleanAdapter.fromJson(reader) ?:
-            throw Util.unexpectedNull("isSuccessful", "isSuccessful", reader)
+        0 -> {
+          isSuccessful = booleanAdapter.fromJson(reader) ?:
+              throw Util.unexpectedNull("isSuccessful", "isSuccessful", reader)
+          // $mask = $mask and (1 shl 0).inv()
+          mask0 = mask0 and 0xfffffffe.toInt()
+        }
         1 -> token = nullableStringAdapter.fromJson(reader)
         2 -> user = nullableUserResponseSchemaAdapter.fromJson(reader)
         3 -> email = nullableStringAdapter.fromJson(reader)
@@ -61,15 +72,35 @@ public class LoginResponseSchemaJsonAdapter(
       }
     }
     reader.endObject()
-    return LoginResponseSchema(
-        isSuccessful = isSuccessful ?: throw Util.missingProperty("isSuccessful", "isSuccessful",
-            reader),
-        token = token,
-        user = user,
-        email = email,
-        phone = phone,
-        password = password
-    )
+    if (mask0 == 0xfffffffe.toInt()) {
+      // All parameters with defaults are set, invoke the constructor directly
+      return  LoginResponseSchema(
+          isSuccessful = isSuccessful as Boolean,
+          token = token,
+          user = user,
+          email = email,
+          phone = phone,
+          password = password
+      )
+    } else {
+      // Reflectively invoke the synthetic defaults constructor
+      @Suppress("UNCHECKED_CAST")
+      val localConstructor: Constructor<LoginResponseSchema> = this.constructorRef ?:
+          LoginResponseSchema::class.java.getDeclaredConstructor(Boolean::class.javaPrimitiveType,
+          String::class.java, UserResponseSchema::class.java, String::class.java,
+          String::class.java, String::class.java, Int::class.javaPrimitiveType,
+          Util.DEFAULT_CONSTRUCTOR_MARKER).also { this.constructorRef = it }
+      return localConstructor.newInstance(
+          isSuccessful,
+          token,
+          user,
+          email,
+          phone,
+          password,
+          mask0,
+          /* DefaultConstructorMarker */ null
+      )
+    }
   }
 
   public override fun toJson(writer: JsonWriter, value_: LoginResponseSchema?): Unit {
