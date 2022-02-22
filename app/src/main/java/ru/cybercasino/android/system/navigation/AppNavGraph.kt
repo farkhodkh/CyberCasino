@@ -23,7 +23,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import ru.cybercasino.feature.auth.ui.LoginScreen
 import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
 import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
-import ru.cybercasino.feature.user.profile.ui.UserProfileScreen
+import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
 
 /**
  * The application's navigation graph.
@@ -68,8 +68,8 @@ fun AppNavGraph(modifier: Modifier) {
                     onRegisterClickListener = {
                         navController.navigate(Screen.VerificationScreen.route)
                     },
-                    goToProfileScreen = {
-                        navController.navigate(Screen.ProfileScreen.route)
+                    goToMainProfileScreen = {
+                        navController.navigate(Screen.MainProfileScreen.route)
                     }
                 )
             }
@@ -89,16 +89,13 @@ fun AppNavGraph(modifier: Modifier) {
                         navController.navigate(Screen.Login.route)
                     },
                     goToProfileScreen = {
-                        navController.navigate(Screen.ProfileScreen.route)
+                        navController.navigate(Screen.MainProfileScreen.route)
                     }
                 )
             }
-            composable(Screen.ProfileScreen.route) {
-                UserProfileScreen(
-                    onEnterClickListener = {
-
-
-                    }
+            composable(Screen.MainProfileScreen.route) {
+                MainProfileScreen(
+                    onEnterClickListener = {}
                 )
             }
         }

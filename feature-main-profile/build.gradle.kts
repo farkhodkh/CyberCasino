@@ -26,7 +26,16 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
-    api(project(":core"))
-    api(project(":service-network"))
-    kapt(libs.moshiCodeGen)
+    implementation(libs.androidx.core)
+    implementation(libs.koin.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.compose.material.icons.extended)
+    api(libs.kotlinCoroutines)
+//    api(libs.accompanist.insets)
+//    api(libs.accompanist.insetsUi)
+//    api(libs.accompanist.pager)
+//    api(libs.accompanist.pager.indicators)
+
+
+    implementation(project(":ui"))
 }

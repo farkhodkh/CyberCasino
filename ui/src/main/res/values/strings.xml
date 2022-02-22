@@ -27,9 +27,13 @@
     <string name="resend_after_text">Отправить повторно через</string>
     <string name="confirm">Подтвердить</string>
     <string name="retry">Повторить</string>
+    <string name="play_label">Играть</string>
     <string name="repeat_require_verification_code">Запросить код повторно</string>
     <string name="registration_finish">Регистрация прошла успешно</string>
     <string name="congratulations_registration_finish">Поздравляем!\n Вы успешно зарегестрировались</string>
+    <string name="win_and_have_fun_with_cybercasino">Выигрывай и получай удовольствие от игры с</string>
+    <string name="cybercasino">Сybercasino</string>
+    <string name="news_label">Новости</string>
 
     <string-array name="country_codes_flags">
         <item value="+93">🇦🇫 +93</item>

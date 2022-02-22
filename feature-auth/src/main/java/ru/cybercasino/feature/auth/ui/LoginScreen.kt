@@ -53,7 +53,7 @@ import ru.cybercasino.ui.utils.getCountriesList
 fun LoginScreen(
     onClickListener: () -> Unit,
     onRegisterClickListener: () -> Unit,
-    goToProfileScreen: () -> Unit
+    goToMainProfileScreen: () -> Unit
 ) {
     val viewModel = getViewModel<LoginScreenViewModel>()
     val state by viewModel.state.collectAsState()
@@ -447,7 +447,7 @@ fun LoginScreen(
                 if (state.verificationCodeRequest) {
                     onRegisterClickListener()
                 } else if (state.isAuthorised) {
-                    goToProfileScreen()
+                    goToMainProfileScreen()
                 }
 
                 RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_join_by_text)

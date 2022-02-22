@@ -34,9 +34,12 @@
         <entry key="../../../../layout/compose-model-1645007717302.xml" value="0.34797297297297297" />
         <entry key="../../../../layout/compose-model-1645010325447.xml" value="0.34797297297297297" />
         <entry key="../../../../layout/compose-model-1645010745277.xml" value="0.23015202702702703" />
+        <entry key="../../../../layout/compose-model-1645523268993.xml" value="0.34797297297297297" />
+        <entry key="../../../../layout/compose-model-1645523280320.xml" value="0.75" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14114583333333333" />
         <entry key="feature-auth/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="ui/src/main/res/drawable/background_loading_screen.xml" value="0.218" />
+        <entry key="ui/src/main/res/drawable/background_main_play.xml" value="0.262" />
         <entry key="ui/src/main/res/drawable/ic_menu.xml" value="0.165" />
         <entry key="ui/src/main/res/drawable/ic_profile_button.xml" value="0.177" />
         <entry key="ui/src/main/res/drawable/ic_vk.xml" value="0.149" />
