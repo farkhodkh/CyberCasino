@@ -34,6 +34,7 @@
     <string name="win_and_have_fun_with_cybercasino">Выигрывай и получай удовольствие от игры с</string>
     <string name="cybercasino">Сybercasino</string>
     <string name="news_label">Новости</string>
+    <string name="read_full_text">Читать полностью</string>
 
     <string-array name="country_codes_flags">
         <item value="+93">🇦🇫 +93</item>

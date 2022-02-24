@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -14,10 +15,11 @@ import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.White
 import androidx.compose.ui.graphics.Color
+import ru.cybercasino.ui.Black
 
 @Composable
-fun ListDevider(
-    deviderLabel: String,
+fun ListDivider(
+    dividerLabel: String,
     labelColor: Color = White,
     modifier: Modifier = Modifier
 ) {
@@ -30,11 +32,12 @@ fun ListDevider(
         Image(
             painter = painterResource(id = R.drawable.ic_devider_start),
             contentDescription = "",
-            modifier = Modifier.padding(top = 12.dp)
+            modifier = Modifier
+                .padding(top = 12.dp)
         )
 
         Text(
-            text = deviderLabel,
+            text = dividerLabel,
             style = TextStyle(
                 color = labelColor,
                 fontSize = 18.sp,
@@ -56,6 +59,6 @@ fun ListDevider(
 @Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-private fun CyberButtonPreview() {
-    ListDevider("Новости")
+private fun ListDeviderPreview() {
+    ListDivider(dividerLabel = "Новости", labelColor = Black)
 }
