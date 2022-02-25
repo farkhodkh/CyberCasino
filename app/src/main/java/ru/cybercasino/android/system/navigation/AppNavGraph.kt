@@ -23,6 +23,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import ru.cybercasino.feature.auth.ui.LoginScreen
 import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
 import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
+import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
 import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
 
 /**
@@ -95,7 +96,16 @@ fun AppNavGraph(modifier: Modifier) {
             }
             composable(Screen.MainProfileScreen.route) {
                 MainProfileScreen(
-                    onEnterClickListener = {}
+                    onEnterClickListener = {
+                        navController.navigate(Screen.ChooseLanguageScreen.route)
+                    }
+                )
+            }
+            composable(Screen.ChooseLanguageScreen.route) {
+                ChooseLanguageScreen(
+                    onChooseLanguage = {
+                        navController.navigate(Screen.MainProfileScreen.route)
+                    }
                 )
             }
         }

@@ -59,6 +59,6 @@ fun ListDivider(
 @Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-private fun ListDeviderPreview() {
+private fun ListDividerPreview() {
     ListDivider(dividerLabel = "Новости", labelColor = Black)
 }

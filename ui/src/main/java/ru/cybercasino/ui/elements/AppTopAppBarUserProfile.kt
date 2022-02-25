@@ -4,13 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
+import ru.cybercasino.ui.utils.defaultCountryData
 
 @Composable
 fun AppTopAppBarUserProfile(
@@ -28,9 +31,9 @@ fun AppTopAppBarUserProfile(
                     //scope.launch { scaffoldState.drawerState.open() }
                 }
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_menu),
-                    contentDescription = "Main menu"
+                Text(
+                    text = defaultCountryData.flag,
+                    fontSize = 16.sp
                 )
             }
         },

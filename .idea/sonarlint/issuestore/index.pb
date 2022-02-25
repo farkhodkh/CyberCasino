@@ -19,8 +19,6 @@ Xservice-network/src/main/java/ru/cybercasino/service_network/extensions/JSONObj
 Ocore/src/main/java/ru/cybercasino/core/network/common/DefaultHttpErrorSchema.kt,5/a/5a8344178edca081b112004ff51c1c139fe921ac
 ‘
 afeature-auth/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationStorageRepositoryImpl.kt,e/8/e8bb400592733dcbba589dbad186465c220dfa62
-w
-Gui/src/main/java/ru/cybercasino/ui/elements/AppTopAppBarRegistration.kt,6/2/62524e78913be4c742b8e4bda15f56589ea62edc
 
 Ofeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/VerificationScreen.kt,3/c/3c1d8ac395d4b388f12589c992b323fff75da67b
 ‘
@@ -45,8 +43,6 @@ y
 Ifeature-auth/src/main/java/ru/cybercasino/feature/auth/LoginController.kt,4/c/4c1b2199690e039b120bd89f890f9d6aee0ee4f6
 ˜
 hfeature-user-profile/src/main/java/ru/cybercasino/feature/user/profile/viewmodel/UserProfileViewModel.kt,f/a/fa78ef5f6d8a5c8b10f6a5874d6bd974e11e4819
-Œ
-\feature-auth/src/main/java/ru/cybercasino/feature/auth/ui/RegisterWithSocialNetworkScreen.kt,4/1/41588f59a5fdb3a7d920fc9aa79f323785414ca5
 @
 build.gradle.kts,d/b/dbcff70658daf80b53ce624f6adcaa529df5ed8d
 R
@@ -55,8 +51,6 @@ C
 ui/build.gradle.kts,5/7/57cbb61043327439d0d706ebdfd64b6496ce41af
 U
 %feature-user-profile/build.gradle.kts,d/f/df9d3d10f065e19e1cacf0bdebb9e56145bc7a2f
-Ž
-^feature-user-profile/src/main/java/ru/cybercasino/feature/user/profile/ui/UserProfileScreen.kt,d/5/d5e09f15e1e70f0c185fdd7ebba777cfe0c08de3
 E
 core/build.gradle.kts,d/7/d72846b7b418aa17de692d1ccf924c738cf8dbe5
 P
@@ -75,8 +69,6 @@ M
 feature-auth/build.gradle.kts,c/0/c0d411e4ca8fd42efd0055e4b0d6eda3931deda3
 W
 'feature-main-profile/proguard-rules.pro,d/b/dbbd1272ce80e2167746560c8c36c306b2d7d21b
-t
-Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
 j
 :app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
 ‡
@@ -99,9 +91,11 @@ C
 settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 D
 app/build.gradle.kts,d/2/d2a4383452aad84a18429a5844d31330a012a9e6
-v
-Fui/src/main/java/ru/cybercasino/ui/elements/AppTopAppBarUserProfile.kt,f/7/f7527446dc7c04587a4db1781eecd21627b2da4b
 j
 :ui/src/main/java/ru/cybercasino/ui/elements/CyberButton.kt,2/8/28f845339803c0889e8d5ddeb7cf113f20782049
-a
-1ui/src/main/java/ru/cybercasino/ui/utils/Color.kt,0/e/0e0b48bb7aed683d6e534c254c7255213147625e
+˜
+hfeature-main-profile/src/main/java/ru/cybercasino/feature/main/profile/viewmodel/MainProfileViewModel.kt,1/e/1ec16ee1c928063a5005daaec2c05191734b88c4
+‹
+[feature-main-profile/src/main/java/ru/cybercasino/feature/main/profile/ui/NewsItemScreen.kt,e/a/ea7e7902807692999f96b8f1bd88ee687221e65f
+Ž
+^feature-user-profile/src/main/java/ru/cybercasino/feature/user/profile/ui/UserProfileScreen.kt,d/5/d5e09f15e1e70f0c185fdd7ebba777cfe0c08de3

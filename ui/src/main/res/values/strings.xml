@@ -17,7 +17,8 @@
     <string name="promo_code">Промокод (необязательно)</string>
     <string name="regulation">Правила</string>
     <string name="terms_of_use">Условия использования</string>
-    <string name="privacy_policy">Политику конфиденциальности</string>
+    <string name="privacy_policy">Политику\nконфиденциальности</string>
+    <string name="user_agreement">Пользовательское\nсоглашение</string>
     <string name="and">и</string>
     <string name="one_letter">Одна буква</string>
     <string name="one_number">Одна цифра</string>
@@ -35,6 +36,22 @@
     <string name="cybercasino">Сybercasino</string>
     <string name="news_label">Новости</string>
     <string name="read_full_text">Читать полностью</string>
+    <string name="for_users">Пользователям</string>
+    <string name="information">Информация</string>
+    <string name="show_more">Показать больше</string>
+    <string name="games">Игры</string>
+    <string name="best_games">Лучшие игры</string>
+    <string name="FAQ">FAQ</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Google">Google</string>
+    <string name="Telegram">Telegram</string>
+    <string name="Instagram">Instagram</string>
+    <string name="countering_money_laundering">Противодействие\nотмыванию денег</string>
+
+    <string-array name="languages_flags">
+        <item value="Русский">🇷🇺 Русский</item>
+        <item value="English">🇬🇧 English</item>
+    </string-array>
 
     <string-array name="country_codes_flags">
         <item value="+93">🇦🇫 +93</item>

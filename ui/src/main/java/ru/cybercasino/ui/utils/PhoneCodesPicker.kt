@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringArrayResource
 import ru.cybercasino.ui.R
 
 /**
- * method gets countries list
+ * Method gets countries list
  */
 @Composable
 fun getCountriesList(): List<CountryCodeAndFlag> {

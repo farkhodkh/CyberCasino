@@ -34,4 +34,9 @@ sealed class Screen(
      * The main profile state screen
      */
     object UserProfileScreen: Screen("profile/main")
+
+    /**
+     * The choose language screen
+     */
+    object ChooseLanguageScreen: Screen("profile/choose_language")
 }

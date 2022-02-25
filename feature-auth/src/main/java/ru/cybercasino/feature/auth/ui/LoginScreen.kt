@@ -450,7 +450,7 @@ fun LoginScreen(
                     goToMainProfileScreen()
                 }
 
-                RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_join_by_text)
+                RegisterWithSocialNetworkScreen(labelResourceId = 0)
             }
         },
     )
