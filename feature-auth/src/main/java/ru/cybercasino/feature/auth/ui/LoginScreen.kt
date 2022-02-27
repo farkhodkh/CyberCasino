@@ -7,6 +7,7 @@
 package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -79,6 +81,7 @@ fun LoginScreen(
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refPhoneCodeChevronField = createRefFor("phoneCodeChevronField")
                     val refCountriesCodeField = createRefFor("countriesCodeField")
                     val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
@@ -111,14 +114,19 @@ fun LoginScreen(
                         start.linkTo(parent.start, 16.dp)
                     }
 
+                    constrain(refPhoneCodeChevronField) {
+                        top.linkTo(refCountriesDropdownMenu.top)
+                        start.linkTo(refTabRowField.start, 22.dp)
+                    }
+
                     constrain(refCountriesCodeField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 8.dp)
+                        start.linkTo(refPhoneCodeChevronField.end, 4.dp)
                     }
 
                     constrain(refPhoneField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesCodeField.end, 36.dp)
+                        start.linkTo(refCountriesCodeField.end, 4.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
@@ -303,12 +311,25 @@ fun LoginScreen(
                             }
                         }
 
+                        IconButton(
+                            onClick = { expanded = true },
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .layoutId("phoneCodeChevronField"),
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_chevron_down),
+                                contentDescription = "",
+
+                                )
+                        }
+
                         Text(
                             text = items[selectedIndex].code,
                             modifier = Modifier
                                 .padding(top = 26.dp)
                                 .layoutId("countriesCodeField")
-                                .width(120.dp)
+                                .width(140.dp)
                         )
 
                         TextField(
