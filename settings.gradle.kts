@@ -18,6 +18,9 @@ dependencyResolutionManagement {
 rootProject.name = "CyberCasino"
 include(":app")
 include(":core")
-include(":feature-auth")
 include(":ui")
+include(":feature-auth")
 include(":feature-auth-api")
+include(":feature-user-profile")
+include(":feature-user-profile-api")
+include(":service-network")

@@ -1,0 +1,18 @@
+stages:
+  - build-frontend
+  - build-backend
+  - deploy-and-test
+build-frontend-prod:
+  stage: build-frontend
+  script:
+    - npm run build:prod
+test:
+  stage: deploy-and-test
+  script:
+    - npm test
+
+pages:
+  cache:
+    key: cache-for-my-task-${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules

@@ -33,16 +33,22 @@ import ru.cybercasino.ui.DarkGray
  */
 @Composable
 fun RegistrationCodeInputScreen(
+    onCodeEnter: (String) -> Unit,
     modifier: Modifier
 ) {
     RegistrationCodeInput(
+        onCodeEnter = onCodeEnter,
         modifier = Modifier.then(modifier),
         codeLength = 4
     )
 }
 
 @Composable
-private fun RegistrationCodeInput(modifier: Modifier, codeLength: Int) {
+private fun RegistrationCodeInput(
+    onCodeEnter: (String) -> Unit,
+    modifier: Modifier,
+    codeLength: Int
+) {
     val code = remember { mutableStateOf("") }
     val focusRequester = FocusRequester()
     LaunchedEffect(Unit) {
@@ -56,7 +62,17 @@ private fun RegistrationCodeInput(modifier: Modifier, codeLength: Int) {
     ) {
         BasicTextField(
             value = code.value,
-            onValueChange = { if (it.length <= codeLength) code.value = it },
+            onValueChange = {
+
+                if (it.length <= codeLength) {
+                    code.value = it
+                    if (it.length == codeLength) {
+                        onCodeEnter(it)
+                    } else {
+                        onCodeEnter("")
+                    }
+                }
+            },
             Modifier.focusRequester(focusRequester = focusRequester),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             decorationBox = {
@@ -106,5 +122,5 @@ private fun CodeEntry(text: String) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun PasswordVerificationScreenPreview() {
-    RegistrationCodeInputScreen(modifier = Modifier)
+    RegistrationCodeInputScreen(onCodeEnter = {}, modifier = Modifier)
 }

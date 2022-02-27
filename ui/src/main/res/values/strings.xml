@@ -26,6 +26,7 @@
     <string name="verification_code_sended_to_phone_text">Проверочный код отправлен на номер</string>
     <string name="resend_after_text">Отправить повторно через</string>
     <string name="confirm">Подтвердить</string>
+    <string name="retry">Повторить</string>
     <string name="repeat_require_verification_code">Запросить код повторно</string>
     <string name="registration_finish">Регистрация прошла успешно</string>
     <string name="congratulations_registration_finish">Поздравляем!\n Вы успешно зарегестрировались</string>
@@ -143,6 +144,7 @@
         <item value="+81">🇯🇵 +81</item>
         <item value="+44">🇯🇪 +44</item>
         <item value="+962">🇯🇴 +962</item>
+        <item value="+7">🇷🇺 +7</item>
         <item value="+7">🇰🇿 +7</item>
         <item value="+254">🇰🇪 +254</item>
         <item value="+686">🇰🇮 +686</item>
@@ -212,7 +214,6 @@
         <item value="+1939">🇵🇷 +1939</item>
         <item value="+974">🇶🇦 +974</item>
         <item value="+40">🇷🇴 +40</item>
-        <item value="+7">🇷🇺 +7</item>
         <item value="+250">🇷🇼 +250</item>
         <item value="+262">🇷🇪 +262</item>
         <item value="+590">🇧🇱 +590</item>

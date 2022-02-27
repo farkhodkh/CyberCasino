@@ -27,7 +27,6 @@ import ru.cybercasino.ui.White
 @Composable
 fun CyberButtonWithBorder(
     title: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val gradient =
@@ -36,7 +35,7 @@ fun CyberButtonWithBorder(
 
     OutlinedButton(
         modifier = modifier,
-        onClick = { onClick() },
+        onClick = { },
         border = BorderStroke(1.dp, gradient),
         shape = shape,
         colors = ButtonDefaults.outlinedButtonColors(
@@ -61,7 +60,6 @@ fun CyberButtonWithBorder(
 private fun CyberButtonWithBorderPreview() {
     CyberButtonWithBorder(
         "Войти",
-        {},
         Modifier
             .width(320.dp)
             .height(44.dp)

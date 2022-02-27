@@ -12,20 +12,18 @@ sealed class Screen(
     /**
      * The class to navigate to the Authorization screen
      */
-    object Login : Screen("user/login")
+    object Login : Screen("auth/login")
 
     /**
      * The class to navigate to the Registration screen
      */
-    object Registration : Screen("user/registration")
+    object Registration : Screen("auth/registration")
 
     /**
      * The login verification state screen
      */
-    object VerificationScreen: Screen("user/verification")
 
-    /**
-     * Registration successful finish srceen
-     */
-    object RegistrationFinish: Screen("user/registrationFinish")
+    object VerificationScreen: Screen("auth/validate-user")
+
+    object ProfileScreen: Screen("profile/main")
 }
