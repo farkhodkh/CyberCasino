@@ -13,6 +13,7 @@
     <string name="age_limit_label">Мне 18 лет и я принимаю</string>
     <string name="newsletter_and_offers_label">I agree to receive newsletter with information about software updates and new offers</string>
     <string name="email">E-mail</string>
+    <string name="your_email">Ваш e-mail</string>
     <string name="phone">Телефон</string>
     <string name="promo_code">Промокод (необязательно)</string>
     <string name="regulation">Правила</string>

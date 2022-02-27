@@ -5,7 +5,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.cybercasino.android.system.di.appModule
 import ru.cybercasino.feature.auth.di.appModuleAuth
-import ru.cybercasino.feature.user.profile.di.appModuleMainProfile
 
 /**
  * The main application class
@@ -22,8 +21,7 @@ class CyberCasinoApp : Application() {
             androidContext(this@CyberCasinoApp)
             modules(
                 appModule,
-                appModuleAuth,
-                appModuleMainProfile
+                appModuleAuth
             )
         }
     }
