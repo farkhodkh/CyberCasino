@@ -109,6 +109,7 @@ fun RegistrationScreen(
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
                     val refCountryCode = createRefFor("countryCode")
                     val refPhoneField = createRefFor("phoneField")
+                    val refPhoneChevronField = createRefFor("phoneChevronField")
                     val refPasswordField = createRefFor("passwordField")
                     val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
                     val refPromoField = createRefFor("promoField")
@@ -147,9 +148,15 @@ fun RegistrationScreen(
                         start.linkTo(parent.start, 16.dp)
                     }
 
+                    constrain(refPhoneChevronField) {
+                        top.linkTo(refTabRowField.bottom, 26.dp)
+                        start.linkTo(refCountriesDropdownMenu.end, 4.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
                     constrain(refCountryCode) {
                         top.linkTo(refTabRowField.bottom, 50.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 2.dp)
+                        start.linkTo(refPhoneChevronField.end, 2.dp)
                     }
 
                     constrain(refPhoneField) {
@@ -353,6 +360,8 @@ fun RegistrationScreen(
                                 }
                             }
                         }
+
+                        Image(painter = painterResource(id = R.drawable.ic_chevron_down), contentDescription = "")
 
                         Text(
                             modifier = Modifier
