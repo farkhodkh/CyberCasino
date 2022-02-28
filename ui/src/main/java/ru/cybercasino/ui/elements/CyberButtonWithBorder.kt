@@ -9,8 +9,7 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,17 +37,18 @@ fun CyberButtonWithBorder(
         onClick = { },
         border = BorderStroke(1.dp, gradient),
         shape = shape,
-        colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color.Transparent,
-            contentColor = White
-        )
+        colors = ButtonDefaults
+            .outlinedButtonColors(
+                backgroundColor = Color.Transparent,
+                contentColor = White
+            )
     ) {
         Text(
             text = title,
-            fontSize = 10.sp,
+            fontSize = 16.sp,
             style = TextStyle(
                 fontWeight = FontWeight.Normal,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             ),
         )
     }
