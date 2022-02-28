@@ -1,7 +1,5 @@
 
 w
-Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/RootScreen.kt,c/e/ce9c1b1258c6165f44deb8fd156e1d04cf80b6a0
-w
 Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/di/KoinModule.kt,d/7/d7abeb52a9189ada486d2bbd573141ccfa322d48
 ê
 `feature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/requests/SendCodeRequestSchema.kt,f/a/fa1079f56ab84f2550a0ab651d110ba8fd323457
@@ -17,3 +15,43 @@ cfeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/CheckC
 ^feature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/UserResponseSchema.kt,d/4/d47ffc1b0c76727cf8b5346498cddb5ad811fd65
 ò
 hfeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/responses/UserValidationResponseSchema.kt,9/2/92e778ce59a0085239de953f787eed6fa63fceed
+S
+#feature-auth-api/proguard-rules.pro,6/9/69786ede7f0e84665f47ab84c17fc0f0e3ccf075
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+Ä
+Pui/src/main/java/ru/cybercasino/ui/elements/PasswordVerificationElementScreen.kt,e/f/ef98f34ce4fbb1d8b935cd301a591bf1d947e61b
+P
+ service-network/build.gradle.kts,b/7/b73ad2cca0ed9aeb346e0660da65d66dcb6770a8
+l
+<ui/src/main/java/ru/cybercasino/ui/utils/PhoneCodesPicker.kt,a/2/a2ecc0318cccddeb598aa47238ef8d47254db27d
+É
+Sfeature-auth-api/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationApi.kt,5/f/5fcbaaa86fbfb67721cb52bdcc2528016279efc1
+@
+build.gradle.kts,d/b/dbcff70658daf80b53ce624f6adcaa529df5ed8d
+y
+Ifeature-auth/src/main/java/ru/cybercasino/feature/auth/LoginController.kt,4/c/4c1b2199690e039b120bd89f890f9d6aee0ee4f6
+Q
+!feature-auth-api/build.gradle.kts,3/8/3808c27fe6a7872d5dc30965b8032e758df414a0
+C
+settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
+D
+app/build.gradle.kts,d/2/d2a4383452aad84a18429a5844d31330a012a9e6
+j
+:app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
+C
+ui/build.gradle.kts,5/7/57cbb61043327439d0d706ebdfd64b6496ce41af
+I
+gradle/libs.versions.toml,d/7/d7595319a0658be6f1ed500ad590d42e4b28bc4f
+a
+1ui/src/main/java/ru/cybercasino/ui/utils/Color.kt,0/e/0e0b48bb7aed683d6e534c254c7255213147625e
+t
+Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec
+l
+<ui/src/main/java/ru/cybercasino/ui/utils/CyberCasinoTheme.kt,e/f/ef9b440d64995a33df0a35718bd39c86ea274e48
+h
+8app/src/main/java/ru/cybercasino/android/MainActivity.kt,b/c/bca86984a78fd88e3e5fb3a6fdd4d1b32f6d6bfb
+é
+^service-network/src/main/java/ru/cybercasino/service_network/interceptors/HeaderInterceptor.kt,1/d/1d876507057a36763c8152db5015c6b6fd5e54a7
+â
+Yservice-network/src/main/java/ru/cybercasino/service_network/extensions/HttpExtensions.kt,1/3/13872893a952f66362730a902719ac230d479e82

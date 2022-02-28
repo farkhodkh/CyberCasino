@@ -1,6 +1,7 @@
 package ru.cybercasino.feature.auth.viewmodel
 
 import android.os.CountDownTimer
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
@@ -69,13 +70,11 @@ class LoginScreenViewModel(
     ) {
         val currentState = _state.value
 
-        //TODO - Перенести всю эту байде в поля get
         val isFieldsCorrect =
             ((email ?: currentState.email.orEmpty()).isNotEmpty() ||
                     (phone ?: currentState.phone.orEmpty()).isNotEmpty()) &&
                     ((password ?: currentState.password).isNotEmpty()) &&
-                    (privacyPolicyCheckedState ?: currentState.privacyPolicyCheckedState) &&
-                    (newsAndOffersCheckedState ?: currentState.newsAndOffersCheckedState)
+                    (privacyPolicyCheckedState ?: currentState.privacyPolicyCheckedState)
 
         val newState = _state.value.copy(
             phone = phone ?: currentState.phone,
@@ -126,7 +125,24 @@ class LoginScreenViewModel(
     }
 
     fun onPasswordChanged(pass: String) {
-        state.value.passwordRequirementsState = (0..3).random()
+
+        var passwordRequirementsState = 0
+
+        if (pass.isNotEmpty()) {
+            if (pass.isDigitsOnly())
+                passwordRequirementsState += 1
+
+            if (pass.onlyLetters())
+                passwordRequirementsState += 2
+
+            if (pass.length < 6)
+                passwordRequirementsState += 4
+
+            if (!pass.isDigitsOnly() && !pass.onlyLetters() && pass.length >= 6)
+                passwordRequirementsState = 7
+        }
+
+        state.value.passwordRequirementsState = passwordRequirementsState
     }
 
     fun login() {
@@ -376,7 +392,7 @@ class LoginScreenViewModel(
         }
     }
 
-    private fun startVerificationCodeRequestTimer() {
+    fun startVerificationCodeRequestTimer() {
         val timer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 _resendTimeout.tryEmit("0:${millisUntilFinished / 1000}")
@@ -407,6 +423,8 @@ class LoginScreenViewModel(
             )
         )
     }
+
+    private fun String.onlyLetters() = all { it.isLetter() }
 
     override fun onCleared() {
         viewModelScope.launch {
@@ -514,21 +532,21 @@ class LoginScreenViewModel(
 private val InitialState = LoginScreenViewModel.State(
     isLoading = false,
     isAuthorised = false,
-    email = null,
-    "",
+    email = "",
+    emailErrors = "",
     phone = null,
-    "",
+    phoneErrors = "",
     selectedCountry = defaultCountryData,
     password = "",
-    "",
+    passwordErrors = "",
     promoCodeText = "",
     verificationCode = "",
-    "",
+    verificationCodeError = "",
     privacyPolicyCheckedState = false,
     newsAndOffersCheckedState = false,
     isFieldsCorrect = false,
     verificationCodeRequest = false,
-    0,
+    passwordRequirementsState = 0,
     AuthentificationType.EMail
 )
 

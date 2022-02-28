@@ -44,7 +44,6 @@ fun RootScreen(
                 contentDescription = "",
             )
         }
-
         goToLoginScreen()
     }
 }
