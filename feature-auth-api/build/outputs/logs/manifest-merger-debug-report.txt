@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml:2:1-54
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml:2:1-54
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml:2:1-54
+	package
+		ADDED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml:2:11-52
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml:2:1-54
+uses-sdk
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+		ADDED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+		ADDED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/farkhod/AndroidStudioProjects/CyberCasino/feature-auth-api/src/main/AndroidManifest.xml
