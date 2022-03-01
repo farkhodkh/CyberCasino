@@ -21,8 +21,8 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import ru.cybercasino.feature.auth.ui.LoginScreen
-import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
-import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
+import ru.cybercasino.feature.auth.ui.RegistrationScreen
+import ru.cybercasino.feature.auth.ui.VerificationScreen
 import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
 import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
 

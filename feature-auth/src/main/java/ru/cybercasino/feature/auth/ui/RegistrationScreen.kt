@@ -5,7 +5,7 @@
     ExperimentalPagerApi::class
 )
 
-package ru.cybercasino.feature.auth.ui.auth
+package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -41,6 +41,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
+import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
 import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
 import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.*

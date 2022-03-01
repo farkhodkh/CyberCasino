@@ -1,4 +1,4 @@
-package ru.cybercasino.feature.auth.ui.auth
+package ru.cybercasino.feature.auth.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
