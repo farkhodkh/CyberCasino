@@ -8,8 +8,8 @@
 package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,10 +22,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,7 +32,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -92,19 +91,19 @@ fun RegistrationScreen(
                     val refRegistrationTitle = createRefFor("registrationTitle")
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
+                    val refEmailErrorField = createRefFor("emailErrorField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refPhoneCodeChevronField = createRefFor("phoneCodeChevronField")
                     val refCountriesCodeField = createRefFor("countriesCodeField")
                     val refPhoneField = createRefFor("phoneField")
+                    val refPhoneErrorField = createRefFor("phoneErrorField")
                     val refPasswordField = createRefFor("passwordField")
-//                    val refPasswordRequirementsLabel = createRefFor("passwordRequirementsLabel")
+                    val refPasswordErrorField = createRefFor("passwordErrorField")
                     val refPromoField = createRefFor("promoField")
                     val refPrivacyPolicy = createRefFor("privacyPolicyChB")
                     val refNewsAndOffersChB = createRefFor("newsAndOffersChB")
                     val refRegisterButton = createRefFor("registerButton")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
-                    val refFacebookIcon = createRefFor("facebookIcon")
-                    val refTgIcon = createRefFor("tgIcon")
-                    val refGoogleIcon = createRefFor("googleIcon")
                     val refAnd1 = createRefFor("and1")
                     val refAnd2 = createRefFor("and2")
                     val refRegulationLabel = createRefFor("regulationLabel")
@@ -128,36 +127,51 @@ fun RegistrationScreen(
                         end.linkTo(parent.end, 16.dp)
                     }
 
+                    constrain(refEmailErrorField) {
+                        top.linkTo(refEmailField.bottom, 4.dp)
+                        start.linkTo(parent.start, 16.dp)
+                    }
+
                     constrain(refCountriesDropdownMenu) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
                         start.linkTo(parent.start, 16.dp)
                     }
 
+                    constrain(refPhoneCodeChevronField) {
+                        top.linkTo(refCountriesDropdownMenu.top)
+                        start.linkTo(refTabRowField.start, 22.dp)
+                    }
+
                     constrain(refCountriesCodeField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 8.dp)
+                        start.linkTo(refPhoneCodeChevronField.end, 4.dp)
                     }
 
                     constrain(refPhoneField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesCodeField.end, 36.dp)
+                        start.linkTo(refCountriesCodeField.end, 4.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
+                    constrain(refPhoneErrorField) {
+                        top.linkTo(refPhoneField.bottom, 4.dp)
+                        start.linkTo(refPhoneField.start)
                         end.linkTo(parent.end, 16.dp)
                     }
 
                     constrain(refPasswordField) {
-                        top.linkTo(refTabRowField.bottom, 100.dp)
+                        top.linkTo(refTabRowField.bottom, 110.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
-//                    constrain(refPasswordRequirementsLabel) {
-//                        top.linkTo(refPasswordField.bottom, 8.dp)
-//                        start.linkTo(parent.start, 16.dp)
-//                        end.linkTo(parent.end, 16.dp)
-//                    }
+                    constrain(refPasswordErrorField) {
+                        top.linkTo(refPasswordField.bottom, 4.dp)
+                        start.linkTo(parent.start, 16.dp)
+                    }
 
                     constrain(refPromoField) {
-                        top.linkTo(refPasswordField.bottom, 46.dp)
+                        top.linkTo(refPasswordField.bottom, 56.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -204,28 +218,13 @@ fun RegistrationScreen(
                     }
 
                     constrain(refJoinWithSocialNetworks) {
-                        bottom.linkTo(parent.bottom, 125.dp)
+                        top.linkTo(refRegisterButton.bottom, 16.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end)
                     }
-
-                    constrain(refFacebookIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        end.linkTo(refGoogleIcon.start, 16.dp)
-                    }
-
-                    constrain(refGoogleIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
-                    constrain(refTgIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        start.linkTo(refGoogleIcon.end, 16.dp)
-                    }
                 },
                 modifier = Modifier
+                    .verticalScroll(rememberScrollState())
                     .fillMaxSize(),
             ) {
                 Text(
@@ -280,6 +279,12 @@ fun RegistrationScreen(
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("emailField"),
                             colors = TextFieldDefaults.textFieldColors(
+                                unfocusedIndicatorColor = if (emailText.text.isEmpty())
+                                    Gray
+                                else if (state.emailErrors.isNotEmpty())
+                                    Red
+                                else Blue,
+                                focusedIndicatorColor = Blue,
                                 backgroundColor = DarkBlue
                             ),
                             value = emailText,
@@ -289,11 +294,7 @@ fun RegistrationScreen(
                             },
                             label = {
                                 Text(
-                                    text = state.emailErrors.ifEmpty {
-                                        stringResource(
-                                            id = R.string.email
-                                        )
-                                    },
+                                    text = stringResource(id = R.string.email),
                                     fontSize = 10.sp,
                                     color = if (emailText.text.isEmpty())
                                         DarkGray
@@ -305,13 +306,20 @@ fun RegistrationScreen(
                             },
                             placeholder = {
                                 Text(
-                                    text = stringResource(id = R.string.email),
+                                    text = stringResource(id = R.string.your_email),
                                     fontSize = 14.sp,
                                     color = White
                                 )
                             },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                         )
+                        if (state.emailErrors.isNotEmpty()) {
+                            Text(
+                                text = state.emailErrors,
+                                modifier = Modifier.layoutId("emailErrorField"),
+                                color = Red
+                            )
+                        }
                     }
                     1 -> {
                         var expanded by remember { mutableStateOf(false) }
@@ -361,12 +369,24 @@ fun RegistrationScreen(
                             }
                         }
 
+                        IconButton(
+                            onClick = { expanded = true },
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .layoutId("phoneCodeChevronField"),
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_chevron_down),
+                                contentDescription = ""
+                            )
+                        }
+
                         Text(
                             text = countriesCodeList[selectedCountryItemIndex].code,
                             modifier = Modifier
                                 .padding(top = 26.dp)
                                 .layoutId("countriesCodeField")
-                                .width(120.dp)
+                                .width(140.dp)
                         )
 
                         TextField(
@@ -375,6 +395,12 @@ fun RegistrationScreen(
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("phoneField"),
                             colors = TextFieldDefaults.textFieldColors(
+                                unfocusedIndicatorColor = if (phoneText.text.isEmpty())
+                                    Gray
+                                else if (state.phoneErrors.isNotEmpty())
+                                    Red
+                                else Blue,
+                                focusedIndicatorColor = Blue,
                                 backgroundColor = DarkBlue
                             ),
                             value = phoneText,
@@ -384,11 +410,9 @@ fun RegistrationScreen(
                             },
                             label = {
                                 Text(
-                                    text = state.phoneErrors.ifEmpty {
-                                        stringResource(
-                                            id = R.string.phone
-                                        )
-                                    },
+                                    text = stringResource(
+                                        id = R.string.phone
+                                    ),
                                     fontSize = 10.sp,
                                     color = if (phoneText.text.isEmpty())
                                         DarkGray
@@ -407,6 +431,13 @@ fun RegistrationScreen(
                             },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                         )
+                        if (state.phoneErrors.isNotEmpty()) {
+                            Text(
+                                text = state.phoneErrors,
+                                color = Red,
+                                modifier = Modifier.layoutId("phoneErrorField")
+                            )
+                        }
                     }
                 }
 
@@ -418,6 +449,12 @@ fun RegistrationScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
                     colors = TextFieldDefaults.textFieldColors(
+                        unfocusedIndicatorColor = if (password.isEmpty())
+                            Gray
+                        else if (state.passwordErrors.isNotEmpty())
+                            Red
+                        else Blue,
+                        focusedIndicatorColor = Blue,
                         backgroundColor = DarkBlue
                     ),
                     value = password,
@@ -428,11 +465,7 @@ fun RegistrationScreen(
                     },
                     label = {
                         Text(
-                            text = state.passwordErrors.ifEmpty {
-                                stringResource(
-                                    id = R.string.enter_password
-                                )
-                            },
+                            text = stringResource(id = R.string.enter_password),
                             fontSize = 10.sp,
                             color =
                             if (password.isEmpty())
@@ -466,12 +499,27 @@ fun RegistrationScreen(
                     }
                 )
 
+                Text(
+                    text = if (state.passwordErrors.isNotEmpty())
+                        AnnotatedString(text = state.passwordErrors)
+                    else
+                        getPasswordRequirementsText(state.passwordRequirementsState),
+                    color = Red,
+                    modifier = Modifier.layoutId("passwordErrorField")
+                )
+
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp)
                         .layoutId("promoField"),
                     colors = TextFieldDefaults.textFieldColors(
+                        unfocusedIndicatorColor = if (promoCodeText.text.isEmpty())
+                            Gray
+                        else if (state.promoCodeText.isNotEmpty())
+                            Red
+                        else Blue,
+                        focusedIndicatorColor = Blue,
                         backgroundColor = DarkBlue
                     ),
                     value = promoCodeText,
@@ -579,7 +627,6 @@ fun RegistrationScreen(
                         Modifier
                             .layoutId("registerButton")
                             .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
                             .height(44.dp)
                     )
                 }
@@ -603,6 +650,7 @@ private fun getAnnotatedText(labelResourceId: Int) = buildAnnotatedString {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Default,
             background = DarkBlue,
+            textDecoration = TextDecoration.Underline
         )
     ) {
         append(text = stringResource(id = labelResourceId))
@@ -610,19 +658,84 @@ private fun getAnnotatedText(labelResourceId: Int) = buildAnnotatedString {
 }
 
 @Composable
-private fun getPasswordRequirementsText(someCheck: Int) = when (someCheck) {
-    0 -> "✓ " + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    1 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    2 -> "✓ " + stringResource(id = R.string.one_letter) + "   ✓ " + stringResource(id = R.string.one_number) + "   ✓ " + stringResource(
-        id = R.string.minimum_symbols
-    )
-    else -> "" + stringResource(id = R.string.one_letter) + "   " + stringResource(id = R.string.one_number) + "   " + stringResource(
-        id = R.string.minimum_symbols
-    )
+private fun getPasswordRequirementsText(someCheck: Int) = buildAnnotatedString {
+
+    when (someCheck) {
+        //Empty fields
+        0 -> ""
+        //Only digits
+        1 -> {
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.one_letter))
+            }
+
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  ✓ " + stringResource(id = R.string.one_number))
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+        //Only letters
+        2 -> {
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  ✓ " + stringResource(id = R.string.one_letter))
+            }
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.one_number))
+            }
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+
+        }
+        //Noo digits and no letters
+        3 -> {
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.one_letter))
+                append("  " + stringResource(id = R.string.one_number))
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+        //Less than 6 symbols
+        4 -> {
+
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  ✓ " + stringResource(id = R.string.one_letter))
+                append("  ✓ " + stringResource(id = R.string.one_number))
+            }
+
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+        //Les than 6 symbols and digits only
+        5 -> {
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.one_letter))
+            }
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  ✓ " + stringResource(id = R.string.one_number))
+            }
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+        //Les than 6 symbols and letters only
+        6 -> {
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("  ✓ " + stringResource(id = R.string.one_letter))
+            }
+            withStyle(style = SpanStyle(color = Red)) {
+                append("  " + stringResource(id = R.string.one_number))
+                append("  " + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+        //Correct fields
+        7 -> {
+            withStyle(style = SpanStyle(color = LightBlue)) {
+                append("✓" + stringResource(id = R.string.one_letter) + "   ✓" + stringResource(id = R.string.one_number) + "   ✓" + stringResource(id = R.string.minimum_symbols))
+            }
+        }
+    }
 }
 
 @Preview(showSystemUi = true, showBackground = true)

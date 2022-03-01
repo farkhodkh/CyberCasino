@@ -7,8 +7,9 @@
 package ru.cybercasino.feature.auth.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -20,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -60,6 +62,7 @@ fun LoginScreen(
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
 
     var selectedTabIndex by remember { mutableStateOf(0) }
 
@@ -79,15 +82,13 @@ fun LoginScreen(
                     val refTabRowField = createRefFor("tabRowField")
                     val refEmailField = createRefFor("emailField")
                     val refCountriesDropdownMenu = createRefFor("countriesDropdownMenu")
+                    val refPhoneCodeChevronField = createRefFor("phoneCodeChevronField")
                     val refCountriesCodeField = createRefFor("countriesCodeField")
                     val refPhoneField = createRefFor("phoneField")
                     val refPasswordField = createRefFor("passwordField")
                     val refEnterButton = createRefFor("enterButton")
                     val refForgotPasswordTitle = createRefFor("forgotPasswordTitle")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
-                    val refFacebookIcon = createRefFor("facebookIcon")
-                    val refTgIcon = createRefFor("tgIcon")
-                    val refGoogleIcon = createRefFor("googleIcon")
 
                     constrain(refEnterTitle) {
                         top.linkTo(parent.top, 50.dp)
@@ -111,14 +112,19 @@ fun LoginScreen(
                         start.linkTo(parent.start, 16.dp)
                     }
 
+                    constrain(refPhoneCodeChevronField) {
+                        top.linkTo(refCountriesDropdownMenu.top)
+                        start.linkTo(refTabRowField.start, 22.dp)
+                    }
+
                     constrain(refCountriesCodeField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesDropdownMenu.end, 8.dp)
+                        start.linkTo(refPhoneCodeChevronField.end, 4.dp)
                     }
 
                     constrain(refPhoneField) {
                         top.linkTo(refTabRowField.bottom, 26.dp)
-                        start.linkTo(refCountriesCodeField.end, 36.dp)
+                        start.linkTo(refCountriesCodeField.end, 4.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
@@ -136,33 +142,19 @@ fun LoginScreen(
 
                     constrain(refForgotPasswordTitle) {
                         top.linkTo(refEnterButton.bottom, 10.dp)
+                        start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
                     constrain(refJoinWithSocialNetworks) {
-                        bottom.linkTo(parent.bottom, 125.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end)
-                    }
-
-                    constrain(refFacebookIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        end.linkTo(refGoogleIcon.start, 16.dp)
-                    }
-
-                    constrain(refGoogleIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
+                        top.linkTo(refForgotPasswordTitle.bottom, 16.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
-
-                    constrain(refTgIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        start.linkTo(refGoogleIcon.end, 16.dp)
-                    }
                 },
                 modifier = Modifier
-                    .fillMaxSize()
+                    .scrollable(state = scrollState, orientation = Orientation.Vertical, enabled = true)
+                    .fillMaxSize(),
             ) {
                 Text(
                     modifier = Modifier
@@ -190,7 +182,7 @@ fun LoginScreen(
                         Tab(
                             selected = selectedTabIndex == index,
                             onClick = {
-                                when(index) {
+                                when (index) {
                                     0 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.EMail)
                                     1 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.Phone)
                                 }
@@ -218,9 +210,12 @@ fun LoginScreen(
                                 .fillMaxWidth()
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("emailField"),
-                            colors = TextFieldDefaults.textFieldColors(
-                                backgroundColor = DarkBlue
-                            ),
+                            colors = TextFieldDefaults
+                                .textFieldColors(
+                                    unfocusedIndicatorColor = if (emailText.text.isEmpty()) Gray else Blue,
+                                    focusedIndicatorColor = Blue,
+                                    backgroundColor = DarkBlue
+                                ),
                             value = emailText,
                             onValueChange = {
                                 emailText = it
@@ -244,9 +239,9 @@ fun LoginScreen(
                             },
                             placeholder = {
                                 Text(
-                                    text = stringResource(id = R.string.email),
+                                    text = stringResource(id = R.string.your_email),
                                     fontSize = 14.sp,
-                                    color = White
+                                    color = White,
                                 )
                             },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
@@ -303,12 +298,25 @@ fun LoginScreen(
                             }
                         }
 
+                        IconButton(
+                            onClick = { expanded = true },
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .layoutId("phoneCodeChevronField"),
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_chevron_down),
+                                contentDescription = "",
+
+                                )
+                        }
+
                         Text(
                             text = items[selectedIndex].code,
                             modifier = Modifier
                                 .padding(top = 26.dp)
                                 .layoutId("countriesCodeField")
-                                .width(120.dp)
+                                .width(140.dp)
                         )
 
                         TextField(
@@ -317,6 +325,8 @@ fun LoginScreen(
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("phoneField"),
                             colors = TextFieldDefaults.textFieldColors(
+                                unfocusedIndicatorColor = if (phoneText.text.isEmpty()) Gray else Blue,
+                                focusedIndicatorColor = Blue,
                                 backgroundColor = DarkBlue
                             ),
                             value = phoneText,
@@ -361,6 +371,8 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
                     colors = TextFieldDefaults.textFieldColors(
+                        focusedIndicatorColor = Blue,
+                        unfocusedIndicatorColor = if (password.isEmpty()) Gray else Blue,
                         backgroundColor = DarkBlue
                     ),
                     value = password,
@@ -408,6 +420,7 @@ fun LoginScreen(
                         }
                     }
                 )
+
                 when (state.isFieldsCorrect) {
                     true -> {
                         CyberButton(
@@ -452,7 +465,7 @@ fun LoginScreen(
 
                 RegisterWithSocialNetworkScreen(labelResourceId = 0)
             }
-        },
+        }
     )
 }
 

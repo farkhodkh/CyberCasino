@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -55,6 +56,7 @@ fun VerificationScreen(
             ConstraintLayout(
                 constraintSet = ConstraintSet {
                     val refVerificationTitle = createRefFor("verificationTitle")
+                    val refVerificationCodeReceiver = createRefFor("verificationCodeReceiver")
                     val refPasswordVerificationType = createRefFor("passwordVerificationType")
                     val refUserLoginLabel = createRefFor("userLoginLabel")
                     val refVerificationCodeErrorField = createRefFor("verificationCodeErrorField")
@@ -75,6 +77,12 @@ fun VerificationScreen(
 
                     constrain(refPasswordVerificationType) {
                         top.linkTo(refVerificationTitle.bottom, 46.dp)
+                        start.linkTo(parent.start, 16.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    }
+
+                    constrain(refVerificationCodeReceiver) {
+                        top.linkTo(refPasswordVerificationType.bottom, 8.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -156,25 +164,31 @@ fun VerificationScreen(
                     )
                 )
 
-                val verificationTypeText = when (state.authentificationType) {
+                val verification = when (state.authentificationType) {
                     AuthentificationType.EMail -> {
-                        stringResource(id = R.string.verification_code_sended_to_email_text)
+                        Pair(stringResource(id = R.string.verification_code_sended_to_email_text), state.email ?: "")
                     }
                     AuthentificationType.Phone -> {
-                        stringResource(id = R.string.verification_code_sended_to_phone_text)
+                        Pair(stringResource(id = R.string.verification_code_sended_to_phone_text), state.phone ?: "")
                     }
                 }
 
-                Text(
+                  Text(
                     modifier = Modifier
                         .layoutId("passwordVerificationType"),
-                    text = verificationTypeText,
+                    text = verification.first,
                     fontSize = 12.sp,
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center,
                         color = BlueGrey
                     )
+                )
+
+                Text(
+                    text = verification.second,
+                    modifier = Modifier.layoutId("verificationCodeReceiver"),
+                    fontSize = 14.sp,
                 )
 
                 Text(
@@ -205,7 +219,7 @@ fun VerificationScreen(
 
                 when(state.verificationCode) {
                     "" -> {
-                        CyberButtonWithBorder(title = stringResource(id = R.string.enter_text_2),
+                        CyberButtonWithBorder(title = stringResource(id = R.string.confirm),
                         modifier = Modifier
                             .layoutId("enterButton")
                             .padding(start = 16.dp, end = 16.dp)
@@ -214,7 +228,7 @@ fun VerificationScreen(
                         )
                     }
                     else -> {
-                        CyberButton(title = stringResource(id = R.string.enter_text_2),
+                        CyberButton(title = stringResource(id = R.string.confirm),
                             titleSize = 16.sp,
                             onClick = {
                                 viewModel.checkCode()
@@ -276,4 +290,14 @@ fun VerificationScreen(
             }
         }
     )
+
+    if (state.verificationCodeRequest) {
+        viewModel.startVerificationCodeRequestTimer()
+    }
+}
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+private fun VerificationScreenPreview() {
+    VerificationScreen({}, {})
 }

@@ -1,11 +1,7 @@
 package ru.cybercasino.ui.elements
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -41,7 +37,8 @@ fun CyberButton(
     val shape = RoundedCornerShape(12.dp, 4.dp, 12.dp, 4.dp)
 
     Button(
-        modifier = modifier,
+        modifier = Modifier
+            .then(modifier),
         onClick = { onClick() },
         shape = shape,
         contentPadding = PaddingValues(),
