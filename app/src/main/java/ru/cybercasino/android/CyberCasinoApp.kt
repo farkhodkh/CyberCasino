@@ -6,7 +6,6 @@ import org.koin.core.context.startKoin
 import ru.cybercasino.android.system.di.appModule
 import ru.cybercasino.feature.auth.di.appModuleAuth
 import ru.cybercasino.feature.main.profile.di.mainProfileModule
-import ru.cybercasino.feature.user.profile.di.appModuleMainProfile
 
 /**
  * The main application class
@@ -24,7 +23,6 @@ class CyberCasinoApp : Application() {
             modules(
                 appModule,
                 appModuleAuth,
-                appModuleMainProfile,
                 mainProfileModule
             )
         }

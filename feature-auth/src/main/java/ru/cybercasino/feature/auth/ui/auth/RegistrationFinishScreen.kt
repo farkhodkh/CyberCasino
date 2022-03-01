@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.elements.AppTopAppBar
+import ru.cybercasino.ui.elements.AppTopAppBarRegistration
 import ru.cybercasino.ui.elements.CyberButton
 
 /**
@@ -51,7 +51,7 @@ fun RegistrationFinishScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBar(
+            AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.enter_text,
                 onButtonClickListener = onEnterClickListener
             )

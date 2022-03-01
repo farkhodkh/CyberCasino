@@ -63,7 +63,7 @@ import ru.cybercasino.ui.DarkBlue
 import ru.cybercasino.ui.White
 import ru.cybercasino.ui.DarkGray
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.elements.AppTopAppBar
+import ru.cybercasino.ui.elements.AppTopAppBarRegistration
 import ru.cybercasino.ui.elements.CyberButtonWithBorder
 import ru.cybercasino.ui.utils.defaultCountryData
 import ru.cybercasino.ui.utils.getCountriesList
@@ -84,7 +84,7 @@ fun AuthorizationScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBar(
+            AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.registration_text,
                 onButtonClickListener = onClickListener
             )
@@ -407,7 +407,6 @@ fun AuthorizationScreen(
 
                 CyberButtonWithBorder(
                     title = stringResource(R.string.enter_text_2),
-                    onClick = { /*TODO*/ },
                     Modifier
                         .layoutId("enterButton")
                         .padding(start = 16.dp, end = 16.dp)

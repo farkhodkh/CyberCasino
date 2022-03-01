@@ -2,6 +2,7 @@ package ru.cybercasino.feature.auth.api
 
 import kotlinx.coroutines.flow.Flow
 import ru.cybercasino.feature.auth.ClientStatus
+import ru.cybercasino.feature.auth.api.responses.UserResponseSchema
 
 interface AuthenticationStorageRepository {
     /**

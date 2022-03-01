@@ -55,8 +55,8 @@ dependencies {
     //Features
     implementation(project(":feature-auth"))
     implementation(project(":feature-auth-api"))
-    implementation(project(":feature-user-profile"))
-    implementation(project(":feature-user-profile-api"))
+//    implementation(project(":feature-user-profile"))
+//    implementation(project(":feature-user-profile-api"))
     implementation(project(":feature-main-profile"))
 //    implementation(project(":feature-main-profile-api"))
 

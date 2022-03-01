@@ -7,13 +7,14 @@
 package ru.cybercasino.android.system.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-7import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.navigation.plusAssign
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -21,9 +22,10 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import ru.cybercasino.feature.auth.ui.LoginScreen
-import ru.cybercasino.feature.auth.ui.auth.RegistrationScreen
-import ru.cybercasino.feature.auth.ui.auth.VerificationScreen
-import ru.cybercasino.feature.user.profile.ui.UserProfileScreen
+import ru.cybercasino.feature.auth.ui.RegistrationScreen
+import ru.cybercasino.feature.auth.ui.VerificationScreen
+import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
+import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
 
 /**
  * The application's navigation graph.
