@@ -10,8 +10,6 @@ Dui/src/main/java/ru/cybercasino/ui/elements/CyberButtonWithBorder.kt,7/f/7f3c0
 Wfeature-main-profile/src/main/java/ru/cybercasino/feature/main/profile/di/KoinModule.kt,e/6/e6932abd99a5cf266281d2380ebae35e5aadc847
 ~
 Nui/src/main/java/ru/cybercasino/ui/elements/RegisterWithSocialNetworkScreen.kt,7/d/7dc4ca32f57efabd3bd8f7c57a32e243d7426cfb
-j
-:app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
 ç
 ]feature-auth/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationStorageRepository.kt,a/3/a3b4ab51a732d9ef5173542b36be829636c39d70
 Ö

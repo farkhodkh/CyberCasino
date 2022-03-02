@@ -18,7 +18,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
         setContent {
             CyberCasinoTheme {
                 ProvideWindowInsets {

@@ -34,7 +34,8 @@ val appModuleAuth = module {
             )
         )
     }
-    viewModel { AuthorizationViewModel(get(), get()) }
+
+    viewModel { AuthorizationViewModel.getInstance(get(), get()) }
 }
 
 private fun Scope.createBasicRetrofit() =

@@ -629,7 +629,7 @@ fun RegistrationScreen(
                     )
                 }
 
-                if (state.verificationCodeRequest) {
+                if (state.goToVerificationScreen) {
                     onVerificationCodeRequest()
                 }
 

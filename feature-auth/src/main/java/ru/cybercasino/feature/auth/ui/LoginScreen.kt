@@ -456,7 +456,7 @@ fun LoginScreen(
                     )
                 }
 
-                if (state.verificationCodeRequest) {
+                if (state.verificationCodeRequested) {
                     onRegisterClickListener()
                 } else if (state.isAuthorised) {
                     goToMainProfileScreen()

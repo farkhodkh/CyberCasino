@@ -38,6 +38,20 @@ class AuthorizationViewModel(
     private var userLoginInfo: LoginInfo? = null
     private var timer: CountDownTimer? = null
 
+    companion object {
+        private var instance: AuthorizationViewModel? = null
+
+        fun getInstance(
+            loginController: LoginController,
+            authenticationStorageRepository: AuthenticationStorageRepository
+        ): AuthorizationViewModel {
+            if (instance == null) {
+                instance = AuthorizationViewModel(loginController, authenticationStorageRepository)
+            }
+            return instance!!
+        }
+    }
+
     init {
         loginController
             .loginState
@@ -100,6 +114,8 @@ class AuthorizationViewModel(
                 ?: currentState.privacyPolicyCheckedState,
             newsAndOffersCheckedState = newsAndOffersCheckedState
                 ?: currentState.newsAndOffersCheckedState,
+            authentificationType = authentificationType
+                ?: currentState.authentificationType,
             isFieldsCorrect = isFieldsCorrect,
             verificationCode = verificationCode ?: "",
         )
@@ -200,7 +216,7 @@ class AuthorizationViewModel(
             val currentState = _state.value
 
             authenticationStorageRepository.setLoginEmail(currentState.email)
-            authenticationStorageRepository.setLoginPhone(currentState.phone)
+            authenticationStorageRepository.setLoginPhone("${currentState.selectedCountry.code}${currentState.phone}")
             authenticationStorageRepository.setPass(currentState.password)
 
             val request = when (currentState.authentificationType) {
@@ -213,7 +229,7 @@ class AuthorizationViewModel(
                 }
                 AuthentificationType.Phone -> {
                     UserValidationRequestSchema(
-                        phone = currentState.phone,
+                        phone = "${currentState.selectedCountry.code}${currentState.phone}",
                         password = currentState.password,
                         reset = false,
                     )
@@ -226,7 +242,6 @@ class AuthorizationViewModel(
 
     fun sendCode() {
         viewModelScope.launch {
-            _state.value
             userLoginInfo?.let { loginInfo ->
                 val request = SendCodeRequestSchema(
                     email = loginInfo.email,
@@ -235,6 +250,7 @@ class AuthorizationViewModel(
                 )
                 loginController.sendCode(request)
             }
+            _state.tryEmit(_state.value.copy(verificationCodeRequested = true))
         }
     }
 
@@ -265,7 +281,7 @@ class AuthorizationViewModel(
                             _state.value.copy(
                                 email = userLoginInfo?.email,
                                 phone = userLoginInfo?.phone,
-                                verificationCodeRequest = true
+                                goToVerificationScreen = true
                             )
                         )
                     }
@@ -321,16 +337,15 @@ class AuthorizationViewModel(
                     AuthentificationType.EMail -> {
                         val newState = _state.value.copy(
                             email = userLoginInfo?.email,
-                            phoneErrors = response.phone ?: ""
+                            phoneErrors = response.phone ?: "",
                         )
                         _state.tryEmit(newState)
                     }
                     AuthentificationType.Phone -> {
                         val newState = _state.value.copy(
                             phone = userLoginInfo?.phone,
-                            phoneErrors = response.phone ?: ""
+                            phoneErrors = response.phone ?: "",
                         )
-
                         _state.tryEmit(newState)
                     }
                 }
@@ -494,7 +509,7 @@ class AuthorizationViewModel(
         val privacyPolicyCheckedState: Boolean,
 
         /**
-         * Usernews and offers accepted
+         * User news and offers accepted
          */
         val newsAndOffersCheckedState: Boolean,
 
@@ -504,9 +519,14 @@ class AuthorizationViewModel(
         val isFieldsCorrect: Boolean,
 
         /**
+         * Need to go to verification screen
+         */
+        val goToVerificationScreen: Boolean,
+
+        /**
          * Login fields verification state
          */
-        val verificationCodeRequest: Boolean,
+        val verificationCodeRequested: Boolean,
 
         /**
          * Password requirements label text
@@ -541,7 +561,8 @@ private val InitialState = AuthorizationViewModel.State(
     privacyPolicyCheckedState = false,
     newsAndOffersCheckedState = false,
     isFieldsCorrect = false,
-    verificationCodeRequest = false,
+    goToVerificationScreen = false,
+    verificationCodeRequested = false,
     passwordRequirementsState = 0,
     AuthentificationType.EMail,
     resendCodeTimeOut = "0:60"
@@ -551,4 +572,3 @@ sealed class AuthentificationType {
     object EMail : AuthentificationType()
     object Phone : AuthentificationType()
 }
-

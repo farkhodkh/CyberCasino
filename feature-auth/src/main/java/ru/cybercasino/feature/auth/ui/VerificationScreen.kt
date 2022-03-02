@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.getStateViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
 import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
@@ -48,11 +48,12 @@ fun VerificationScreen(
     onEnterClickListener: () -> Unit,
     goToProfileScreen: () -> Unit
 ) {
-    val viewModel = getViewModel<AuthorizationViewModel>()
+    val viewModel = getStateViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
     val resendTimeout by viewModel.resendTimeout.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -73,7 +74,8 @@ fun VerificationScreen(
                     val refEnterButton = createRefFor("enterButton")
                     val refResendVerificationButton = createRefFor("resendVerificationButton")
                     val refResendVerificationCodeLabel = createRefFor("resendVerificationCodeLabel")
-                    val refVerificationCodeTimeoutLabel = createRefFor("verificationCodeTimeoutLabel")
+                    val refVerificationCodeTimeoutLabel =
+                        createRefFor("verificationCodeTimeoutLabel")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
                     val refFacebookIcon = createRefFor("facebookIcon")
                     val refTgIcon = createRefFor("tgIcon")
@@ -175,14 +177,20 @@ fun VerificationScreen(
 
                 val verification = when (state.authentificationType) {
                     AuthentificationType.EMail -> {
-                        Pair(stringResource(id = R.string.verification_code_sended_to_email_text), state.email ?: "")
+                        Pair(
+                            stringResource(id = R.string.verification_code_sended_to_email_text),
+                            state.email ?: ""
+                        )
                     }
                     AuthentificationType.Phone -> {
-                        Pair(stringResource(id = R.string.verification_code_sended_to_phone_text), state.phone ?: "")
+                        Pair(
+                            stringResource(id = R.string.verification_code_sended_to_phone_text),
+                            state.phone ?: ""
+                        )
                     }
                 }
 
-                  Text(
+                Text(
                     modifier = Modifier
                         .layoutId("passwordVerificationType"),
                     text = verification.first,
@@ -226,18 +234,20 @@ fun VerificationScreen(
                         .layoutId("verificationCodeField"),
                 )
 
-                when(state.verificationCode) {
+                when (state.verificationCode) {
                     "" -> {
-                        CyberButtonWithBorder(title = stringResource(id = R.string.confirm),
-                        modifier = Modifier
-                            .layoutId("enterButton")
-                            .padding(start = 16.dp, end = 16.dp)
-                            .fillMaxWidth()
-                            .height(44.dp)
+                        CyberButtonWithBorder(
+                            title = stringResource(id = R.string.confirm),
+                            modifier = Modifier
+                                .layoutId("enterButton")
+                                .padding(start = 16.dp, end = 16.dp)
+                                .fillMaxWidth()
+                                .height(44.dp)
                         )
                     }
                     else -> {
-                        CyberButton(title = stringResource(id = R.string.confirm),
+                        CyberButton(
+                            title = stringResource(id = R.string.confirm),
                             titleSize = 16.sp,
                             onClick = {
                                 viewModel.checkCode()
@@ -251,9 +261,10 @@ fun VerificationScreen(
                     }
                 }
 
-                when(resendTimeout) {
+                when (resendTimeout) {
                     "" -> {
-                        CyberButton(title = stringResource(id = R.string.retry),
+                        CyberButton(
+                            title = stringResource(id = R.string.retry),
                             titleSize = 16.sp,
                             onClick = {
                                 viewModel.startVerificationCodeRequestTimer()
@@ -300,10 +311,9 @@ fun VerificationScreen(
             }
         }
     )
-    viewModel.startVerificationCodeRequestTimer()
 
-    if (state.verificationCodeRequest) {
-        viewModel.sendCode()
+    if (state.verificationCodeRequested) {
+        viewModel.startVerificationCodeRequestTimer()
     }
 }
 
