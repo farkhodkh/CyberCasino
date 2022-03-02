@@ -630,6 +630,7 @@ fun RegistrationScreen(
                 }
 
                 if (state.goToVerificationScreen) {
+                    viewModel.sendCode()
                     onVerificationCodeRequest()
                 }
 

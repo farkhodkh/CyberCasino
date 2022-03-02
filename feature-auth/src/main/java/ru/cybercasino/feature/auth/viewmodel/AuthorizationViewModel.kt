@@ -199,7 +199,7 @@ class AuthorizationViewModel(
                     }
                     AuthentificationType.Phone -> {
                         LoginRequestSchema(
-                            phone = currentState.phone ?: "",
+                            phone = "${currentState.selectedCountry.code}${currentState.phone}",
                             password = currentState.password
                         )
                     }
@@ -214,13 +214,11 @@ class AuthorizationViewModel(
     fun validateUser() {
         viewModelScope.launch {
             val currentState = _state.value
-
-            authenticationStorageRepository.setLoginEmail(currentState.email)
-            authenticationStorageRepository.setLoginPhone("${currentState.selectedCountry.code}${currentState.phone}")
-            authenticationStorageRepository.setPass(currentState.password)
-
             val request = when (currentState.authentificationType) {
                 AuthentificationType.EMail -> {
+                    authenticationStorageRepository.setLoginEmail(currentState.email)
+                    authenticationStorageRepository.setPass(currentState.password)
+
                     UserValidationRequestSchema(
                         email = currentState.email,
                         password = currentState.password,
@@ -228,6 +226,9 @@ class AuthorizationViewModel(
                     )
                 }
                 AuthentificationType.Phone -> {
+                    authenticationStorageRepository.setLoginPhone("${currentState.selectedCountry.code}${currentState.phone}")
+                    authenticationStorageRepository.setPass(currentState.password)
+
                     UserValidationRequestSchema(
                         phone = "${currentState.selectedCountry.code}${currentState.phone}",
                         password = currentState.password,
