@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import org.koin.androidx.compose.getViewModel
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.ui.R
 
 /**
@@ -24,7 +24,7 @@ fun RootScreen(
     goToProfileScreen: () -> Unit,
     goToLoginScreen: () -> Unit,
 ) {
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
 
     if (state.isAuthorised) {

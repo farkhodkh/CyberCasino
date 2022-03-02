@@ -40,7 +40,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
@@ -57,10 +57,9 @@ fun RegistrationScreen(
     onVerificationCodeRequest: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
     var selectedTabIndex by remember { mutableStateOf(0) }
 
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
 
     var emailText by remember { mutableStateOf(TextFieldValue("")) }
@@ -253,8 +252,8 @@ fun RegistrationScreen(
                             selected = selectedTabIndex == index,
                             onClick = {
                                 when (index) {
-                                    0 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.EMail)
-                                    1 -> viewModel.updateLoginViewState(authentificationType = AuthentificationType.Phone)
+                                    0 -> viewModel.updateViewState(authentificationType = AuthentificationType.EMail)
+                                    1 -> viewModel.updateViewState(authentificationType = AuthentificationType.Phone)
                                 }
                                 selectedTabIndex = index
                             },

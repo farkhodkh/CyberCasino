@@ -7,6 +7,7 @@
 package ru.cybercasino.android.system.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -52,7 +53,10 @@ fun AppNavGraph(modifier: Modifier) {
     ) {
         AnimatedNavHost(
             navController,
-            startDestination = TABS_GRAPH_NAV_ROUTE
+            startDestination = TABS_GRAPH_NAV_ROUTE,
+            modifier = Modifier.clickable {
+                focusManager.clearFocus()
+            }
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
 //                RootScreen(

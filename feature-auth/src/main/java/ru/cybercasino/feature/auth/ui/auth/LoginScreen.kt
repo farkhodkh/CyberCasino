@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.AuthorizationScreen
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 
 /**
  * Login screen
@@ -20,7 +20,7 @@ fun LoginScreen(
     modifier: Modifier,
     onRegisterClickListener: () -> Unit
 ) {
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
 
     if (!state.isAuthorised) {

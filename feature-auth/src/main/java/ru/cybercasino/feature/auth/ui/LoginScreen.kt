@@ -37,7 +37,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.*
 import ru.cybercasino.ui.R
@@ -57,11 +57,10 @@ fun LoginScreen(
     onRegisterClickListener: () -> Unit,
     goToMainProfileScreen: () -> Unit
 ) {
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
 
     var selectedTabIndex by remember { mutableStateOf(0) }

@@ -1,15 +1,24 @@
+@file:OptIn(
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterialApi::class,
+    ExperimentalComposeUiApi::class
+)
+
 package ru.cybercasino.feature.auth.ui
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
@@ -23,7 +32,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.auth.ui.auth.RegisterWithSocialNetworkScreen
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.feature.auth.viewmodel.AuthentificationType
 import ru.cybercasino.ui.BlueGrey
 import ru.cybercasino.ui.LightBlue
@@ -39,11 +48,11 @@ fun VerificationScreen(
     onEnterClickListener: () -> Unit,
     goToProfileScreen: () -> Unit
 ) {
-    val scaffoldState = rememberScaffoldState()
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
     val resendTimeout by viewModel.resendTimeout.collectAsState()
 
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -247,6 +256,7 @@ fun VerificationScreen(
                         CyberButton(title = stringResource(id = R.string.retry),
                             titleSize = 16.sp,
                             onClick = {
+                                viewModel.startVerificationCodeRequestTimer()
                                 viewModel.sendCode()
                             },
                             modifier = Modifier
@@ -290,9 +300,10 @@ fun VerificationScreen(
             }
         }
     )
+    viewModel.startVerificationCodeRequestTimer()
 
     if (state.verificationCodeRequest) {
-        viewModel.startVerificationCodeRequestTimer()
+        viewModel.sendCode()
     }
 }
 
