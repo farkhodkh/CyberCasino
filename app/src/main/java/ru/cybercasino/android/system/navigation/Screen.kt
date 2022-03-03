@@ -12,7 +12,7 @@ sealed class Screen(
     /**
      * The class to navigate to the Authorization screen
      */
-    object Login : Screen("auth/login")
+    object Authorization : Screen("auth/login")
 
     /**
      * The class to navigate to the Registration screen
