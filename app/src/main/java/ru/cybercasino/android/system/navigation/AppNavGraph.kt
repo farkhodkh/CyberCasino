@@ -22,11 +22,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import org.koin.androidx.compose.getStateViewModel
-import ru.cybercasino.feature.auth.ui.LoginScreen
-import ru.cybercasino.feature.auth.ui.RegistrationScreen
-import ru.cybercasino.feature.auth.ui.VerificationScreen
-import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
+import ru.cybercasino.feature.auth.ui.*
 import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
 import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
 
@@ -56,26 +52,33 @@ fun AppNavGraph(modifier: Modifier) {
         AnimatedNavHost(
             navController,
             startDestination = TABS_GRAPH_NAV_ROUTE,
-            modifier = Modifier.clickable {
-                focusManager.clearFocus()
-            }
+            modifier = Modifier
+                .clickable {
+                    focusManager.clearFocus()
+                }
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
 //                RootScreen(
 //                    modifier = Modifier
 //                        .fillMaxSize()
 //                        .background(Dark),
+//                    goToProfileScreen = {
+//                        navController.navigate(Screen.MainProfileScreen.route)
+//                    },
+//                    goToLoginScreen = {
+//                        navController.navigate(Screen.Login.route)
+//                    }
 //                )
 //                rememberCoroutineScope().launch {
 //                    delay(1000)
-                    navController.navigate(Screen.Login.route)
+                    navController.navigate(Screen.VerificationScreen.route)
 //                }
             }
-            composable(Screen.Login.route) {
-                LoginScreen(
-                    onClickListener = {navController.navigate(Screen.Registration.route)},
+            composable(Screen.Authorization.route) {
+                AuthorizationScreen(
+                    onClickListener = { navController.navigate(Screen.Registration.route) },
                     onRegisterClickListener = {
-                        navController.navigate(Screen.VerificationScreen.route)
+                        navController.navigate(Screen.Registration.route)
                     },
                     goToMainProfileScreen = {
                         navController.navigate(Screen.MainProfileScreen.route)
@@ -85,7 +88,7 @@ fun AppNavGraph(modifier: Modifier) {
             composable(Screen.Registration.route) {
                 RegistrationScreen(
                     onEnterClickListener = {
-                        navController.navigate(Screen.Login.route)
+                        navController.navigate(Screen.Authorization.route)
                     },
                     onVerificationCodeRequest = {
                         navController.navigate(Screen.VerificationScreen.route)
@@ -95,7 +98,7 @@ fun AppNavGraph(modifier: Modifier) {
             composable(Screen.VerificationScreen.route) {
                 VerificationScreen(
                     onEnterClickListener = {
-                        navController.navigate(Screen.Login.route)
+                        navController.navigate(Screen.Authorization.route)
                     },
                     goToProfileScreen = {
                         navController.navigate(Screen.MainProfileScreen.route)

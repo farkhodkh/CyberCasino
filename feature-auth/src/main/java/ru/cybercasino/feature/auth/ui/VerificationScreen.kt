@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -66,7 +68,6 @@ fun VerificationScreen(
             ConstraintLayout(
                 constraintSet = ConstraintSet {
                     val refVerificationTitle = createRefFor("verificationTitle")
-                    val refVerificationCodeReceiver = createRefFor("verificationCodeReceiver")
                     val refPasswordVerificationType = createRefFor("passwordVerificationType")
                     val refUserLoginLabel = createRefFor("userLoginLabel")
                     val refVerificationCodeErrorField = createRefFor("verificationCodeErrorField")
@@ -77,9 +78,6 @@ fun VerificationScreen(
                     val refVerificationCodeTimeoutLabel =
                         createRefFor("verificationCodeTimeoutLabel")
                     val refJoinWithSocialNetworks = createRefFor("joinWithSocialNetworks")
-                    val refFacebookIcon = createRefFor("facebookIcon")
-                    val refTgIcon = createRefFor("tgIcon")
-                    val refGoogleIcon = createRefFor("googleIcon")
 
                     constrain(refVerificationTitle) {
                         top.linkTo(parent.top, 50.dp)
@@ -88,12 +86,6 @@ fun VerificationScreen(
 
                     constrain(refPasswordVerificationType) {
                         top.linkTo(refVerificationTitle.bottom, 46.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
-                    constrain(refVerificationCodeReceiver) {
-                        top.linkTo(refPasswordVerificationType.bottom, 8.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
@@ -140,28 +132,13 @@ fun VerificationScreen(
                     }
 
                     constrain(refJoinWithSocialNetworks) {
-                        bottom.linkTo(parent.bottom, 125.dp)
+                        top.linkTo(refVerificationCodeTimeoutLabel.bottom, 26.dp)
                         start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end)
                     }
-
-                    constrain(refFacebookIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        end.linkTo(refGoogleIcon.start, 16.dp)
-                    }
-
-                    constrain(refGoogleIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
-                    }
-
-                    constrain(refTgIcon) {
-                        top.linkTo(refJoinWithSocialNetworks.bottom, 24.dp)
-                        start.linkTo(refGoogleIcon.end, 16.dp)
-                    }
                 },
                 modifier = Modifier
+                    .verticalScroll(rememberScrollState())
                     .fillMaxSize()
             ) {
                 Text(
@@ -203,15 +180,9 @@ fun VerificationScreen(
                 )
 
                 Text(
-                    text = verification.second,
-                    modifier = Modifier.layoutId("verificationCodeReceiver"),
-                    fontSize = 14.sp,
-                )
-
-                Text(
                     modifier = Modifier
                         .layoutId("userLoginLabel"),
-                    text = state.email.orEmpty(),
+                    text = verification.second,
                     fontSize = 14.sp,
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,

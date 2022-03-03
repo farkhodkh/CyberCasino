@@ -72,10 +72,6 @@ class AuthorizationViewModel(
                     }
                 }
         }
-
-        if (userLoginInfo != null) {
-            val b = 0
-        }
     }
 
     fun updateViewState(

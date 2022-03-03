@@ -36,7 +36,7 @@ fun RegisterWithSocialNetworkScreen(
             )
 
         Row(
-            modifier = Modifier.padding(top = 24.dp)
+            modifier = Modifier.padding(top = 24.dp, bottom = 50.dp)
         ) {
             IconButton(
                 onClick = { },

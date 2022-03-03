@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -52,7 +53,7 @@ import ru.cybercasino.ui.utils.getCountriesList
  * @param onClickListener on registration button click listener
  */
 @Composable
-fun LoginScreen(
+fun AuthorizationScreen(
     onClickListener: () -> Unit,
     onRegisterClickListener: () -> Unit,
     goToMainProfileScreen: () -> Unit
@@ -141,14 +142,13 @@ fun LoginScreen(
 
                     constrain(refForgotPasswordTitle) {
                         top.linkTo(refEnterButton.bottom, 10.dp)
-                        start.linkTo(parent.start, 16.dp)
                         end.linkTo(parent.end, 16.dp)
                     }
 
                     constrain(refJoinWithSocialNetworks) {
-                        top.linkTo(refForgotPasswordTitle.bottom, 16.dp)
+                        bottom.linkTo(parent.bottom, 125.dp)
                         start.linkTo(parent.start, 16.dp)
-                        end.linkTo(parent.end, 16.dp)
+                        end.linkTo(parent.end)
                     }
                 },
                 modifier = Modifier
@@ -212,7 +212,7 @@ fun LoginScreen(
                             colors = TextFieldDefaults
                                 .textFieldColors(
                                     unfocusedIndicatorColor = if (emailText.text.isEmpty()) Gray else Blue,
-                                    focusedIndicatorColor = Blue,
+                                    focusedIndicatorColor = LightBlue,
                                     backgroundColor = DarkBlue
                                 ),
                             value = emailText,
@@ -239,7 +239,7 @@ fun LoginScreen(
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.your_email),
-                                    fontSize = 14.sp,
+                                    fontSize = 10.sp,
                                     color = White,
                                 )
                             },
@@ -321,11 +321,12 @@ fun LoginScreen(
                         TextField(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .wrapContentWidth(Alignment.Start)
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("phoneField"),
                             colors = TextFieldDefaults.textFieldColors(
                                 unfocusedIndicatorColor = if (phoneText.text.isEmpty()) Gray else Blue,
-                                focusedIndicatorColor = Blue,
+                                focusedIndicatorColor = LightBlue,
                                 backgroundColor = DarkBlue
                             ),
                             value = phoneText,
@@ -352,7 +353,7 @@ fun LoginScreen(
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.phone),
-                                    fontSize = 14.sp,
+                                    fontSize = 10.sp,
                                     color = White
                                 )
                             },
@@ -370,7 +371,7 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp),
                     colors = TextFieldDefaults.textFieldColors(
-                        focusedIndicatorColor = Blue,
+                        focusedIndicatorColor = LightBlue,
                         unfocusedIndicatorColor = if (password.isEmpty()) Gray else Blue,
                         backgroundColor = DarkBlue
                     ),
@@ -400,7 +401,7 @@ fun LoginScreen(
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.enter_password),
-                            fontSize = 14.sp,
+                            fontSize = 10.sp,
                             color = White
                         )
                     },
@@ -462,7 +463,7 @@ fun LoginScreen(
                     goToMainProfileScreen()
                 }
 
-                RegisterWithSocialNetworkScreen(labelResourceId = 0)
+                RegisterWithSocialNetworkScreen(labelResourceId = R.string.or_join_by_text)
             }
         }
     )
@@ -472,5 +473,5 @@ fun LoginScreen(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun AuthorizationScreenPreview() {
-    LoginScreen({}, {}, {})
+    AuthorizationScreen({}, {}, {})
 }

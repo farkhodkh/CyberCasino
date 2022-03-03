@@ -40,7 +40,6 @@ fun SimpleCheckboxComponent(
                 checkedColor = LightBlue,
                 uncheckedColor = LightBlue,
                 disabledColor = Dark,
-                checkmarkColor = LightBlue,
             ),
             onCheckedChange = {
                 onCheckedChanged(it)

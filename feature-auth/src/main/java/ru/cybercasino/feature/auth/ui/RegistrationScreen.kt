@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
@@ -61,6 +62,7 @@ fun RegistrationScreen(
 
     val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
+    val scrollState = rememberScrollState()
 
     var emailText by remember { mutableStateOf(TextFieldValue("")) }
     var phoneText by remember { mutableStateOf(TextFieldValue("")) }
@@ -222,7 +224,7 @@ fun RegistrationScreen(
                     }
                 },
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(scrollState)
                     .fillMaxSize(),
             ) {
                 Text(
@@ -282,7 +284,7 @@ fun RegistrationScreen(
                                 else if (state.emailErrors.isNotEmpty())
                                     Red
                                 else Blue,
-                                focusedIndicatorColor = Blue,
+                                focusedIndicatorColor = LightBlue,
                                 backgroundColor = DarkBlue
                             ),
                             value = emailText,
@@ -305,7 +307,7 @@ fun RegistrationScreen(
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.your_email),
-                                    fontSize = 14.sp,
+                                    fontSize = 10.sp,
                                     color = White
                                 )
                             },
@@ -390,6 +392,7 @@ fun RegistrationScreen(
                         TextField(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .wrapContentWidth(Alignment.Start)
                                 .padding(start = 16.dp, end = 16.dp)
                                 .layoutId("phoneField"),
                             colors = TextFieldDefaults.textFieldColors(
@@ -398,7 +401,7 @@ fun RegistrationScreen(
                                 else if (state.phoneErrors.isNotEmpty())
                                     Red
                                 else Blue,
-                                focusedIndicatorColor = Blue,
+                                focusedIndicatorColor = LightBlue,
                                 backgroundColor = DarkBlue
                             ),
                             value = phoneText,
@@ -423,7 +426,7 @@ fun RegistrationScreen(
                             placeholder = {
                                 Text(
                                     text = stringResource(id = R.string.phone),
-                                    fontSize = 14.sp,
+                                    fontSize = 10.sp,
                                     color = White
                                 )
                             },
@@ -452,7 +455,7 @@ fun RegistrationScreen(
                         else if (state.passwordErrors.isNotEmpty())
                             Red
                         else Blue,
-                        focusedIndicatorColor = Blue,
+                        focusedIndicatorColor = LightBlue,
                         backgroundColor = DarkBlue
                     ),
                     value = password,
@@ -477,7 +480,7 @@ fun RegistrationScreen(
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.enter_password),
-                            fontSize = 14.sp,
+                            fontSize = 10.sp,
                             color = White
                         )
                     },
@@ -517,7 +520,7 @@ fun RegistrationScreen(
                         else if (state.promoCodeText.isNotEmpty())
                             Red
                         else Blue,
-                        focusedIndicatorColor = Blue,
+                        focusedIndicatorColor = LightBlue,
                         backgroundColor = DarkBlue
                     ),
                     value = promoCodeText,
@@ -534,7 +537,7 @@ fun RegistrationScreen(
                     placeholder = {
                         Text(
                             text = stringResource(id = R.string.promo_code),
-                            fontSize = 14.sp,
+                            fontSize = 10.sp,
                             color = White
                         )
                     },
@@ -625,6 +628,7 @@ fun RegistrationScreen(
                         Modifier
                             .layoutId("registerButton")
                             .padding(start = 16.dp, end = 16.dp)
+                            .fillMaxWidth()
                             .height(44.dp)
                     )
                 }
@@ -731,7 +735,11 @@ private fun getPasswordRequirementsText(someCheck: Int) = buildAnnotatedString {
         //Correct fields
         7 -> {
             withStyle(style = SpanStyle(color = LightBlue)) {
-                append("✓" + stringResource(id = R.string.one_letter) + "   ✓" + stringResource(id = R.string.one_number) + "   ✓" + stringResource(id = R.string.minimum_symbols))
+                append(
+                    "✓" + stringResource(id = R.string.one_letter) + "   ✓" + stringResource(id = R.string.one_number) + "   ✓" + stringResource(
+                        id = R.string.minimum_symbols
+                    )
+                )
             }
         }
     }
