@@ -55,12 +55,6 @@ fun ProfileTopScreen() {
                     .padding(start = 28.dp, end = 28.dp)
             )
         }
-
-        ListDivider(
-            dividerLabel = stringResource(id = R.string.news_label),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-        )
     }
 }
 

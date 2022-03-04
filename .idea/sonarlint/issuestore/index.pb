@@ -6,8 +6,6 @@ C
 settings.gradle.kts,7/4/749edfcc96398253e5b3416184e95c46621da850
 á
 Wfeature-main-profile/src/main/java/ru/cybercasino/feature/main/profile/di/KoinModule.kt,e/6/e6932abd99a5cf266281d2380ebae35e5aadc847
-ä
-Zfeature-auth/src/main/java/ru/cybercasino/feature/auth/ui/auth/RegistrationFinishScreen.kt,7/5/752e5d1417c67abd4edd0ce4c5cced24a5f8b052
 C
 ui/build.gradle.kts,5/7/57cbb61043327439d0d706ebdfd64b6496ce41af
 I
@@ -34,3 +32,19 @@ j
 :app/src/main/java/ru/cybercasino/android/CyberCasinoApp.kt,4/e/4e11e5085fcdfea06c9b0366b0a0491a48b069a8
 w
 Gfeature-auth/src/main/java/ru/cybercasino/feature/auth/di/KoinModule.kt,d/7/d7abeb52a9189ada486d2bbd573141ccfa322d48
+ç
+]service-network/src/main/java/ru/cybercasino/service_network/retrofit/RetrofitProviderImpl.kt,0/8/081a1017a6f8795aa8fd74ad96b5b1c2fa8afbd9
+j
+:ui/src/main/java/ru/cybercasino/ui/elements/CyberButton.kt,2/8/28f845339803c0889e8d5ddeb7cf113f20782049
+t
+Dui/src/main/java/ru/cybercasino/ui/elements/CyberButtonWithBorder.kt,7/f/7f3c07246f3d64195c9716037d1fc5bfae04b28d
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+ç
+]feature-auth/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationStorageRepository.kt,a/3/a3b4ab51a732d9ef5173542b36be829636c39d70
+ë
+afeature-auth/src/main/java/ru/cybercasino/feature/auth/api/AuthenticationStorageRepositoryImpl.kt,e/8/e8bb400592733dcbba589dbad186465c220dfa62
+v
+Fui/src/main/java/ru/cybercasino/ui/elements/SimpleCheckboxComponent.kt,8/1/8178e734c66c60cb5a65c918991db2adffc5a509
+t
+Dapp/src/main/java/ru/cybercasino/android/system/navigation/Screen.kt,4/0/4019630bf7eefe039c496c88938f427af996a9ec

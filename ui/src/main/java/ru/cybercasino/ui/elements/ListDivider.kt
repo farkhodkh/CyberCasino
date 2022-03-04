@@ -34,26 +34,31 @@ fun ListDivider(
             contentDescription = "",
             modifier = Modifier
                 .padding(top = 12.dp)
+                .weight(0.3f, fill = true)
         )
 
-        Text(
+        AutoSizeText(
             text = dividerLabel,
+            maxLines = 1,
+            suggestedFontSizes = listOf(18.sp, 16.sp, 14.sp),
             style = TextStyle(
                 color = labelColor,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             ),
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+            modifier = Modifier
+                .padding(start = 2.dp, end = 2.dp)
+                .wrapContentWidth()
+                .weight(0.4f)
         )
 
         Image(
             painter = painterResource(id = R.drawable.ic_devider_end),
             contentDescription = "",
-            modifier = Modifier.padding(top = 12.dp)
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .weight(0.3f, fill = true)
         )
     }
-
-
 }
 
 @Suppress("UnusedPrivateMember")

@@ -16,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -80,7 +81,31 @@ fun MainProfileScreen(
 
                             ProfileBottomScreen()
                         }
+                        in 2..4 -> {
+
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.news_games_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp),
+                            )
+
+                            NewGamesScreen(
+                                imagesList = listOf(
+                                    R.drawable.kozino_background_1,
+                                    R.drawable.kozino_background_2,
+                                    R.drawable.kozino_background_3,
+                                    R.drawable.kozino_background_4
+                                )
+                            )
+                        }
                         else -> {
+
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.news_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp),
+                            )
+
                             NewsItemScreen(
                                 dateAndTime = calendar.time,
                                 newsHeader = "Новость номер $itemIndex",
