@@ -16,8 +16,8 @@ secrets.properties
 app/release/
 **/*.apk
 **/output-metadata.json
-
-.idea/libraries/
+.idea/*
+.idea/libraries/*
 
 .idea/workspace.xml
 

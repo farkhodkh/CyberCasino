@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/feature-auth" />
             <option value="$PROJECT_DIR$/feature-auth-api" />
             <option value="$PROJECT_DIR$/feature-main-profile" />
+            <option value="$PROJECT_DIR$/feature-main-profile-api" />
             <option value="$PROJECT_DIR$/service-network" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
