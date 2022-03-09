@@ -24,5 +24,9 @@ app/release/
 .idea/modules.xml
 
 /feature-auth/build/*
+/feature-auth-api/build/*
 /feature-main-profile/build/*
+/feature-main-profile-api/build/*
 /feature-user-profile/build/*
+/feature-user-profile-api/build/*
+/service-network/build/*
