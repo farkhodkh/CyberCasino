@@ -21,7 +21,7 @@ private val ColorPalette = lightColors(
     surface = DarkGray,
     onSurface = White,
 
-    background = Dark,
+    background = DarkBlue,
     onBackground = White,
 )
 
