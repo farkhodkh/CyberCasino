@@ -7,7 +7,9 @@
 package ru.cybercasino.android.system.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -25,6 +27,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import ru.cybercasino.feature.auth.ui.*
 import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
 import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
+import ru.cybercasino.ui.Dark
 
 /**
  * The application's navigation graph.
@@ -58,20 +61,20 @@ fun AppNavGraph(modifier: Modifier) {
                 }
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
-//                RootScreen(
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .background(Dark),
-//                    goToProfileScreen = {
-//                        navController.navigate(Screen.MainProfileScreen.route)
-//                    },
-//                    goToLoginScreen = {
-//                        navController.navigate(Screen.Login.route)
-//                    }
-//                )
+                RootScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Dark),
+                    goToProfileScreen = {
+                        navController.navigate(Screen.MainProfileScreen.route)
+                    },
+                    goToAuthorizationScreen = {
+                        navController.navigate(Screen.Authorization.route)
+                    }
+                )
 //                rememberCoroutineScope().launch {
 //                    delay(1000)
-                    navController.navigate(Screen.VerificationScreen.route)
+//                    navController.navigate(Screen.VerificationScreen.route)
 //                }
             }
             composable(Screen.Authorization.route) {

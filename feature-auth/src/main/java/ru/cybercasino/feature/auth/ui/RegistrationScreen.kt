@@ -82,7 +82,10 @@ fun RegistrationScreen(
         topBar = {
             AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.enter_text,
-                onButtonClickListener = onEnterClickListener
+                onButtonClickListener = {
+                    onEnterClickListener()
+                    viewModel.setDafaultState()
+                }
             )
         },
         content = {

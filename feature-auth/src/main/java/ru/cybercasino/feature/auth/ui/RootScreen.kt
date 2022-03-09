@@ -22,7 +22,7 @@ import ru.cybercasino.ui.R
 fun RootScreen(
     modifier: Modifier,
     goToProfileScreen: () -> Unit,
-    goToLoginScreen: () -> Unit,
+    goToAuthorizationScreen: () -> Unit,
 ) {
     val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
@@ -44,6 +44,6 @@ fun RootScreen(
                 contentDescription = "",
             )
         }
-        goToLoginScreen()
+        goToAuthorizationScreen()
     }
 }

@@ -71,7 +71,10 @@ fun AuthorizationScreen(
         topBar = {
             AppTopAppBarRegistration(
                 buttonLabelTextId = R.string.registration_text,
-                onButtonClickListener = onClickListener
+                onButtonClickListener = {
+                    viewModel.setDafaultState()
+                    onClickListener()
+                }
             )
         },
         content = {

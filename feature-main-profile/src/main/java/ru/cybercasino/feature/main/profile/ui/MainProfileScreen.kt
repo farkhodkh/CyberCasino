@@ -63,30 +63,15 @@ fun MainProfileScreen(
                     .fillMaxSize()
             ) {
                 val calendar = Calendar.getInstance()
-                items(12) { itemIndex ->
+                items(8) { itemIndex ->
                     when (itemIndex) {
                         0 -> ProfileTopScreen()
-                        11 -> {
-                            CyberButton(
-                                title = stringResource(id = R.string.show_more),
-                                titleSize = 16.sp,
-                                onClick = { /*TODO*/ },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(44.dp)
-                                    .padding(start = 28.dp, end = 28.dp)
-                            )
-
-                            BottomDivider()
-
-                            ProfileBottomScreen()
-                        }
-                        in 2..4 -> {
+                        1 -> {
 
                             ListDivider(
                                 dividerLabel = stringResource(id = R.string.news_games_label),
                                 modifier = Modifier
-                                    .padding(start = 28.dp, end = 28.dp),
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
                             )
 
                             NewGamesScreen(
@@ -98,12 +83,31 @@ fun MainProfileScreen(
                                 )
                             )
                         }
-                        else -> {
+                        2 -> {
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.last_winners_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
+                            )
+
+                            LastWinnersScreen()
+                        }
+                        3 -> {
+
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.jackpot_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
+                            )
+
+                            JackpotScreen()
+                        }
+                        4 -> {
 
                             ListDivider(
                                 dividerLabel = stringResource(id = R.string.news_label),
                                 modifier = Modifier
-                                    .padding(start = 28.dp, end = 28.dp),
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
                             )
 
                             NewsItemScreen(
@@ -111,6 +115,48 @@ fun MainProfileScreen(
                                 newsHeader = "Новость номер $itemIndex",
                                 newsContent = "Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex Новость номер $itemIndex ",
                             )
+
+                            CyberButton(
+                                title = stringResource(id = R.string.show_more),
+                                titleSize = 16.sp,
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(44.dp)
+                                    .padding(start = 28.dp, end = 28.dp)
+                            )
+                        }
+                        5 -> {
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.payment_systems_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
+                            )
+                            PaymentSystemsScreen(
+                                listPaymentSystems = listOfMainPaymentSystems,
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp),
+                            )
+                        }
+                        6 -> {
+
+                            ListDivider(
+                                dividerLabel = stringResource(id = R.string.payment_systems_label),
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp, bottom = 16.dp),
+                            )
+
+                            PaymentSystemsScreen(
+                                listPaymentSystems = listOfAdditionalPaymentSystems,
+                                modifier = Modifier
+                                    .padding(start = 28.dp, end = 28.dp),
+                            )
+                        }
+                        7 -> {
+
+                            BottomDivider()
+
+                            ProfileBottomScreen()
                         }
                     }
                 }

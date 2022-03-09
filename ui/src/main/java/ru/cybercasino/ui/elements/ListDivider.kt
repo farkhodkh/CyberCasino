@@ -39,8 +39,8 @@ fun ListDivider(
 
         AutoSizeText(
             text = dividerLabel,
-            maxLines = 1,
-            suggestedFontSizes = listOf(18.sp, 16.sp, 14.sp),
+            maxLines = 2,
+            suggestedFontSizes = listOf(18.sp, 16.sp),
             style = TextStyle(
                 color = labelColor,
                 textAlign = TextAlign.Center,

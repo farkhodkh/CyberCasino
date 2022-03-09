@@ -74,6 +74,10 @@ class AuthorizationViewModel(
         }
     }
 
+    fun setDafaultState() {
+        _state.tryEmit(InitialState)
+    }
+
     fun updateViewState(
         email: String? = null,
         phone: String? = null,

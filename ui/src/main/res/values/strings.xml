@@ -37,6 +37,8 @@
     <string name="cybercasino">Сybercasino</string>
     <string name="news_label">Новости</string>
     <string name="news_games_label">Новые игры</string>
+    <string name="payment_systems_label">Платежные системы</string>
+    <string name="jackpot_label">Джекпот</string>
     <string name="read_full_text">Читать полностью</string>
     <string name="for_users">Пользователям</string>
     <string name="information">Информация</string>
@@ -49,6 +51,10 @@
     <string name="Telegram">Telegram</string>
     <string name="Instagram">Instagram</string>
     <string name="countering_money_laundering">Противодействие\nотмыванию денег</string>
+    <string name="jackpot_label_gold">GOLD</string>
+    <string name="jackpot_label_silver">SILVER</string>
+    <string name="jackpot_label_bronze">BRONZE</string>
+    <string name="last_winners_label">Последние победители</string>
 
     <string-array name="languages_flags">
         <item value="Русский">🇷🇺 Русский</item>
