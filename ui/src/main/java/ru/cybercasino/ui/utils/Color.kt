@@ -112,3 +112,9 @@ val CyberButtonColorStart = Color(0xFF7A2F8D)
  */
 @Suppress("MagicNumber")
 val CyberButtonColorEnd = Color(0xFFE80A67)
+
+/**
+ * Bottom divider line color definitions.
+ */
+@Suppress("MagicNumber")
+val BottomDividerColor = Color(0xFFC4C4C4)

@@ -12,7 +12,7 @@ sealed class Screen(
     /**
      * The class to navigate to the Authorization screen
      */
-    object Login : Screen("auth/login")
+    object Authorization : Screen("auth/login")
 
     /**
      * The class to navigate to the Registration screen
@@ -25,5 +25,18 @@ sealed class Screen(
 
     object VerificationScreen: Screen("auth/validate-user")
 
-    object ProfileScreen: Screen("profile/main")
+    /**
+     * The user profile state screen
+     */
+    object MainProfileScreen: Screen("profile/user")
+
+    /**
+     * The main profile state screen
+     */
+    object UserProfileScreen: Screen("profile/main")
+
+    /**
+     * The choose language screen
+     */
+    object ChooseLanguageScreen: Screen("profile/choose_language")
 }

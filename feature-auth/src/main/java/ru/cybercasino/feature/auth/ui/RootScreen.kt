@@ -1,4 +1,4 @@
-package ru.cybercasino.feature.auth.ui.auth
+package ru.cybercasino.feature.auth.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import org.koin.androidx.compose.getViewModel
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.ui.R
 
 /**
@@ -22,9 +22,9 @@ import ru.cybercasino.ui.R
 fun RootScreen(
     modifier: Modifier,
     goToProfileScreen: () -> Unit,
-    goToLoginScreen: () -> Unit,
+    goToAuthorizationScreen: () -> Unit,
 ) {
-    val viewModel = getViewModel<LoginScreenViewModel>()
+    val viewModel = getViewModel<AuthorizationViewModel>()
     val state by viewModel.state.collectAsState()
 
     if (state.isAuthorised) {
@@ -44,7 +44,6 @@ fun RootScreen(
                 contentDescription = "",
             )
         }
-
-        goToLoginScreen()
+        goToAuthorizationScreen()
     }
 }

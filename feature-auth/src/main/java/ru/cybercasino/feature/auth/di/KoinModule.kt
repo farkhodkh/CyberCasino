@@ -12,7 +12,7 @@ import ru.cybercasino.core.network.security.SecurityHelperImpl
 import ru.cybercasino.feature.auth.LoginController
 import ru.cybercasino.feature.auth.api.AuthenticationStorageRepository
 import ru.cybercasino.feature.auth.api.AuthenticationStorageRepositoryImpl
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
+import ru.cybercasino.feature.auth.viewmodel.AuthorizationViewModel
 import ru.cybercasino.feature.auth_api.AuthenticationApi
 import ru.cybercasino.service_network.interceptors.ApiHeadersInterceptor
 import ru.cybercasino.service_network.retrofit.RetrofitProvider
@@ -34,7 +34,8 @@ val appModuleAuth = module {
             )
         )
     }
-    viewModel { LoginScreenViewModel(get(), get()) }
+
+    viewModel { AuthorizationViewModel.getInstance(get(), get()) }
 }
 
 private fun Scope.createBasicRetrofit() =

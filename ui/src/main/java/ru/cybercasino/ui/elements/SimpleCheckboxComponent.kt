@@ -1,19 +1,23 @@
+@file:OptIn(
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterialApi::class,
+    ExperimentalComposeUiApi::class
+)
+
 package ru.cybercasino.ui.elements
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ru.cybercasino.ui.LightBlue
 import ru.cybercasino.ui.Dark
+import ru.cybercasino.ui.LightBlue
 
 /**
  * App default checkbox
@@ -26,7 +30,6 @@ fun SimpleCheckboxComponent(
     onCheckedChanged: (Boolean) -> Unit
 ) {
     val checkedState = remember { checkedStateValue }
-
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.Start
@@ -41,11 +44,12 @@ fun SimpleCheckboxComponent(
             onCheckedChange = {
                 onCheckedChanged(it)
                 checkedState.value = it
-            },
+            }
         )
         Text(
             text = stringResource(id = titleResourceId),
-            modifier = Modifier.padding(start = 12.dp)
+            modifier = Modifier
+                .padding(start = 12.dp)
         )
     }
 }

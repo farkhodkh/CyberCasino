@@ -21,13 +21,13 @@ fun JSONObject.parseDefaultHttpError() : ResponseSchema {
     if (jObject.has("phone")) {
         val jsonObject = jObject.get("phone")
         val result = getStringFromArray(jsonObject)
-        response.setEmail(result)
+        response.setPhone(result)
     }
 
     if (jObject.has("password")) {
         val jsonObject = jObject.get("password")
         val result = getStringFromArray(jsonObject)
-        response.setEmail(result)
+        response.setPassword(result)
     }
 
     return response

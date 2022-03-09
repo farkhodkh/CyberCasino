@@ -1,23 +1,9 @@
 package ru.cybercasino.android.system.di
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import ru.cybercasino.core.network.security.SecurityHelper
-import ru.cybercasino.core.network.security.SecurityHelperImpl
-import ru.cybercasino.feature.auth.LoginController
-import ru.cybercasino.feature.auth.api.AuthenticationStorageRepository
-import ru.cybercasino.feature.auth.api.AuthenticationStorageRepositoryImpl
-import ru.cybercasino.feature.auth.viewmodel.LoginScreenViewModel
-import ru.cybercasino.feature.auth_api.AuthenticationApi
 import ru.cybercasino.service_network.interceptors.ApiHeadersInterceptor
 import ru.cybercasino.service_network.retrofit.RetrofitProvider
-import ru.cybercasino.service_network.retrofit.RetrofitProviderImpl
 
 /**
  * The application module.

@@ -13,11 +13,13 @@
     <string name="age_limit_label">Мне 18 лет и я принимаю</string>
     <string name="newsletter_and_offers_label">I agree to receive newsletter with information about software updates and new offers</string>
     <string name="email">E-mail</string>
+    <string name="your_email">Ваш e-mail</string>
     <string name="phone">Телефон</string>
     <string name="promo_code">Промокод (необязательно)</string>
     <string name="regulation">Правила</string>
     <string name="terms_of_use">Условия использования</string>
-    <string name="privacy_policy">Политику конфиденциальности</string>
+    <string name="privacy_policy">Политику\nконфиденциальности</string>
+    <string name="user_agreement">Пользовательское\nсоглашение</string>
     <string name="and">и</string>
     <string name="one_letter">Одна буква</string>
     <string name="one_number">Одна цифра</string>
@@ -27,9 +29,37 @@
     <string name="resend_after_text">Отправить повторно через</string>
     <string name="confirm">Подтвердить</string>
     <string name="retry">Повторить</string>
+    <string name="play_label">Играть</string>
     <string name="repeat_require_verification_code">Запросить код повторно</string>
     <string name="registration_finish">Регистрация прошла успешно</string>
     <string name="congratulations_registration_finish">Поздравляем!\n Вы успешно зарегестрировались</string>
+    <string name="win_and_have_fun_with_cybercasino">Выигрывай и получай удовольствие от игры с</string>
+    <string name="cybercasino">Сybercasino</string>
+    <string name="news_label">Новости</string>
+    <string name="news_games_label">Новые игры</string>
+    <string name="payment_systems_label">Платежные системы</string>
+    <string name="jackpot_label">Джекпот</string>
+    <string name="read_full_text">Читать полностью</string>
+    <string name="for_users">Пользователям</string>
+    <string name="information">Информация</string>
+    <string name="show_more">Показать больше</string>
+    <string name="games">Игры</string>
+    <string name="best_games">Лучшие игры</string>
+    <string name="FAQ">FAQ</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Google">Google</string>
+    <string name="Telegram">Telegram</string>
+    <string name="Instagram">Instagram</string>
+    <string name="countering_money_laundering">Противодействие\nотмыванию денег</string>
+    <string name="jackpot_label_gold">GOLD</string>
+    <string name="jackpot_label_silver">SILVER</string>
+    <string name="jackpot_label_bronze">BRONZE</string>
+    <string name="last_winners_label">Последние победители</string>
+
+    <string-array name="languages_flags">
+        <item value="Русский">🇷🇺 Русский</item>
+        <item value="English">🇬🇧 English</item>
+    </string-array>
 
     <string-array name="country_codes_flags">
         <item value="+93">🇦🇫 +93</item>
