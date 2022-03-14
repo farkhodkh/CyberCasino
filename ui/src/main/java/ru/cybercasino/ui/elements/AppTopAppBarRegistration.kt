@@ -61,7 +61,7 @@ fun AppTopAppBarRegistration(
                         stringResource(id = buttonLabelTextId),
                         titleSize = 10.sp,
                         onClick = { onButtonClickListener() },
-                        Modifier
+                        modifier = Modifier
                             .weight(0.3f)
                             .height(28.dp)
                     )

@@ -26,5 +26,5 @@ class MainProfileViewModel : ViewModel() {
 
 private val InitialState = MainProfileViewModel.State(
     desc = "initial state",
-    isHasNewNotification = false
+    isHasNewNotification = true
 )

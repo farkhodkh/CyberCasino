@@ -16,36 +16,55 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import java.util.*
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.main.profile.viewmodel.MainProfileViewModel
+import ru.cybercasino.ui.DarkBlue
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.*
 
 @Composable
 fun MainProfileScreen(
+    navController: NavController,
     onEnterClickListener: () -> Unit,
 ) {
-    val scaffoldState = rememberScaffoldState()
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scrollState = rememberScrollState()
     val viewModel = getViewModel<MainProfileViewModel>()
     val state by viewModel.state.collectAsState()
 
+    val scope = rememberCoroutineScope()
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBarUserProfile(
-                barLabelTextId = R.string.enter_text,
-                state.isHasNewNotification,
-                onNotificationButtonClickListener = onEnterClickListener,
+            AppTopBarMainProfile(
+                barLabelTextId = 0,
+                isHasNewNotification = state.isHasNewNotification,
+                onMenuButtonClickListener = {
+                    scope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                },
                 onUserProfileButtonClickListener = onEnterClickListener,
+            )
+        },
+        drawerBackgroundColor = DarkBlue,
+        drawerContent = {
+            MainMenuDrawer(
+                scope = scope,
+                scaffoldState = scaffoldState,
+                navController = navController
             )
         },
         modifier = Modifier
@@ -67,7 +86,6 @@ fun MainProfileScreen(
                     when (itemIndex) {
                         0 -> ProfileTopScreen()
                         1 -> {
-
                             ListDivider(
                                 dividerLabel = stringResource(id = R.string.news_games_label),
                                 modifier = Modifier
@@ -165,10 +183,10 @@ fun MainProfileScreen(
     )
 }
 
-
 @Suppress("UnusedPrivateMember")
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun MainProfileScreenPreview() {
-    MainProfileScreen({})
+    val navController = rememberNavController()
+    MainProfileScreen(navController, {})
 }

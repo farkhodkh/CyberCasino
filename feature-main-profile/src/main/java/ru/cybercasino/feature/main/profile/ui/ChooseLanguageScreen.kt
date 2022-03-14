@@ -14,7 +14,7 @@ import org.koin.androidx.compose.getViewModel
 import ru.cybercasino.feature.main.profile.viewmodel.MainProfileViewModel
 import ru.cybercasino.ui.R
 import ru.cybercasino.ui.elements.AppBottomBar
-import ru.cybercasino.ui.elements.AppTopAppBarUserProfile
+import ru.cybercasino.ui.elements.AppTopBarMainProfile
 import ru.cybercasino.ui.utils.getLanguagesList
 
 @Composable
@@ -29,10 +29,10 @@ fun ChooseLanguageScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            AppTopAppBarUserProfile(
+            AppTopBarMainProfile(
                 barLabelTextId = R.string.enter_text,
-                state.isHasNewNotification,
-                onNotificationButtonClickListener = onChooseLanguage,
+                isHasNewNotification = state.isHasNewNotification,
+                onMenuButtonClickListener = onChooseLanguage,
                 onUserProfileButtonClickListener = onChooseLanguage,
             )
         },

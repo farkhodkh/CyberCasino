@@ -30,6 +30,7 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.navigation.compose)
     api(libs.kotlinCoroutines)
 //    api(libs.accompanist.insets)
 //    api(libs.accompanist.insetsUi)

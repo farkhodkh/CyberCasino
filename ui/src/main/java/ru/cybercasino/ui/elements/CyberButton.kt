@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.cybercasino.ui.Black
 import ru.cybercasino.ui.CyberButtonColorEnd
 import ru.cybercasino.ui.CyberButtonColorStart
 
@@ -28,6 +29,7 @@ import ru.cybercasino.ui.CyberButtonColorStart
 fun CyberButton(
     title: String,
     titleSize: TextUnit,
+    textColor: Color = Black,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -57,7 +59,8 @@ fun CyberButton(
                 fontSize = titleSize,
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = textColor
                 )
             )
         }
@@ -69,10 +72,10 @@ fun CyberButton(
 @Composable
 private fun CyberButtonPreview() {
     CyberButton(
-        "Регистрация",
-        16.sp,
-        {},
-        Modifier
+        title = "Регистрация",
+        titleSize = 16.sp,
+        onClick = {},
+        modifier = Modifier
             .width(140.dp)
             .height(41.dp)
     )

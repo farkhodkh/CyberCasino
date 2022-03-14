@@ -2,24 +2,26 @@ package ru.cybercasino.ui.elements
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.cybercasino.ui.R
-import ru.cybercasino.ui.utils.defaultCountryData
+import ru.cybercasino.ui.White
 
 @Composable
-fun AppTopAppBarUserProfile(
-    barLabelTextId: Int,
+fun AppTopBarMainProfile(
+    menuIcon: Int = R.drawable.ic_menu,
+    barLabelTextId: Int = 0,
     isHasNewNotification: Boolean,
-    onNotificationButtonClickListener: () -> Unit,
+    onMenuButtonClickListener: () -> Unit,
     onUserProfileButtonClickListener: () -> Unit,
 ) {
     TopAppBar(
@@ -27,13 +29,12 @@ fun AppTopAppBarUserProfile(
         navigationIcon = {
             IconButton(
                 onClick = {
-                    onNotificationButtonClickListener()
-                    //scope.launch { scaffoldState.drawerState.open() }
+                    onMenuButtonClickListener()
                 }
             ) {
-                Text(
-                    text = defaultCountryData.flag,
-                    fontSize = 16.sp
+                Image(
+                    painter = painterResource(id = menuIcon),
+                    contentDescription = ""
                 )
             }
         },
@@ -43,12 +44,23 @@ fun AppTopAppBarUserProfile(
                 contentAlignment = Alignment.TopCenter,
             ) {
                 Row {
-                    Image(
-                        painter = painterResource(R.drawable.ic_logo),
-                        contentDescription = "",
-                        modifier = Modifier.padding(start = 60.dp, end = 40.dp)
-                    )
-
+                    if (barLabelTextId != 0) {
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp, start = 30.dp, end = 20.dp),
+                            text = stringResource(id = barLabelTextId),
+                            style = TextStyle(
+                                color = White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            )
+                        )
+                    } else {
+                        Image(
+                            painter = painterResource(R.drawable.ic_logo),
+                            contentDescription = "",
+                            modifier = Modifier.padding(start = 60.dp, end = 40.dp)
+                        )
+                    }
                     IconButton(
                         onClick = {}
                     ) {
@@ -71,12 +83,25 @@ fun AppTopAppBarUserProfile(
                         onClick = {}
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_profile_button),
+                            painter = painterResource(id = R.drawable.ic_profile),
                             contentDescription = "Profile button"
                         )
                     }
                 }
             }
         }
+    )
+}
+
+@Suppress("UnusedPrivateMember")
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+private fun AppTopBarMainProfilePreview() {
+    AppTopBarMainProfile(
+        menuIcon = R.drawable.ic_menu,
+        barLabelTextId = R.string.enter_text,
+        isHasNewNotification = true,
+        onMenuButtonClickListener = {},
+        onUserProfileButtonClickListener = { },
     )
 }

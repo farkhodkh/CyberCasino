@@ -548,7 +548,7 @@ class AuthorizationViewModel(
 
 private val InitialState = AuthorizationViewModel.State(
     isLoading = false,
-    isAuthorised = false,
+    isAuthorised = true,
     email = "",
     emailErrors = "",
     phone = null,

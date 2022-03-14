@@ -56,6 +56,37 @@
     <string name="jackpot_label_bronze">BRONZE</string>
     <string name="last_winners_label">Последние победители</string>
 
+    <string name="credit_balance_label">Пополнить счет</string>
+    <string name="real_account_label">Реальный счет</string>
+    <string name="bonus_account_label">Бонусный счет</string>
+    <string name="experience_grade_label">Очки опыта</string>
+    <string name="user_profile_label">Мой профиль</string>
+    <string name="account_label">Счета</string>
+    <string name="deposit_label">Депозит</string>
+    <string name="funds_withdraw_label">Вывод средств</string>
+    <string name="money_transfer_history">История переводов</string>
+    <string name="your_bids">Ваши ставки</string>
+    <string name="your_bonuses">Бонусы</string>
+    <string name="bonuses_history">История бонусов</string>
+    <string name="documents">Документы</string>
+    <string name="messages">Сообщения</string>
+    <string name="tournaments">Турниры</string>
+    <string name="free_spins_label">Фриспины</string>
+
+    <string name="personal_data">Персональные данные</string>
+    <string name="loyalty_level">Уровень лояльности</string>
+    <string name="experience">Опыт</string>
+    <string name="points">очков</string>
+    <string name="casino_id">CASINO ID</string>
+    <string name="nick_name">Никнейм</string>
+    <string name="name">Имя</string>
+    <string name="sur_name">Фамилия</string>
+    <string name="middle_name">Отчество</string>
+    <string name="gender">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="date_of_birth">Дата рождения</string>
+
     <string-array name="languages_flags">
         <item value="Русский">🇷🇺 Русский</item>
         <item value="English">🇬🇧 English</item>

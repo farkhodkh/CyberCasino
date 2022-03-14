@@ -21,7 +21,7 @@ fun AppBottomBar() {
     val selectedItem = remember { mutableStateOf("upload") }
 
     BottomAppBar(
-        modifier = Modifier.padding(bottom = 50.dp),
+
         backgroundColor = DarkBlue
     ) {
         BottomNavigation(

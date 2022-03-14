@@ -10,6 +10,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.unit.dp
 import androidx.navigation.plusAssign
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -25,8 +27,10 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import ru.cybercasino.feature.auth.ui.*
+import ru.cybercasino.feature.main.profile.domain.DrawerScreen
 import ru.cybercasino.feature.main.profile.ui.ChooseLanguageScreen
 import ru.cybercasino.feature.main.profile.ui.MainProfileScreen
+import ru.cybercasino.feature.main.profile.ui.drawer.PersonalDataScreen
 import ru.cybercasino.ui.Dark
 
 /**
@@ -50,7 +54,8 @@ fun AppNavGraph(modifier: Modifier) {
     val focusManager = LocalFocusManager.current
 
     ModalBottomSheetLayout(
-        sheetContent = bottomSheetNavigator.sheetContent
+        sheetContent = bottomSheetNavigator.sheetContent,
+        modifier = Modifier.padding(bottom = 60.dp)
     ) {
         AnimatedNavHost(
             navController,
@@ -61,20 +66,20 @@ fun AppNavGraph(modifier: Modifier) {
                 }
         ) {
             composable(TABS_GRAPH_NAV_ROUTE) {
-                RootScreen(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Dark),
-                    goToProfileScreen = {
-                        navController.navigate(Screen.MainProfileScreen.route)
-                    },
-                    goToAuthorizationScreen = {
-                        navController.navigate(Screen.Authorization.route)
-                    }
-                )
+//                RootScreen(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(Dark),
+//                    goToProfileScreen = {
+//                        navController.navigate(Screen.MainProfileScreen.route)
+//                    },
+//                    goToAuthorizationScreen = {
+//                        navController.navigate(Screen.Authorization.route)
+//                    }
+//                )
 //                rememberCoroutineScope().launch {
 //                    delay(1000)
-//                    navController.navigate(Screen.VerificationScreen.route)
+                    navController.navigate(DrawerScreen.Profile.route)
 //                }
             }
             composable(Screen.Authorization.route) {
@@ -110,8 +115,10 @@ fun AppNavGraph(modifier: Modifier) {
             }
             composable(Screen.MainProfileScreen.route) {
                 MainProfileScreen(
+                    navController,
                     onEnterClickListener = {
-                        navController.navigate(Screen.ChooseLanguageScreen.route)
+                        //navController.navigate(Screen.ChooseLanguageScreen.route)
+                        //Open drawable menu
                     }
                 )
             }
@@ -120,6 +127,16 @@ fun AppNavGraph(modifier: Modifier) {
                     onChooseLanguage = {
                         navController.navigate(Screen.MainProfileScreen.route)
                     }
+                )
+            }
+
+            //Drawer navigation
+            composable(DrawerScreen.Profile.route) {
+                PersonalDataScreen(
+                    onBackButtonClick = {
+                        navController.navigate(Screen.MainProfileScreen.route)
+                    },
+                    onEditProfileClick = {}
                 )
             }
         }
